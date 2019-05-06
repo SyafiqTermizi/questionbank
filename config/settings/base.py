@@ -32,6 +32,7 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(',')
 
 # Application definition
 DJANGO_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +41,10 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'allauth',
+    'allauth.account',
+]
 
 LOCAL_APPS = [
     'questionbank.users.apps.UsersConfig'
@@ -62,6 +66,14 @@ MIDDLEWARE = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = 'users.User'
 
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+LOGIN_URL = 'account_login'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-PASSWORD_HASHERS
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
@@ -75,7 +87,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,3 +157,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SITE_ID = 1
