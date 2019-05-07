@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@coreui/coreui": "^2.0.6",
+    "@coreui/coreui-pro": "^2.0.7",
+    "@fortawesome/fontawesome-free": "^5.7.2",
+    "jquery": "^3.3.1",
+    "perfect-scrollbar": "^1.4.0",
+    "popper.js": "^1.14.4"
+  },
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.30.0",
+    "webpack-bundle-analyzer": "^3.0.2",
+    "webpack-bundle-tracker": "^0.4.2-beta",
+    "webpack-cli": "^3.2.3"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js --progress --colors --mode production",
+    "watch": "webpack --config webpack.config.js --watch --mode development"
+  }
+}
