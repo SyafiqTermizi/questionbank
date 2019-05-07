@@ -44,7 +44,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
-    'webpack_loader'
+    'webpack_loader',
+    'crispy_forms'
 ]
 
 LOCAL_APPS = [
@@ -162,6 +163,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+# https://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # https://github.com/owais/django-webpack-loader#default-configuration
 WEBPACK_LOADER = {
