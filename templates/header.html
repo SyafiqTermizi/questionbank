@@ -16,7 +16,7 @@
         {{ request.user.username|title }} <i class="fas fa-caret-down fa-xs"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+          <a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
   </ul>

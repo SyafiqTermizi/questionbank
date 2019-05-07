@@ -72,10 +72,14 @@ AUTH_USER_MODEL = 'users.User'
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = 'account_login'
 
+# https://django-allauth.readthedocs.io/en/latest/configuration.html#configuration
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
 
 # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-PASSWORD_HASHERS
 PASSWORD_HASHERS = [
