@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    'questionbank.dashboards.apps.DashboardsConfig',
     'questionbank.users.apps.UsersConfig'
 ]
 
