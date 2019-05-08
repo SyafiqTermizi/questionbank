@@ -17,6 +17,7 @@
               <th scope="col">Date Joined</th>
               <th scope="col">Last Login</th>
               <th scope="col">Role</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -31,7 +32,24 @@
                 <td>{{ user.date_joined }}</td>
                 <td>{{ user.last_login }}</td>
                 <td>{{ user.role }}</td>
+                <td>
+                  <a
+                    href="#"
+                    class="btn btn-danger"
+                    onclick="document.getElementById('delete-{{ forloop.counter }}').submit()"
+                  >
+                    Delete
+                  </a>
+                </td>
               </tr>
+              <form
+                action="{% url 'users:delete' user.pk %}"
+                id="delete-{{ forloop.counter }}"
+                method="post"
+                style="display:none"
+              >
+              {% csrf_token %}
+              </form>
             {% endfor %}
           </tbody>
         </table>

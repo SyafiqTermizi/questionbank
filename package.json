@@ -5,7 +5,8 @@
     "@fortawesome/fontawesome-free": "^5.7.2",
     "jquery": "^3.3.1",
     "perfect-scrollbar": "^1.4.0",
-    "popper.js": "^1.14.4"
+    "popper.js": "^1.14.4",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "css-loader": "^1.0.0",
