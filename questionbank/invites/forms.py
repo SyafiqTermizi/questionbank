@@ -9,7 +9,7 @@ User = get_user_model()
 class InviteForm(forms.ModelForm):
 
     class Meta:
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'role')
         model = Invite
 
     def clean_username(self):

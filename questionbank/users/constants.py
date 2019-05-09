@@ -1,0 +1,9 @@
+ADMIN = 'Admin'
+COORDINATOR = 'Coordinator'
+LECTURER = 'Lecturer'
+
+CHOICES = (
+    (ADMIN, ADMIN),
+    (COORDINATOR, COORDINATOR),
+    (LECTURER, LECTURER)
+)
