@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django_filters.views import FilterView
@@ -42,3 +43,16 @@ class UserDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'users.delete_user'
     model = User
     success_url = reverse_lazy('users:list')
+
+
+class AcceptInvitationView(FormView):
+    """
+    0. add email field to UserCreationForm
+    1. check if token is valid
+    2. signup
+    3. assign user to group
+    4. delete invite
+    5. prevent logged in user from entering this view
+    """
+    form_class = UserCreationForm
+    template_name = 'users/acceptance_form.html'
