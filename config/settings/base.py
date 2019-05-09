@@ -51,7 +51,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'questionbank.dashboards.apps.DashboardsConfig',
-    'questionbank.users.apps.UsersConfig'
+    'questionbank.users.apps.UsersConfig',
+    'questionbank.invites.apps.InvitesConfig'
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJANGO_APPS

@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.views.generic import ListView, UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
