@@ -1,12 +1,17 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import UpdateView, DeleteView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404, Http404
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from django.forms.models import model_to_dict
 from django.urls import reverse_lazy
 from django_filters.views import FilterView
 
+from questionbank.invites.models import Invite
+
 from .filters import UserFilter
+from .forms import UserCreationForm
 
 User = get_user_model()
 
@@ -46,13 +51,33 @@ class UserDeleteView(PermissionRequiredMixin, DeleteView):
 
 
 class AcceptInvitationView(FormView):
-    """
-    0. add email field to UserCreationForm
-    1. check if token is valid
-    2. signup
-    3. assign user to group
-    4. delete invite
-    5. prevent logged in user from entering this view
-    """
     form_class = UserCreationForm
     template_name = 'users/acceptance_form.html'
+    success_url = reverse_lazy('account_login')
+    token = None
+    invite_instance = None
+
+    def get_token(self):
+        invite = get_object_or_404(Invite, token=self.kwargs['token'])
+        self.token = invite.token
+        self.invite_instance = model_to_dict(invite)
+        return invite.token
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            raise Http404
+        self.get_token()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['username'] = self.invite_instance['username']
+        initial['email'] = self.invite_instance['email']
+        return initial
+
+    def form_valid(self, form):
+        user = form.save()
+        group = Group.objects.get(name=self.invite_instance['role'])
+        user.groups.add(group)
+        Invite.objects.get(token=self.token).delete()
+        return super().form_valid(form)
