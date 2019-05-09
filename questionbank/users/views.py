@@ -1,16 +1,20 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.urls import reverse_lazy
-
 from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
+from django_filters.views import FilterView
+
+from .filters import UserFilter
 
 User = get_user_model()
 
 
-class UserListView(PermissionRequiredMixin, ListView):
+class UserListView(PermissionRequiredMixin, FilterView):
     permission_required = 'users.view_user'
     model = User
+    filterset_class = UserFilter
+    template_name_suffix = '_list'
     paginate_by = 20
 
 

@@ -45,7 +45,8 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'webpack_loader',
-    'crispy_forms'
+    'crispy_forms',
+    'django_filters'
 ]
 
 LOCAL_APPS = [
