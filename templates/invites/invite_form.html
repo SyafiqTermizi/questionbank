@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="nav-icon fas fa-plus"></i>
+        <b>Create Invitation</b>
+      </div>
+      <div class="card-body">
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <div class="row">
+            <div class="col-12">
+              <input class="btn btn-primary" type="submit" value="Invite">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

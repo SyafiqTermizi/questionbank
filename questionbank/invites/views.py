@@ -15,7 +15,7 @@ class InviteListView(PermissionRequiredMixin, ListView):
 class InviteCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'invites.add_invite'
     model = Invite
-    fields = ('username', 'email', 'token')
+    fields = ('username', 'email')
     success_url = reverse_lazy('invites:list')
     success_message = '%(username)s Invited'
 
