@@ -24,6 +24,7 @@ class InviteCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
     success_message = '%(username)s Invited'
 
     def form_valid(self, form):
+        form.instance.created_by = self.request.user
         self.object = form.save()
         path = reverse('users:accept_invite', kwargs={'token': self.object.token})
         url = build_absolute_uri(self.request, path)
