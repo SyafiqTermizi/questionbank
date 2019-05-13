@@ -31,6 +31,15 @@
       </li>
       {% endif %}
 
+      {% if perms.subjects.view_subjects %}
+      <li class="nav-item">
+        <a href="{% url 'subjects:list' %}" class="nav-link">
+          <i class="nav-icon fas fa-book-medical"></i>
+          Subjects
+        </a>
+      </li>
+      {% endif %}
+
     </ul>
   </nav>
 </div>
