@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="nav-icon fas fa-edit"></i>
+        {% if object %}
+          <b>Update Question</b>
+        {% else %}
+          <b>Create Question</b>
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <div class="row">
+            <div class="col-12">
+              <input class="btn btn-primary" type="submit" value="Submit">
+              {% if object %}
+                <a
+                  href="#"
+                  onclick="document.getElementById('delete-{{ question.pk }}').submit()"
+                  class="btn btn-danger"
+                >
+                    Delete
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </form>
+        {% if object %}
+          <form
+            action="{% url 'questions:delete' question.pk %}"
+            id="delete-{{ question.pk }}"
+            method="post"
+            style="display:none"
+          >
+            {% csrf_token %}
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<script src="//cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
+<script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+{% endblock content %}

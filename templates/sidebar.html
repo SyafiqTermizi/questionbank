@@ -2,6 +2,22 @@
   <nav class="sidebar-nav">
     <ul class="nav">
 
+      {% if perms.subjects.view_subjects %}
+      <li class="nav-item">
+        <a href="{% url 'subjects:list' %}" class="nav-link">
+          <i class="nav-icon fas fa-book-medical"></i> Subjects
+        </a>
+      </li>
+      {% endif %}
+
+      {% if perms.questions.view_question %}
+      <li class="nav-item">
+        <a href="{% url 'questions:list' %}" class="nav-link">
+          <i class="nav-icon fas fa-edit"></i> Questions
+        </a>
+      </li>
+      {% endif %}
+
       {% if perms.users.view_user %}
       <li class="nav-item">
         <a href="{% url 'users:list' %}" class="nav-link">
@@ -16,14 +32,6 @@
         <a href="{% url 'invites:list' %}" class="nav-link">
           <i class="nav-icon fas fa-list"></i>
           Invitations
-        </a>
-      </li>
-      {% endif %}
-
-      {% if perms.subjects.view_subjects %}
-      <li class="nav-item">
-        <a href="{% url 'subjects:list' %}" class="nav-link">
-          <i class="nav-icon fas fa-book-medical"></i> Subjects
         </a>
       </li>
       {% endif %}

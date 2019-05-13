@@ -46,13 +46,17 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'webpack_loader',
     'crispy_forms',
-    'django_filters'
+    'django_filters',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 LOCAL_APPS = [
     'questionbank.dashboards.apps.DashboardsConfig',
     'questionbank.users.apps.UsersConfig',
-    'questionbank.invites.apps.InvitesConfig'
+    'questionbank.invites.apps.InvitesConfig',
+    'questionbank.questions.apps.QuestionsConfig',
+    'questionbank.subjects.apps.SubjectsConfig'
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJANGO_APPS
@@ -169,6 +173,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # https://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
