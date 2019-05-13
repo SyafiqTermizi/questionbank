@@ -12,30 +12,18 @@
       {% endif %}
 
       {% if perms.invites.view_invite %}
-      <li class="nav-item nav-dropdown">
-          <a class="nav-link nav-dropdown-toggle" href="#">
-            <i class="nav-icon fas fa-mail-bulk"></i> Invitation
-          </a>
-          <ul class="nav-dropdown-items">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'invites:list' %}">
-                <i class="nav-icon fas fa-list"></i> Invites List
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'invites:create' %}">
-                <i class="nav-icon fas fa-plus"></i> Create Invites
-              </a>
-            </li>
-          </ul>
+      <li class="nav-item">
+        <a href="{% url 'invites:list' %}" class="nav-link">
+          <i class="nav-icon fas fa-list"></i>
+          Invitations
+        </a>
       </li>
       {% endif %}
 
       {% if perms.subjects.view_subjects %}
       <li class="nav-item">
         <a href="{% url 'subjects:list' %}" class="nav-link">
-          <i class="nav-icon fas fa-book-medical"></i>
-          Subjects
+          <i class="nav-icon fas fa-book-medical"></i> Subjects
         </a>
       </li>
       {% endif %}
