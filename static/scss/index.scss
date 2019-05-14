@@ -1,2 +1,9 @@
 @import "~@coreui/coreui-pro/scss/coreui";
 @import "~toastr/toastr";
+
+.django-ckeditor-widget{
+  width: 100% !important;
+  .cke {
+    width: 100% !important;
+  }
+}
