@@ -11,6 +11,23 @@
   </div>
 </div>
 <div class="row">
+  <div class="col-2 mt-3">
+    <b>Filter question by subjects</b>
+    <br><br>
+    {% for subject in subjects %}
+      <a
+        class="badge badge-secondary"
+        href="{% url 'questions:list' %}?subject__code__iexact={{ subject.code }}"
+      >
+        {{ subject.code }}
+      </a>
+      <br>
+    {% endfor %}
+    <br><br>
+      <a href="{% url 'questions:list' %}" class="badge badge-warning">
+        clear filter
+      </a>
+  </div>
   <div class="col-10">
     {% for question in question_list %}
     <div class="card mt-3">
@@ -36,23 +53,6 @@
       </div>
     </div>
     {% endfor %}
-  </div>
-  <div class="col-2 mt-3 pr-3 text-right">
-    <b>Filter question by subjects</b>
-    <br><br>
-    {% for subject in subjects %}
-      <a
-        class="badge badge-secondary"
-        href="{% url 'questions:list' %}?subject__code__iexact={{ subject.code }}"
-      >
-        {{ subject.code }}
-      </a>
-      <br>
-    {% endfor %}
-    <br><br>
-      <a href="{% url 'questions:list' %}" class="badge badge-warning">
-        clear filter
-      </a>
   </div>
 </div>
 {% endblock content %}
