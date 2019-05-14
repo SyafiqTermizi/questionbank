@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
+
 <div class="row">
   <div class="col-12 text-right">
     <a href="{% url 'questions:create' %}" class="btn btn-primary">
@@ -9,8 +11,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12">
-
+  <div class="col-10">
     {% for question in question_list %}
     <div class="card mt-3">
       <div class="card-header">
@@ -23,10 +24,35 @@
       </div>
       <div class="card-body">
         {{ question.question|safe }}
+        <br>
+        {% for tag in question.tags.all %}
+        <a
+          class="badge badge-secondary"
+          href="{% url 'questions:list' %}?tags__name__iexact={{ tag.name }}"
+        >
+          {{ tag.name }}
+        </a>
+        {% endfor %}
       </div>
     </div>
     {% endfor %}
-
+  </div>
+  <div class="col-2 mt-3 pr-3 text-right">
+    <b>Filter question by subjects</b>
+    <br><br>
+    {% for subject in subjects %}
+      <a
+        class="badge badge-secondary"
+        href="{% url 'questions:list' %}?subject__code__iexact={{ subject.code }}"
+      >
+        {{ subject.code }}
+      </a>
+      <br>
+    {% endfor %}
+    <br><br>
+      <a href="{% url 'questions:list' %}" class="badge badge-warning">
+        clear filter
+      </a>
   </div>
 </div>
 {% endblock content %}
