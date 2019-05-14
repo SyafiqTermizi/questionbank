@@ -12,10 +12,10 @@ from .models import Question
 
 class QuestionListView(PermissionRequiredMixin, FilterView):
     permission_required = 'questions.view_question'
-    model = Question
     filterset_class = QuestionFilter
     template_name_suffix = '_list'
     paginate_by = 10
+    queryset = Question.objects.all().prefetch_related('tags', 'created_by')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
