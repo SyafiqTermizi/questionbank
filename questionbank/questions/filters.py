@@ -9,5 +9,5 @@ class QuestionFilter(django_filters.FilterSet):
         model = Question
         fields = {
             'subject__code': ['iexact'],
-            'tags__name': ['iexact']
+            'tags__name': ['icontains']
         }
