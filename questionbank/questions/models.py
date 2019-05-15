@@ -19,3 +19,11 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     tags = TaggableManager()
+
+
+class Choice(models.Model):
+    choice = RichTextUploadingField()
+    is_correct = models.BooleanField(default=False)
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name='choices'
+    )
