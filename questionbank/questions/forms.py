@@ -6,9 +6,13 @@ from .models import Question, Choice
 
 class QuestionForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['tags'].required = False
+
     class Meta:
         model = Question
-        fields = ('question', 'subject', 'tags')
+        fields = ('subject', 'question', 'tags')
 
 
 class ChoiceForm(forms.ModelForm):
