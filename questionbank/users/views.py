@@ -17,7 +17,7 @@ User = get_user_model()
 
 
 class UserListView(PermissionRequiredMixin, FilterView):
-    permission_required = 'users.view_user'
+    permission_required = 'admin'
     model = User
     filterset_class = UserFilter
     template_name_suffix = '_list'
@@ -25,7 +25,7 @@ class UserListView(PermissionRequiredMixin, FilterView):
 
 
 class UserUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'users.change_user'
+    permission_required = 'admin'
     model = User
     fields = ('username', 'email')
     success_url = reverse_lazy('users:list')
@@ -45,7 +45,7 @@ class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 class UserDeleteView(PermissionRequiredMixin, DeleteView):
-    permission_required = 'users.delete_user'
+    permission_required = 'admin'
     model = User
     success_url = reverse_lazy('users:list')
 
