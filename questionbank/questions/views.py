@@ -6,17 +6,18 @@ from django.http import HttpResponseRedirect
 from django_filters.views import FilterView
 from questionbank.subjects.models import Subject
 
-from .mixins import ChoiceFormMixin
+from .mixins import ChoiceFormMixin, LimitedQuestionMixin
 from .filters import QuestionFilter
 from .models import Question, Choice
 from .forms import QuestionFormSet, QuestionForm
 
 
-class QuestionListView(PermissionRequiredMixin, FilterView):
+class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView):
     permission_required = 'questions.view_question'
     filterset_class = QuestionFilter
     template_name_suffix = '_list'
     paginate_by = 10
+    model = Question
     queryset = Question.objects.all().prefetch_related('tags', 'created_by')
 
     def get_context_data(self, **kwargs):
@@ -25,7 +26,8 @@ class QuestionListView(PermissionRequiredMixin, FilterView):
         return context
 
 
-class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
+                         LimitedQuestionMixin, CreateView):
     permission_required = 'questions.add_question'
     model = Question
     form_class = QuestionForm
@@ -56,12 +58,13 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVie
         return HttpResponseRedirect(reverse("questions:list"))
 
 
-class QuestionDetailView(PermissionRequiredMixin, DetailView):
+class QuestionDetailView(PermissionRequiredMixin, LimitedQuestionMixin, DetailView):
     permission_required = 'questions.view_question'
     model = Question
 
 
-class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
+                         LimitedQuestionMixin, UpdateView):
     permission_required = 'questions.change_question'
     model = Question
     fields = ('subject', 'question', 'tags')
@@ -69,7 +72,7 @@ class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
     success_message = 'Question Updated !'
 
 
-class QuestionDeleteView(PermissionRequiredMixin, DeleteView):
+class QuestionDeleteView(PermissionRequiredMixin, LimitedQuestionMixin, DeleteView):
     permission_required = 'questions.delete_question'
     model = Question
     success_url = reverse_lazy('questions:list')
