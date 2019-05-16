@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django_filters.views import FilterView
 from questionbank.subjects.models import Subject
 
+from .mixins import ChoiceFormMixin
 from .filters import QuestionFilter
 from .models import Question, Choice
 from .forms import QuestionFormSet, QuestionForm
@@ -74,7 +75,7 @@ class QuestionDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('questions:list')
 
 
-class ChoiceCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class ChoiceCreateView(PermissionRequiredMixin, SuccessMessageMixin, ChoiceFormMixin, CreateView):
     permission_required = 'questions.add_choice'
     model = Choice
     fields = ('choice', 'is_correct')
@@ -85,32 +86,14 @@ class ChoiceCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
         form.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse(
-            'questions:detail',
-            kwargs={'pk': self.kwargs['question']}
-        )
 
-
-class ChoiceUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class ChoiceUpdateView(PermissionRequiredMixin, SuccessMessageMixin, ChoiceFormMixin, UpdateView):
     permission_required = 'questions.change_choice'
     model = Choice
     fields = ('choice', 'is_correct')
     success_message = 'Choice Updated !'
 
-    def get_success_url(self):
-        return reverse(
-            'questions:detail',
-            kwargs={'pk': self.kwargs['question']}
-        )
 
-
-class ChoiceDeleteView(PermissionRequiredMixin, DeleteView):
+class ChoiceDeleteView(PermissionRequiredMixin, ChoiceFormMixin, DeleteView):
     permission_required = 'questions.delete_choice'
     model = Choice
-
-    def get_success_url(self):
-        return reverse(
-            'questions:detail',
-            kwargs={'pk': self.kwargs['question']}
-        )
