@@ -3,19 +3,19 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-header">
-        <i class="nav-icon fas fa-edit"></i>
-        {% if object %}
-          <b>Update Question</b>
-        {% else %}
-          <b>Create Question</b>
-        {% endif %}
-      </div>
-      <div class="card-body">
-        <form method="post">
+<form method="post">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="nav-icon fas fa-edit"></i>
+          {% if object %}
+            <b>Update Question</b>
+          {% else %}
+            <b>Create Question</b>
+          {% endif %}
+        </div>
+        <div class="card-body">
           {% csrf_token %}
           {{ form|crispy }}
           <div class="row">
@@ -42,21 +42,42 @@
               {% endif %}
             </div>
           </div>
-        </form>
-        {% if object %}
-          <form
-            action="{% url 'questions:delete' question.pk %}"
-            id="delete-{{ question.pk }}"
-            method="post"
-            style="display:none"
-          >
-            {% csrf_token %}
-          </form>
-        {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  {% if not object %}
+    {{ choices.management_form }}
+    {% for choice in choices %}
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="card">
+              <div class="card-header">
+                  <div class="card-title"><b>Choice {{ forloop.counter }}</b></div>
+              </div>
+              <div id="form-{{ forloop.counter }}">
+                  <div class="card-body">
+                    {{ choice|crispy }}
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+</form>
+
+{% if object %}
+  <form
+    action="{% url 'questions:delete' question.pk %}"
+    id="delete-{{ question.pk }}"
+    method="post"
+    style="display:none"
+  >
+    {% csrf_token %}
+  </form>
+{% endif %}
 <script src="//cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
 <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 {% endblock content %}

@@ -2,12 +2,13 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 from django_filters.views import FilterView
-
 from questionbank.subjects.models import Subject
 
 from .filters import QuestionFilter
 from .models import Question, Choice
+from .forms import QuestionFormSet, QuestionForm
 
 
 class QuestionListView(PermissionRequiredMixin, FilterView):
@@ -26,14 +27,32 @@ class QuestionListView(PermissionRequiredMixin, FilterView):
 class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'questions.add_question'
     model = Question
-    fields = ('subject', 'question', 'tags')
+    form_class = QuestionForm
     success_url = reverse_lazy('questions:list')
     success_message = 'Question Created !'
 
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        self.object = form.save()
-        return super().form_valid(form)
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['choices'] = QuestionFormSet
+        return context
+
+    def post(self, request, *args, **kwargs):
+        choices = QuestionFormSet(self.request.POST, self.request.FILES)
+        question = self.form_class(self.request.POST, self.request.FILES)
+        if choices.is_valid():
+            if question.is_valid():
+                return self.form_valid(question=question, choices=choices)
+        return super(QuestionCreateView, self).post(self.request)
+
+    def form_valid(self, question, choices):
+        question.instance.created_by = self.request.user
+        q = question.save()
+
+        for choice in choices:
+            if choice['choice'].value():
+                choice.instance.question = q
+                choice.save()
+        return HttpResponseRedirect(reverse("questions:list"))
 
 
 class QuestionDetailView(PermissionRequiredMixin, DetailView):
