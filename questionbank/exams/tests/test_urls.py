@@ -9,3 +9,13 @@ def test_exam_list():
 def test_exam_create():
     assert reverse('exams:create') == '/exams/create/'
     assert resolve('/exams/create/').view_name == 'exams:create'
+
+
+def test_exam_update():
+    assert reverse('exams:update', kwargs={'pk': 1}) == '/exams/1/update/'
+    assert resolve('/exams/1/update/').view_name == 'exams:update'
+
+
+def test_exam_delete():
+    assert reverse('exams:delete', kwargs={'pk': 1}) == '/exams/1/delete/'
+    assert resolve('/exams/1/delete/').view_name == 'exams:delete'
