@@ -57,7 +57,8 @@ LOCAL_APPS = [
     'questionbank.users.apps.UsersConfig',
     'questionbank.invites.apps.InvitesConfig',
     'questionbank.questions.apps.QuestionsConfig',
-    'questionbank.subjects.apps.SubjectsConfig'
+    'questionbank.subjects.apps.SubjectsConfig',
+    'questionbank.exams.apps.ExamsConfig'
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJANGO_APPS

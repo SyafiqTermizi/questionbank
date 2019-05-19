@@ -18,6 +18,14 @@
       </li>
       {% endif %}
 
+      {% if perms.questions.view_question %}
+      <li class="nav-item">
+        <a href="{% url 'exams:list' %}" class="nav-link">
+          <i class="nav-icon fas fa-scroll"></i> Exams
+        </a>
+      </li>
+      {% endif %}
+
       {% if perms.users.view_user %}
       <li class="nav-item">
         <a href="{% url 'users:list' %}" class="nav-link">

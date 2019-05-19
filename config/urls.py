@@ -10,6 +10,7 @@ urlpatterns = [
     path('invites/', include('questionbank.invites.urls')),
     path('subjects/', include('questionbank.subjects.urls')),
     path('questions/', include('questionbank.questions.urls')),
+    path('exams/', include('questionbank.exams.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

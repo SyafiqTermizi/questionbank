@@ -18,7 +18,6 @@ class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView
     template_name_suffix = '_list'
     paginate_by = 10
     model = Question
-    queryset = Question.objects.all().prefetch_related('tags', 'created_by')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
