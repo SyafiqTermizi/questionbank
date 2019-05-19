@@ -12,7 +12,9 @@ class Exam(models.Model):
     session = models.CharField(max_length=255)
     is_published = models.BooleanField(default=False)
     subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name='exams'
+    )
     questions = models.ManyToManyField(Question)
 
     def __str__(self):
