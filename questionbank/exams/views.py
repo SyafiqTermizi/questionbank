@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
 from django_filters.views import FilterView
 
@@ -16,10 +17,11 @@ class ExamListView(PermissionRequiredMixin, FilterView):
     paginate_by = 20
 
 
-class ExamCreateView(PermissionRequiredMixin, CreateView):
+class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'exams.add_exam'
     model = Exam
     fields = ('name', 'session', 'subject')
+    success_message = '%(name)s Created'
 
     def get_success_url(self):
         if 'next' in self.request.POST:
@@ -27,11 +29,12 @@ class ExamCreateView(PermissionRequiredMixin, CreateView):
         return reverse('exams:list')
 
 
-class ExamUpdateView(PermissionRequiredMixin, UpdateView):
+class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'exams:change_exam'
     model = Exam
     success_url = reverse_lazy('exams:list')
     fields = ('name', 'session', 'subject')
+    success_message = '%(name)s Updated'
 
 
 class ExamQuestionView(PermissionRequiredMixin, UpdateView):
@@ -39,4 +42,10 @@ class ExamQuestionView(PermissionRequiredMixin, UpdateView):
     model = Exam
     template_name = 'exams/exam_question_form.html'
     form_class = ExamForm
+    success_url = reverse_lazy('exams:list')
+
+
+class ExamDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'exams:delete_question'
+    model = Exam
     success_url = reverse_lazy('exams:list')
