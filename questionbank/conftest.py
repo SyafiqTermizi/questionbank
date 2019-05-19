@@ -1,14 +1,20 @@
 import pytest
 
-from questionbank.users.tests.factories import UserFactory
+from questionbank.users.tests.factories import UserFactory, SpecialtyFactory
 from questionbank.invites.tests.factories import InviteFactory
 from questionbank.subjects.tests.factories import SubjectFactory
 from questionbank.questions.tests.factories import QuestionFactory, ChoiceFactory
 from questionbank.exams.tests.factories import ExamFactory
 
+
 @pytest.fixture
 def user():
     return UserFactory()
+
+
+@pytest.fixture
+def specialty():
+    return SpecialtyFactory()
 
 
 @pytest.fixture

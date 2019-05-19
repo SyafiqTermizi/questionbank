@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from factory import DjangoModelFactory, Faker, post_generation
 
+from questionbank.users.models import Specialty
+
 
 class UserFactory(DjangoModelFactory):
     username = Faker('user_name')
@@ -22,3 +24,10 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = get_user_model()
         django_get_or_create = ['username']
+
+
+class SpecialtyFactory(DjangoModelFactory):
+    name = Faker('name')
+
+    class Meta:
+        model = Specialty
