@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from ckeditor_uploader.fields import RichTextUploadingField
 from taggit.managers import TaggableManager
-
+from django.utils.html import mark_safe
 from questionbank.subjects.models import Subject
 
 User = get_user_model()
@@ -19,6 +19,9 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     tags = TaggableManager()
+
+    def __str__(self):
+        return mark_safe(self.question)
 
 
 class Choice(models.Model):
