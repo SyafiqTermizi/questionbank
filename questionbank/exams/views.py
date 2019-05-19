@@ -23,6 +23,11 @@ class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     fields = ('name', 'session', 'subject')
     success_message = '%(name)s Created'
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        self.object = form.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         if 'next' in self.request.POST:
             return reverse('exams:add_question', kwargs={'pk': self.object.pk})
