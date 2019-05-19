@@ -44,6 +44,11 @@ class ExamQuestionView(PermissionRequiredMixin, UpdateView):
     form_class = ExamForm
     success_url = reverse_lazy('exams:list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['subject'] = self.object.subject
+        return kwargs
+
 
 class ExamDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'exams:delete_question'
