@@ -41,46 +41,56 @@
         <b>Subject List</b>
       </div>
       <div class="card-body">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Created At</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for subject in subject_list %}
+        {% if object_list %}
+          <table class="table table-hover">
+            <thead>
               <tr>
-                <td>
-                  <a href="{% url 'subjects:update' subject.pk %}">
-                    {{ subject.code }}
-                  </a>
-                </td>
-                <td>{{ subject.name }}</td>
-                <td>{{ subject.created_at }}</td>
-                <td>
-                  <a
-                    href="#"
-                    class="btn btn-danger"
-                    onclick="document.getElementById('delete-{{ forloop.counter }}').submit()"
-                  >
-                    Delete
-                  </a>
-                </td>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Created At</th>
+                <th>Action</th>
               </tr>
-              <form
-                action="{% url 'subjects:delete' subject.pk %}"
-                id="delete-{{ forloop.counter }}"
-                method="post"
-                style="display:none"
-              >
-              {% csrf_token %}
-              </form>
-            {% endfor %}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {% for subject in subject_list %}
+                <tr>
+                  <td>
+                    <a href="{% url 'subjects:update' subject.pk %}">
+                      {{ subject.code }}
+                    </a>
+                  </td>
+                  <td>{{ subject.name }}</td>
+                  <td>{{ subject.created_at }}</td>
+                  <td>
+                    <a
+                      href="#"
+                      class="btn btn-danger"
+                      onclick="document.getElementById('delete-{{ forloop.counter }}').submit()"
+                    >
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+                <form
+                  action="{% url 'subjects:delete' subject.pk %}"
+                  id="delete-{{ forloop.counter }}"
+                  method="post"
+                  style="display:none"
+                >
+                {% csrf_token %}
+                </form>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="clearfix text-center">
+            <h4 class="pt-3">No subject found</h4>
+            <p class="text-muted">
+              You can create one
+              <a href="{% url 'subjects:create' %}" class="btn-primary">here</a>
+            </p>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

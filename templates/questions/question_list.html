@@ -82,6 +82,14 @@
         {% endfor %}
       </div>
     </div>
+    {% empty %}
+    <div class="clearfix text-center">
+      <h4 class="pt-3">No question found</h4>
+      <p class="text-muted">
+        You can create one
+        <a href="{% url 'questions:create' %}" class="btn-primary">here</a>
+      </p>
+    </div>
     {% endfor %}
   </div>
 </div>

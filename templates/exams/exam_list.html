@@ -41,51 +41,61 @@
         <b>Exam List</b>
       </div>
       <div class="card-body">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Session</th>
-              <th>Subject</th>
-              <th>Created By</th>
-              <th>Published</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for exam in exam_list %}
-            <tr>
-              <td>
-                <a href="{% url 'exams:update' exam.pk %}">
-                  {{ exam.name }}
-                </a>
-              </td>
-              <td>{{ exam.session }}</td>
-              <td>{{ exam.subject }}</td>
-              <td>{{ exam.created_by }}</td>
-              <td>{{ exam.is_published }}</td>
-              <td>
-                  <a
-                    class="btn btn-danger"
-                    href="#"
-                    onclick="document.getElementById('delete-{{ forloop.counter }}').submit()"
-                  >
-                    Delete
+        {% if object_list %}
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Session</th>
+                <th>Subject</th>
+                <th>Created By</th>
+                <th>Published</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for exam in exam_list %}
+              <tr>
+                <td>
+                  <a href="{% url 'exams:update' exam.pk %}">
+                    {{ exam.name }}
                   </a>
-              </td>
-            </tr>
+                </td>
+                <td>{{ exam.session }}</td>
+                <td>{{ exam.subject }}</td>
+                <td>{{ exam.created_by }}</td>
+                <td>{{ exam.is_published }}</td>
+                <td>
+                    <a
+                      class="btn btn-danger"
+                      href="#"
+                      onclick="document.getElementById('delete-{{ forloop.counter }}').submit()"
+                    >
+                      Delete
+                    </a>
+                </td>
+              </tr>
 
-            <form
-              action="{% url 'exams:delete' exam.pk %}"
-              id="delete-{{ forloop.counter }}"
-              method="post"
-              style="display:none"
-            >
-            {% csrf_token %}
-            </form>
-            {% endfor %}
-          </tbody>
-        </table>
+              <form
+                action="{% url 'exams:delete' exam.pk %}"
+                id="delete-{{ forloop.counter }}"
+                method="post"
+                style="display:none"
+              >
+              {% csrf_token %}
+              </form>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="clearfix text-center">
+            <h4 class="pt-3">No exam found</h4>
+            <p class="text-muted">
+              You can create one
+              <a href="{% url 'exams:create' %}" class="btn-primary">here</a>
+            </p>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
