@@ -6,7 +6,7 @@ from questionbank.invites.models import Invite
 pytestmark = pytest.mark.django_db
 
 
-def test_invite_model_save(user):
+def test_invite_model_save(user, specialty):
     """
     calling Invite.save() should create a random token
     """
@@ -14,7 +14,8 @@ def test_invite_model_save(user):
         username='test',
         email='test',
         role=ADMIN,
-        created_by=user
+        created_by=user,
+        specialty=specialty
     )
     # the token should exist
     assert invite.token

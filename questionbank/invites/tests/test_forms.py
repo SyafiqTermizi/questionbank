@@ -23,12 +23,13 @@ def test_invite_form_invalid(user):
     assert form.errors['email'] == ['Email already exist']
 
 
-def test_invite_form_valid(user):
+def test_invite_form_valid(user, specialty):
     # Initializing form with user that don't exist
     form = InviteForm(data={
         'username': 'test',
         'email': 'test@test.com',
-        'role': ADMIN
+        'role': ADMIN,
+        'specialty': specialty.id
     })
 
     # form should be valid because the user don't exist yet

@@ -2,7 +2,7 @@ import django_filters
 
 from django.contrib.auth import get_user_model
 
-from .models import Specialty
+from questionbank.users.models import Specialty
 
 User = get_user_model()
 
