@@ -26,7 +26,7 @@
       </li>
       {% endif %}
 
-      {% if perms.users.view_user %}
+      {% if request.user.is_superuser %}
       <li class="nav-item">
         <a href="{% url 'users:list' %}" class="nav-link">
           <i class="nav-icon fas fa-users"></i>
@@ -35,7 +35,7 @@
       </li>
       {% endif %}
 
-      {% if perms.invites.view_invite %}
+      {% if request.user.is_superuser %}
       <li class="nav-item">
         <a href="{% url 'invites:list' %}" class="nav-link">
           <i class="nav-icon fas fa-list"></i>
