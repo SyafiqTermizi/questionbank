@@ -11,8 +11,6 @@ RUN apk update \
   # CFFI dependencies
   && apk add libffi-dev py-cffi
 
-RUN echo "BABI"
-
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
 RUN pip install --no-cache-dir -r /requirements/local.txt && rm -rf /requirements
