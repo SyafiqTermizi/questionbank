@@ -1,6 +1,6 @@
 import pytest
 
-from questionbank.exams.views import ExamCreateView, ExamQuestionView
+from questionbank.exams.views import ExamCreateView, ExamQuestionView, ExamPrintView
 
 pytestmark = pytest.mark.django_db
 
@@ -47,3 +47,19 @@ def test_exam_question_view(rf, user, exam):
     kwargs = view.get_form_kwargs()
 
     assert kwargs['subject']
+
+
+def test_exam_print_view(rf, user, exam):
+    """
+    ExamPrintView().get_initial() should return a dict with initial key
+    """
+    request = rf.get('/test/')
+    request.user = user
+
+    view = ExamPrintView()
+    view.request = request
+    view.kwargs = {'pk': exam.pk}
+
+    initial = view.get_initial()
+
+    assert 'exam' in initial
