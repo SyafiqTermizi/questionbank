@@ -68,17 +68,6 @@ class ExamPrintView(PermissionRequiredMixin, FormView):
     template_name = 'exams/create_exam.html'
     form_class = ExamPrintForm
 
-    # def get_context_data(self, *args, **kwargs):
-    #     exam = get_object_or_404(Exam, pk=self.kwargs['pk'])
-    #     paper = ''
-    #     for question in exam.questions.all():
-    #         paper += question.question
-    #         for choice in question.choices.all():
-    #             paper += choice.choice
-    #     context = super().get_context_data()
-    #     context['paper'] = mark_safe(paper)
-    #     return context
-
     def get_initial(self):
         exam = get_object_or_404(Exam, pk=self.kwargs['pk'])
         paper = ''
