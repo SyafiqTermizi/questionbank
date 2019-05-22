@@ -1,4 +1,5 @@
 from django import forms
+from ckeditor.widgets import CKEditorWidget
 
 from questionbank.questions.models import Question
 
@@ -21,3 +22,7 @@ class ExamForm(forms.ModelForm):
         widgets = {
             'questions': forms.CheckboxSelectMultiple()
         }
+
+
+class ExamPrintForm(forms.Form):
+    exam = forms.CharField(widget=CKEditorWidget())

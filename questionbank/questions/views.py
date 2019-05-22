@@ -49,7 +49,9 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     def form_valid(self, question, choices):
         question.instance.created_by = self.request.user
         q = question.save()
-        question.instance.tags.add(self.request.user.specialty.name)
+
+        if not self.request.user.is_superuser:
+            question.instance.tags.add(self.request.user.specialty.name)
 
         for choice in choices:
             if choice['choice'].value():

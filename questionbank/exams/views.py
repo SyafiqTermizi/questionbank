@@ -1,12 +1,14 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.utils.html import mark_safe
 from django_filters.views import FilterView
 
 from .models import Exam
 from .filters import ExamFilter
-from .forms import ExamForm
+from .forms import ExamForm, ExamPrintForm
 
 
 class ExamListView(PermissionRequiredMixin, FilterView):
@@ -59,3 +61,31 @@ class ExamDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'exams:delete_question'
     model = Exam
     success_url = reverse_lazy('exams:list')
+
+
+class ExamPrintView(PermissionRequiredMixin, FormView):
+    permission_required = 'exams.add_exam'
+    template_name = 'exams/create_exam.html'
+    form_class = ExamPrintForm
+
+    # def get_context_data(self, *args, **kwargs):
+    #     exam = get_object_or_404(Exam, pk=self.kwargs['pk'])
+    #     paper = ''
+    #     for question in exam.questions.all():
+    #         paper += question.question
+    #         for choice in question.choices.all():
+    #             paper += choice.choice
+    #     context = super().get_context_data()
+    #     context['paper'] = mark_safe(paper)
+    #     return context
+
+    def get_initial(self):
+        exam = get_object_or_404(Exam, pk=self.kwargs['pk'])
+        paper = ''
+        for question in exam.questions.all():
+            paper += question.question
+            for choice in question.choices.all():
+                paper += choice.choice
+        initial = super().get_initial()
+        initial['exam'] = mark_safe(paper)
+        return initial
