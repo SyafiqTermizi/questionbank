@@ -4,9 +4,8 @@
 !.pylintrc
 
 .dockerignore
-Dockerfile*
+*Dockerfile
 docker-compose*
-docker
 
 .git
 .gitignore
