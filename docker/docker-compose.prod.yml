@@ -16,7 +16,7 @@ services:
     volumes:
       - question_db_data:/var/lib/postgresql/data
 
-  question_app:
+  question_prod:
     build:
       context: ../
       dockerfile: ./docker/prod.Dockerfile
@@ -39,4 +39,4 @@ services:
       - question_staticfiles:/staticfiles:ro
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - question_app
+      - question_prod

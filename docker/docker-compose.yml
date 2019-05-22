@@ -8,7 +8,7 @@ services:
     ports:
       - 5400:5432
 
-  question_app:
+  question_local:
     build:
       context: ../
       dockerfile: ./docker/Dockerfile
