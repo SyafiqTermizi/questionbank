@@ -50,7 +50,7 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         question.instance.created_by = self.request.user
         q = question.save()
 
-        if not self.request.user.is_superuser:
+        if self.request.user.specialty:
             question.instance.tags.add(self.request.user.specialty.name)
 
         for choice in choices:
