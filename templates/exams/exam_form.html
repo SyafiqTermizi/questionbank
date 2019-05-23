@@ -24,11 +24,9 @@
             </div>
             <div class="col-6 text-right">
               {% if object %}
-                <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-warning">
-                  Update Question
+                <a href="{% url 'exams:print' object.pk %}" class="btn btn-primary">
+                  Print
                 </a>
-              {% else %}
-                <input type="submit" name="next" value="Add Question" class="btn btn-warning">
               {% endif %}
             </div>
           </div>
@@ -37,4 +35,34 @@
     </div>
   </div>
 </div>
+
+<div class="row mb-3">
+  <div class="col-12 text-right">
+      {% if object %}
+        <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-warning">
+          Update Question
+        </a>
+      {% else %}
+        <input type="submit" name="next" value="Add Question" class="btn btn-warning">
+      {% endif %}
+  </div>
+</div>
+
+{% if object %}
+  {% for question in exam.questions.all %}
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            {{ question }}
+            {% for choice in question.choices.all %}
+              <hr>
+              {{ choice }}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endif %}
 {% endblock content %}

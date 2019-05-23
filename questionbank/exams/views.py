@@ -18,6 +18,9 @@ class ExamListView(PermissionRequiredMixin, FilterView):
     template_name_suffix = '_list'
     paginate_by = 20
 
+    def get_queryset(self):
+        return Exam.objects.all().prefetch_related('created_by', 'subject')
+
 
 class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'exams.add_exam'
@@ -43,6 +46,8 @@ class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     fields = ('name', 'session', 'subject')
     success_message = '%(name)s Updated'
 
+    def get_queryset(self):
+        return Exam.objects.all().prefetch_related('questions', 'questions__choices')
 
 class ExamQuestionView(PermissionRequiredMixin, UpdateView):
     permission_required = 'exams:change_exam'
@@ -69,7 +74,10 @@ class ExamPrintView(PermissionRequiredMixin, FormView):
     form_class = ExamPrintForm
 
     def get_initial(self):
-        exam = get_object_or_404(Exam, pk=self.kwargs['pk'])
+        exam = get_object_or_404(
+            Exam.objects.prefetch_related('questions', 'questions__choices'),
+            pk=self.kwargs['pk']
+        )
         paper = ''
         for question in exam.questions.all():
             paper += question.question
