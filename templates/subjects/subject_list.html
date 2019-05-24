@@ -4,7 +4,10 @@
 {% block content %}
 <div class="row mb-3">
   <div class="col-12 text-right">
-    <a href="{% url 'subjects:create' %}" class="btn btn-primary">Add Subject</a>
+    <a href="{% url 'subjects:create' %}" class="btn btn-outline-primary">
+        <i class="fas fa-plus fa-xs"></i>
+        Add Subject
+    </a>
   </div>
 </div>
 
@@ -64,7 +67,7 @@
                   <td>
                     <a
                       href="#"
-                      class="btn btn-danger"
+                      class="btn btn-outline-danger"
                       onclick="document.getElementById('delete-{{ forloop.counter }}').submit()"
                     >
                       Delete

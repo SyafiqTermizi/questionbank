@@ -2,13 +2,35 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="row mb-3">
+  <div class="col-6">
+    <a href="{% url 'exams:list' %}" class="btn btn-outline-primary">
+      <i class="fas fa-angle-left fa-xs"></i>
+      Cancel
+    </a>
+  </div>
+  <div class="col-6 text-right">
+      {% if object %}
+        <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-outline-primary">
+          Update Question
+        </a>
+        <a href="{% url 'exams:print' object.pk %}" class="btn btn-outline-primary">
+          Print
+        </a>
+      {% endif %}
+  </div>
+  <div class="col-6">
+
+  </div>
+</div>
+
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-header">
         <i class="nav-icon fas fa-scroll"></i>
         {% if object %}
-          <b>Create List</b>
+          <b>Create Exam</b>
         {% else %}
           <b>Exam Form</b>
         {% endif %}
@@ -19,32 +41,16 @@
           {{ form|crispy }}
           <div class="row">
             <div class="col-6">
-              <input type="submit" value="submit" class="btn btn-primary">
-              <a href="{% url 'exams:list' %}" class="btn btn-danger">Cancel</a>
-            </div>
-            <div class="col-6 text-right">
               {% if object %}
-                <a href="{% url 'exams:print' object.pk %}" class="btn btn-primary">
-                  Print
-                </a>
+                <input type="submit" value="Submit" class="btn btn-primary">
+              {% else %}
+                <input type="submit" name="next" value="Add Question >" class="btn btn-primary">
               {% endif %}
             </div>
           </div>
         </form>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="row mb-3">
-  <div class="col-12 text-right">
-      {% if object %}
-        <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-warning">
-          Update Question
-        </a>
-      {% else %}
-        <input type="submit" name="next" value="Add Question" class="btn btn-warning">
-      {% endif %}
   </div>
 </div>
 

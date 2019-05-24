@@ -2,6 +2,21 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="row mb-3">
+  <div class="col-12">
+    {% if perms.users.view_user %}
+      <a href="{% url 'users:list' %}" class="btn btn-outline-primary">
+        <i class="fas fa-angle-left fa-xs"></i>
+        Back
+      </a>
+    {% else %}
+      <a href="/" class="btn btn-outline-primary">
+        <i class="fas fa-angle-left fa-xs"></i>
+        Back
+      </a>
+    {% endif %}
+  </div>
+</div>
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -14,15 +29,6 @@
           {% csrf_token %}
           {{ form|crispy }}
           <input type="submit" value="Update" class="btn btn-primary">
-          {% if perms.users.view_user %}
-            <a href="{% url 'users:list' %}" class="btn btn-danger">
-              Cancel
-            </a>
-          {% else %}
-            <a href="/" class="btn btn-danger">
-              Cancel
-            </a>
-          {% endif %}
         </form>
       </div>
     </div>
