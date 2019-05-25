@@ -10,7 +10,7 @@ from questionbank.questions.models import Question
 
 from .filters import ExamCommentFilter, QuestionCommentFilter
 from .models import ExamComment, QuestionComment
-from .mixins import ExamSuccessUrlMixin, QuestionSuccessUrlMixin
+from .mixins import ExamSuccessUrlMixin, QuestionSuccessUrlMixin, QuestionContextDataMixin
 
 
 class ExamCommentListView(PermissionRequiredMixin, FilterView):
@@ -53,7 +53,8 @@ class ExamCommentDeleteView(PermissionRequiredMixin, ExamSuccessUrlMixin, Delete
     model = ExamComment
 
 
-class QuestionCommentListView(PermissionRequiredMixin, FilterView):
+class QuestionCommentListView(PermissionRequiredMixin, QuestionContextDataMixin,
+                              FilterView):
     permission_required = 'comments.view_questioncomment'
     module = QuestionComment
     filterset_class = QuestionCommentFilter
@@ -75,7 +76,7 @@ class QuestionCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        form.instance.exam = Question(pk=self.kwargs['question_id'])
+        form.instance.question = Question(pk=self.kwargs['question_id'])
         self.object = form.save()
         return super().form_valid(form)
 
@@ -88,6 +89,18 @@ class QuestionCommentUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
     success_message = 'Comment updated'
 
 
-class QuestionCommentDeleteView(PermissionRequiredMixin, DeleteView):
+class QuestionCommentResolveView(PermissionRequiredMixin, QuestionSuccessUrlMixin, UpdateView):
+    permission_required = 'comments.change_questioncomment'
+    model = QuestionComment
+    fields = ('is_resolved',)
+
+    def form_valid(self, form):
+        form.instance.is_resolved = True
+        self.object = form.save()
+        return super().form_valid(form)
+
+
+class QuestionCommentDeleteView(PermissionRequiredMixin, QuestionSuccessUrlMixin,
+                                DeleteView):
     permission_required = 'comments.delete_questioncomment'
     model = QuestionComment

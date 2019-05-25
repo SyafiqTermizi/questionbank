@@ -9,6 +9,9 @@
     </a>
   </div>
   <div class="col-6 text-right">
+    <a href="{% url 'comments:question_list' question.pk %}?is_resolved=false" class="btn btn-warning">
+      Comments
+    </a>
     <a href="{% url 'questions:update' question.pk %}" class="btn btn-outline-primary">
       Update Question
     </a>

@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (
     ExamCommentListView, ExamCommentCreateView, ExamCommentUpdateView,
     ExamCommentDeleteView, QuestionCommentListView, QuestionCommentCreateView,
-    QuestionCommentUpdateView, QuestionCommentDeleteView
+    QuestionCommentUpdateView, QuestionCommentDeleteView, QuestionCommentResolveView
 )
 
 app_name = 'comments'
@@ -45,4 +45,9 @@ urlpatterns = [
         QuestionCommentDeleteView.as_view(),
         name='question_delete'
     ),
+    path(
+        'questions/<int:question_id>/resolve/<int:pk>/',
+        QuestionCommentResolveView.as_view(),
+        name='question_resolve'
+    )
 ]
