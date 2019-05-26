@@ -24,7 +24,7 @@ class QuestionComment(BaseComment):
     )
 
 
-class  ExamComment(BaseComment):
+class ExamComment(BaseComment):
     exam = models.ForeignKey(
         Exam, on_delete=models.CASCADE,
         related_name='comments'

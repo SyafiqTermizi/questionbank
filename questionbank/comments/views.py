@@ -1,8 +1,6 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
-from django.shortcuts import reverse
 from django_filters.views import FilterView
 
 from questionbank.exams.models import Exam
@@ -57,7 +55,7 @@ class ExamCommentUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
 
 
 class ExamCommentResolveView(PermissionRequiredMixin, ExamSuccessUrlMixin,
-                                 UpdateView):
+                             UpdateView):
     permission_required = 'comments.change_examcomment'
     model = ExamComment
     fields = ('is_resolved',)
@@ -112,6 +110,7 @@ class QuestionCommentUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
         return QuestionComment.objects.filter(
             created_by=self.request.user
         )
+
 
 class QuestionCommentResolveView(PermissionRequiredMixin, QuestionSuccessUrlMixin,
                                  UpdateView):

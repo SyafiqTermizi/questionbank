@@ -1,7 +1,5 @@
 from django.shortcuts import reverse
 
-from .models import ExamComment
-
 
 class ExamContextDataMixin:
 

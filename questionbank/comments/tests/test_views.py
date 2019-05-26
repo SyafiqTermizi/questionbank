@@ -1,9 +1,9 @@
 import pytest
 
-pytestmark = pytest.mark.django_db
-
 from questionbank.comments.views import QuestionCommentListView
 from questionbank.comments.models import QuestionComment
+
+pytestmark = pytest.mark.django_db
 
 
 def test_question_comment_list_view_get_context_data(user, rf):

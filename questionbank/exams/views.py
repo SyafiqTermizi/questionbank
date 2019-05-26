@@ -49,6 +49,7 @@ class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_queryset(self):
         return Exam.objects.all().prefetch_related('questions', 'questions__choices')
 
+
 class ExamQuestionView(PermissionRequiredMixin, UpdateView):
     permission_required = 'exams:change_exam'
     model = Exam
