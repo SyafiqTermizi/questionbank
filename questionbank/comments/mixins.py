@@ -1,12 +1,22 @@
 from django.shortcuts import reverse
 
+from .models import ExamComment
 
-class ExamSuccessUrlMixin:
+
+class ExamContextDataMixin:
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['exam_id'] = self.kwargs['exam_id']
+        return context
+
+
+class ExamSuccessUrlMixin(ExamContextDataMixin):
 
     def get_success_url(self):
         return reverse(
             'comments:exam_list', kwargs={'exam_id': self.kwargs['exam_id']}
-        )
+        ) + '?is_resolved=false'
 
 
 class QuestionContextDataMixin:

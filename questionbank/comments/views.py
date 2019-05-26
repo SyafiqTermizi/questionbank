@@ -10,10 +10,13 @@ from questionbank.questions.models import Question
 
 from .filters import ExamCommentFilter, QuestionCommentFilter
 from .models import ExamComment, QuestionComment
-from .mixins import ExamSuccessUrlMixin, QuestionSuccessUrlMixin, QuestionContextDataMixin
+from .mixins import (
+    ExamSuccessUrlMixin, ExamContextDataMixin,
+    QuestionSuccessUrlMixin, QuestionContextDataMixin
+)
 
 
-class ExamCommentListView(PermissionRequiredMixin, FilterView):
+class ExamCommentListView(PermissionRequiredMixin, ExamContextDataMixin, FilterView):
     permission_required = 'comments.view_examcomment'
     model = ExamComment
     filterset_class = ExamCommentFilter
@@ -23,7 +26,7 @@ class ExamCommentListView(PermissionRequiredMixin, FilterView):
     def get_queryset(self):
         return ExamComment.objects.filter(
             exam_id=self.kwargs['exam_id']
-        )
+        ).prefetch_related('created_by')
 
 
 class ExamCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
@@ -46,6 +49,23 @@ class ExamCommentUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
     model = ExamComment
     fields = ('comment', 'is_resolved')
     success_message = 'Comment updated'
+
+    def get_queryset(self):
+        return ExamComment.objects.filter(
+            created_by=self.request.user
+        )
+
+
+class ExamCommentResolveView(PermissionRequiredMixin, ExamSuccessUrlMixin,
+                                 UpdateView):
+    permission_required = 'comments.change_examcomment'
+    model = ExamComment
+    fields = ('is_resolved',)
+
+    def form_valid(self, form):
+        form.instance.is_resolved = True
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 class ExamCommentDeleteView(PermissionRequiredMixin, ExamSuccessUrlMixin, DeleteView):
@@ -88,8 +108,13 @@ class QuestionCommentUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
     fields = ('comment', 'is_resolved')
     success_message = 'Comment updated'
 
+    def get_queryset(self):
+        return QuestionComment.objects.filter(
+            created_by=self.request.user
+        )
 
-class QuestionCommentResolveView(PermissionRequiredMixin, QuestionSuccessUrlMixin, UpdateView):
+class QuestionCommentResolveView(PermissionRequiredMixin, QuestionSuccessUrlMixin,
+                                 UpdateView):
     permission_required = 'comments.change_questioncomment'
     model = QuestionComment
     fields = ('is_resolved',)

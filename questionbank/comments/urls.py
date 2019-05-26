@@ -2,13 +2,14 @@ from django.urls import path
 
 from .views import (
     ExamCommentListView, ExamCommentCreateView, ExamCommentUpdateView,
-    ExamCommentDeleteView, QuestionCommentListView, QuestionCommentCreateView,
-    QuestionCommentUpdateView, QuestionCommentDeleteView, QuestionCommentResolveView
+    ExamCommentDeleteView, ExamCommentResolveView, QuestionCommentListView,
+    QuestionCommentCreateView, QuestionCommentUpdateView,
+    QuestionCommentDeleteView, QuestionCommentResolveView
 )
 
 app_name = 'comments'
 urlpatterns = [
-    path('exams/<int:exam_id>/', ExamCommentCreateView.as_view(), name='exam_list'),
+    path('exams/<int:exam_id>/', ExamCommentListView.as_view(), name='exam_list'),
     path(
         'exams/<int:exam_id>/create/',
         ExamCommentCreateView.as_view(),
@@ -20,9 +21,14 @@ urlpatterns = [
         name='exam_update'
     ),
     path(
-        'exams/<int:exam_id/delete/<int:pk>/',
+        'exams/<int:exam_id>/delete/<int:pk>/',
         ExamCommentDeleteView.as_view(),
         name='exam_delete'
+    ),
+    path(
+        'exams/<int:exam_id>/resolve>/<int:pk>/',
+        ExamCommentResolveView.as_view(),
+        name='exam_resolve'
     ),
 
     path(

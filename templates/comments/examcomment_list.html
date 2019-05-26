@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-6">
+      <a href="{% url 'exams:update' exam_id %}" class="btn btn-outline-primary">
+        <i class="fas fa-angle-left fa-xs"></i>
+        Back
+      </a>
+  </div>
+  <div class="col-6 text-right">
+    <a href="{% url 'comments:exam_create' exam_id %}" class="btn btn-outline-primary">
+      <i class="fas fa-plus fa-xs"></i>
+      Create Comment
+    </a>
+  </div>
+</div>
+
+<div class="row mt-3 mb-3">
+  <div class="col-lg-12">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <a
+        href="{% url 'comments:exam_list' exam_id %}?is_resolved=false"
+        class="btn {% if filter.data.is_resolved == 'false' %}btn-secondary{% endif %}"
+      >
+        Unresolved
+      </a>
+      <a
+        href="{% url 'comments:exam_list' exam_id %}?is_resolved=true"
+        class="btn {% if filter.data.is_resolved == 'true' %}btn-secondary{% endif %}"
+      >
+        Resolved
+      </a>
+      <a
+        href="{% url 'comments:exam_list' exam_id %}?is_resolved=unknown"
+        class="btn {% if filter.data.is_resolved == 'unknown' %}btn-secondary{% endif %}"
+      >
+        All
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    {% if object_list %}
+      {% for comment in examcomment_list %}
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-6">
+                <i class="nav-icon fas fa-comment"></i>
+                <b>{{ comment.created_by }}</b> | {{ comment.created_at }}
+              </div>
+              <div class="col-6 text-right">
+                {% if comment.created_by == request.user %}
+                  <a
+                    href="{% url 'comments:exam_update' exam_id comment.pk %}"
+                    class="btn btn-ghost-primary"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Update choice"
+                  >
+                    <i class="fas fa-pencil-alt fa-xs"></i>
+                  </a>
+                  <a href="#"
+                      class="btn btn-ghost-danger"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Delete choice"
+                      onclick="document.getElementById('delete-{{ forloop.counter }}').submit()"
+                    >
+                    <i class="fas fa-trash fa-xs"></i>
+                  </a>
+                  <form
+                    action="{% url 'comments:exam_delete' exam_id comment.pk %}"
+                    id="delete-{{ forloop.counter }}"
+                    method="post"
+                    style="display:none"
+                  >
+                    {% csrf_token %}
+                  </form>
+                {% endif %}
+                {% if not comment.is_resolved %}
+                  <a
+                    href="#"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Mark as resolved"
+                    class="btn btn-ghost-success"
+                    onclick="document.getElementById('resolve-{{ forloop.counter }}').submit()"
+                  >
+                    <i class="fas fa-check fa-xs"></i>
+                  </a>
+                  <form
+                    action="{% url 'comments:exam_resolve' exam_id comment.pk %}"
+                    id="resolve-{{ forloop.counter }}"
+                    method="post"
+                    style="display:none"
+                  >
+                    {% csrf_token %}
+                    {{ form }}
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            {{ comment.comment }}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+    <div class="card">
+      <div class="card-body">
+        <div class="clearfix text-center">
+          <h4 class="pt-3">No comment found</h4>
+          <p class="text-muted">
+            You can create one
+            <a href="{% url 'comments:exam_create' exam_id %}" class="btn-primary">
+              here
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

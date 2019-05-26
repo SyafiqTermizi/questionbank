@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12">
+      <a href="{% url 'comments:exam_list' exam_id %}" class="btn btn-outline-primary">
+        <i class="fas fa-angle-left fa-xs"></i>
+        Back
+      </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="nav-icon fas fa-comment"></i>
+        {% if object %}
+          Update Comment
+        {% else %}
+          Add Comment
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" value="submit" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
