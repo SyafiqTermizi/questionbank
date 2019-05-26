@@ -20,6 +20,11 @@ def test_question_success_url_mixin():
 
 
 def test_exam_success_url_mixin():
+    """
+    ExamSuccessUrlMixin.get_success_url() should return url to
+    exam list with unresolved query param.
+    /comments/exams/1/?is_resolved=false
+    """
     mixin = ExamSuccessUrlMixin()
     mixin.kwargs = {'exam_id': 1}
     url = mixin.get_success_url()
