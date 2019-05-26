@@ -26,7 +26,7 @@ urlpatterns = [
         name='exam_delete'
     ),
     path(
-        'exams/<int:exam_id>/resolve>/<int:pk>/',
+        'exams/<int:exam_id>/resolve/<int:pk>/',
         ExamCommentResolveView.as_view(),
         name='exam_resolve'
     ),

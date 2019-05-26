@@ -1,6 +1,41 @@
 from django.urls import reverse, resolve
 
 
+def test_exam_list():
+    assert reverse(
+        'comments:exam_list', kwargs={'exam_id': 1}
+    ) == '/comments/exams/1/'
+    assert resolve('/comments/exams/1/').view_name == 'comments:exam_list'
+
+
+def test_exam_create():
+    assert reverse(
+        'comments:exam_create', kwargs={'exam_id': 1}
+    ) == '/comments/exams/1/create/'
+    assert resolve('/comments/exams/1/create/').view_name == 'comments:exam_create'
+
+
+def test_exam_update():
+    assert reverse(
+        'comments:exam_update', kwargs={'exam_id': 1, 'pk':1}
+    ) == '/comments/exams/1/update/1/'
+    assert resolve('/comments/exams/1/update/1/').view_name == 'comments:exam_update'
+
+
+def test_exam_delete():
+    assert reverse(
+        'comments:exam_delete', kwargs={'exam_id': 1, 'pk': 1}
+    ) == '/comments/exams/1/delete/1/'
+    assert resolve('/comments/exams/1/delete/1/').view_name == 'comments:exam_delete'
+
+
+def test_exam_resolve():
+    assert reverse(
+        'comments:exam_resolve', kwargs={'exam_id': 1, 'pk': 1}
+    ) == '/comments/exams/1/resolve/1/'
+    assert resolve('/comments/exams/1/resolve/1/').view_name == 'comments:exam_resolve'
+
+
 def test_question_list():
     assert reverse(
         'comments:question_list', kwargs={'question_id': 1}
