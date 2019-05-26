@@ -23,4 +23,4 @@ class QuestionSuccessUrlMixin(QuestionContextDataMixin):
         return reverse(
             'comments:question_list',
             kwargs={'question_id': self.kwargs['question_id']}
-        )
+        ) + '?is_resolved=false'

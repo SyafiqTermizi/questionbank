@@ -64,7 +64,7 @@ class QuestionCommentListView(PermissionRequiredMixin, QuestionContextDataMixin,
     def get_queryset(self):
         return QuestionComment.objects.filter(
             question=self.kwargs['question_id']
-        )
+        ).prefetch_related('created_by')
 
 
 class QuestionCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
