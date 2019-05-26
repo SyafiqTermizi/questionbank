@@ -5,6 +5,7 @@ from questionbank.invites.tests.factories import InviteFactory
 from questionbank.subjects.tests.factories import SubjectFactory
 from questionbank.questions.tests.factories import QuestionFactory, ChoiceFactory
 from questionbank.exams.tests.factories import ExamFactory
+from questionbank.comments.tests.factories import QuestionCommentFactory, ExamCommentFactory
 
 
 @pytest.fixture
@@ -40,3 +41,13 @@ def choice():
 @pytest.fixture
 def exam():
     return ExamFactory()
+
+
+@pytest.fixture
+def question_comment():
+    return QuestionCommentFactory()
+
+
+@pytest.fixture
+def exam_comment():
+    return ExamCommentFactory()
