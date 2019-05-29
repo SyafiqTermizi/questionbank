@@ -1,0 +1,452 @@
+[
+  {
+    "model": "questions.choice",
+    "pk": 1,
+    "fields": {
+      "choice": "<p>X = 0</p>\r\n\r\n<p>X = -2</p>",
+      "is_correct": true,
+      "question": 1
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 2,
+    "fields": {
+      "choice": "<p>X = 2</p>\r\n\r\n<p>X = -2</p>",
+      "is_correct": false,
+      "question": 1
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 3,
+    "fields": {
+      "choice": "<p>X = 0</p>\r\n\r\n<p>&nbsp;</p>",
+      "is_correct": false,
+      "question": 1
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 4,
+    "fields": {
+      "choice": "<p>X = 4</p>\r\n\r\n<p>X = -4</p>",
+      "is_correct": false,
+      "question": 1
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 5,
+    "fields": {
+      "choice": "<p>should the choices have image ? <strong>prolly should</strong></p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-16-at-221852.png\" style=\"height:111px; width:265px\" /></p>\r\n\r\n<p>Choice 1</p>",
+      "is_correct": false,
+      "question": 2
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 6,
+    "fields": {
+      "choice": "<p>should the choices have image ? <strong>prolly should</strong></p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-16-at-221852.png\" style=\"height:111px; width:265px\" /></p>\r\n\r\n<p>Choice 2</p>",
+      "is_correct": true,
+      "question": 2
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 7,
+    "fields": {
+      "choice": "<p>should the choices have image ? <strong>prolly should</strong></p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-16-at-221852.png\" style=\"height:111px; width:265px\" /></p>\r\n\r\n<p>Choice 3</p>",
+      "is_correct": false,
+      "question": 2
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 8,
+    "fields": {
+      "choice": "<p>should the choices have image ? <strong>prolly should</strong></p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-16-at-221852.png\" style=\"height:111px; width:265px\" /></p>\r\n\r\n<p>Choice 4</p>",
+      "is_correct": false,
+      "question": 2
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 9,
+    "fields": {
+      "choice": "<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs</p>",
+      "is_correct": true,
+      "question": 3
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 10,
+    "fields": {
+      "choice": "<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs</p>",
+      "is_correct": false,
+      "question": 3
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 11,
+    "fields": {
+      "choice": "<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs</p>",
+      "is_correct": false,
+      "question": 3
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 12,
+    "fields": {
+      "choice": "<p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs</p>",
+      "is_correct": false,
+      "question": 3
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 13,
+    "fields": {
+      "choice": "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Boat</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Gently</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Your</td>\r\n\t\t\t<td>Down the stream</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<p>Choice 1</p>",
+      "is_correct": false,
+      "question": 4
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 14,
+    "fields": {
+      "choice": "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Boat</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Gently</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Your</td>\r\n\t\t\t<td>Down the stream</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<p>Choice 2</p>",
+      "is_correct": false,
+      "question": 4
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 15,
+    "fields": {
+      "choice": "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Boat</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Gently</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Your</td>\r\n\t\t\t<td>Down the stream</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<p>Choice 3</p>",
+      "is_correct": true,
+      "question": 4
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 16,
+    "fields": {
+      "choice": "<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Boat</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Row</td>\r\n\t\t\t<td>Gently</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>Your</td>\r\n\t\t\t<td>Down the stream</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<p>Choice 4</p>",
+      "is_correct": false,
+      "question": 4
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 17,
+    "fields": {
+      "choice": "<p>Multi image choice 1</p>",
+      "is_correct": false,
+      "question": 5
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 18,
+    "fields": {
+      "choice": "<p>Multi image choice 2</p>",
+      "is_correct": false,
+      "question": 5
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 19,
+    "fields": {
+      "choice": "<p>Multi image choice 3</p>",
+      "is_correct": false,
+      "question": 5
+    }
+  },
+  {
+    "model": "questions.choice",
+    "pk": 20,
+    "fields": {
+      "choice": "<p>Multi image choice 4</p>",
+      "is_correct": true,
+      "question": 5
+    }
+  },
+  {
+    "model": "subjects.subject",
+    "pk": 1,
+    "fields": {
+      "code": "MTH3001",
+      "name": "MATH",
+      "description": "",
+      "created_at": "2019-05-23T08:21:49.689Z",
+      "updated_at": "2019-05-24T18:50:29.936Z"
+    }
+  },
+  {
+    "model": "subjects.subject",
+    "pk": 2,
+    "fields": {
+      "code": "SKM3100",
+      "name": "MULTIMEDIA",
+      "description": "",
+      "created_at": "2019-05-23T08:21:59.566Z",
+      "updated_at": "2019-05-23T08:21:59.566Z"
+    }
+  },
+  {
+    "model": "taggit.tag",
+    "pk": 1,
+    "fields": {
+      "name": "math",
+      "slug": "math"
+    }
+  },
+  {
+    "model": "taggit.tag",
+    "pk": 2,
+    "fields": {
+      "name": "Genetic",
+      "slug": "genetic"
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 1,
+    "fields": {
+      "tag": 1,
+      "content_type": 4,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 2,
+    "fields": {
+      "tag": 1,
+      "content_type": 4,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 3,
+    "fields": {
+      "tag": 2,
+      "content_type": 4,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 4,
+    "fields": {
+      "tag": 1,
+      "content_type": 4,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 5,
+    "fields": {
+      "tag": 2,
+      "content_type": 4,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 6,
+    "fields": {
+      "tag": 1,
+      "content_type": 4,
+      "object_id": 4
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 7,
+    "fields": {
+      "tag": 2,
+      "content_type": 4,
+      "object_id": 4
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 8,
+    "fields": {
+      "tag": 1,
+      "content_type": 4,
+      "object_id": 5
+    }
+  },
+  {
+    "model": "taggit.taggeditem",
+    "pk": 9,
+    "fields": {
+      "tag": 2,
+      "content_type": 4,
+      "object_id": 5
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$RVJoV01Ya1JKcDhn$7dqYX/XcCgfN5TfU6mHYPg",
+      "last_login": "2019-05-26T15:58:51.402Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-05-23T08:20:08Z",
+      "name": "",
+      "email": "admin@example.com",
+      "specialty": 4,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "invites.invite",
+    "pk": 1,
+    "fields": {
+      "username": "syafiq",
+      "email": "syafiq@example.com",
+      "token": "a88X26k2MuT1KNrA3SJ7zGB2XK01kE",
+      "role": "Coordinator",
+      "specialty": 9,
+      "created_at": "2019-05-24T20:11:57.184Z",
+      "created_by": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 1,
+    "fields": {
+      "question": "<p>Simplify the following equation:</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p style=\"text-align:center\"><strong>X<sup>2</sup> + 2X + 4 = 4</strong></p>",
+      "subject": 1,
+      "created_by": 1,
+      "created_at": "2019-05-23T08:29:13.900Z",
+      "updated_at": "2019-05-23T08:29:13.900Z"
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 2,
+    "fields": {
+      "question": "<p>This question got picture and texts</p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-16-at-221852.png\" style=\"height:161px; width:382px\" /></p>\r\n\r\n<p style=\"text-align:center\"><strong>Figure 1:</strong> an image</p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<p>As you can see, there is an image above</p>",
+      "subject": 1,
+      "created_by": 1,
+      "created_at": "2019-05-23T08:35:09.633Z",
+      "updated_at": "2019-05-23T08:35:09.634Z"
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 3,
+    "fields": {
+      "question": "<p><strong>A long question</strong>. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. <u>I am alone</u>, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, <em>I throw myself down among</em> the tall grass by the trickling stream; and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel the presence of the Almighty, <s><u><em><strong>who formed us in his own image,</strong></em></u></s> and the breath</p>",
+      "subject": 1,
+      "created_by": 1,
+      "created_at": "2019-05-23T08:37:51.589Z",
+      "updated_at": "2019-05-23T08:37:51.589Z"
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 4,
+    "fields": {
+      "question": "<p>The following question will have table in it</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n\t<caption>Table 1</caption>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center\"><strong>Header</strong></td>\r\n\t\t\t<td style=\"text-align:center\"><strong>Header 2</strong></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center\">Row 1</td>\r\n\t\t\t<td style=\"text-align:center\">Row 2</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-14-at-140101.png\" style=\"height:71px; width:232px\" /></td>\r\n\t\t\t<td style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-04-17-at-114409.png\" style=\"height:103px; width:168px\" /></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>",
+      "subject": 1,
+      "created_by": 1,
+      "created_at": "2019-05-23T08:44:23.864Z",
+      "updated_at": "2019-05-23T08:44:23.864Z"
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 5,
+    "fields": {
+      "question": "<p>Multi image quesiton</p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-14-at-140101.png\" style=\"height:92px; width:301px\" /> <img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-04-17-at-114409.png\" style=\"height:113px; width:183px\" /></p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" src=\"/media/uploads/2019/05/23/screenshot-2019-05-16-at-221852.png\" style=\"height:196px; width:466px\" /></p>\r\n\r\n<p style=\"text-align:center\"><strong>Figure</strong> x</p>\r\n\r\n<p style=\"text-align:center\">&nbsp;</p>",
+      "subject": 1,
+      "created_by": 1,
+      "created_at": "2019-05-23T08:47:33.326Z",
+      "updated_at": "2019-05-23T08:47:33.326Z"
+    }
+  },
+  {
+    "model": "exams.exam",
+    "pk": 1,
+    "fields": {
+      "name": "MATH EXAM",
+      "session": "2018/2019",
+      "is_published": false,
+      "subject": 1,
+      "created_by": 1,
+      "questions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "exams.exam",
+    "pk": 2,
+    "fields": {
+      "name": "Test",
+      "session": "1",
+      "is_published": false,
+      "subject": 2,
+      "created_by": 1,
+      "questions": []
+    }
+  },
+  {
+    "model": "comments.questioncomment",
+    "pk": 6,
+    "fields": {
+      "comment": "Hi this is a comment",
+      "created_at": "2019-05-26T00:51:24.408Z",
+      "created_by": 1,
+      "is_resolved": true,
+      "question": 1
+    }
+  },
+  {
+    "model": "comments.questioncomment",
+    "pk": 7,
+    "fields": {
+      "comment": "soalan x best",
+      "created_at": "2019-05-26T01:06:03.660Z",
+      "created_by": 1,
+      "is_resolved": true,
+      "question": 1
+    }
+  },
+  {
+    "model": "comments.questioncomment",
+    "pk": 8,
+    "fields": {
+      "comment": "new comment",
+      "created_at": "2019-05-26T01:44:33.951Z",
+      "created_by": 1,
+      "is_resolved": false,
+      "question": 1
+    }
+  }
+]
