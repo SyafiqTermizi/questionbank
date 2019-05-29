@@ -7,12 +7,12 @@ from questionbank.invites.forms import InviteForm
 pytestmark = pytest.mark.django_db
 
 
-def test_invite_form_invalid(user):
+def test_invite_form_invalid(user, group):
     # Initializing form with user that already exist
     form = InviteForm(data={
         'username': user.username,
         'email': user.email,
-        'role': ADMIN
+        'role': [group]
     })
 
     # form should not be valid because the user already exist
@@ -23,12 +23,12 @@ def test_invite_form_invalid(user):
     assert form.errors['email'] == ['Email already exist']
 
 
-def test_invite_form_valid(user, specialty):
+def test_invite_form_valid(user, specialty, group):
     # Initializing form with user that don't exist
     form = InviteForm(data={
         'username': 'test',
         'email': 'test@test.com',
-        'role': ADMIN,
+        'role': [group],
         'specialty': specialty.id
     })
 

@@ -14,6 +14,7 @@ class InviteListView(PermissionRequiredMixin, ListView):
     permission_required = 'admin'
     model = Invite
     paginate_by = 20
+    queryset = Invite.objects.prefetch_related('created_by')
 
 
 class InviteCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from factory import DjangoModelFactory, Faker, post_generation
 
 from questionbank.users.models import Specialty
@@ -31,3 +32,10 @@ class SpecialtyFactory(DjangoModelFactory):
 
     class Meta:
         model = Specialty
+
+
+class GroupFactory(DjangoModelFactory):
+    name = Faker('name')
+
+    class Meta:
+        model = Group

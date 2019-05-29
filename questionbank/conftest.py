@@ -1,6 +1,6 @@
 import pytest
 
-from questionbank.users.tests.factories import UserFactory, SpecialtyFactory
+from questionbank.users.tests.factories import UserFactory, SpecialtyFactory, GroupFactory
 from questionbank.invites.tests.factories import InviteFactory
 from questionbank.subjects.tests.factories import SubjectFactory
 from questionbank.questions.tests.factories import QuestionFactory, ChoiceFactory
@@ -16,6 +16,11 @@ def user():
 @pytest.fixture
 def specialty():
     return SpecialtyFactory()
+
+
+@pytest.fixture
+def group():
+    return GroupFactory()
 
 
 @pytest.fixture

@@ -13,7 +13,6 @@ def test_invite_model_save(user, specialty):
     invite = Invite.objects.create(
         username='test',
         email='test',
-        role=ADMIN,
         created_by=user,
         specialty=specialty
     )

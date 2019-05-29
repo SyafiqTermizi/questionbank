@@ -11,6 +11,9 @@ class InviteForm(forms.ModelForm):
     class Meta:
         fields = ('username', 'email', 'specialty', 'role')
         model = Invite
+        widgets = {
+            'role': forms.CheckboxSelectMultiple()
+        }
 
     def clean_username(self):
         data = self.cleaned_data['username']
