@@ -78,7 +78,11 @@ class AcceptInvitationView(FormView):
 
     def form_valid(self, form):
         user = form.save()
-        group = Group.objects.get(name=self.invite_instance['role'])
-        user.groups.add(group)
+        groups = list(
+            Group.objects.filter(
+                name__in=[group.name for group in self.invite_instance['roles']]
+            )
+        )
+        user.groups.add(*groups)
         Invite.objects.get(token=self.token).delete()
         return super().form_valid(form)
