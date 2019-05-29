@@ -12,7 +12,7 @@ def test_invite_form_invalid(user, group):
     form = InviteForm(data={
         'username': user.username,
         'email': user.email,
-        'role': [group]
+        'roles': [group]
     })
 
     # form should not be valid because the user already exist
@@ -28,7 +28,7 @@ def test_invite_form_valid(user, specialty, group):
     form = InviteForm(data={
         'username': 'test',
         'email': 'test@test.com',
-        'role': [group],
+        'roles': [group],
         'specialty': specialty.id
     })
 

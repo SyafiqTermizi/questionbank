@@ -14,7 +14,7 @@ class InviteFactory(DjangoModelFactory):
         model = Invite
 
     @post_generation
-    def role(self, create, extracted, **kwargs):
+    def roles(self, create, extracted, **kwargs):
         if not create:
             # Simple build, do nothing.
             return
@@ -22,5 +22,5 @@ class InviteFactory(DjangoModelFactory):
         if extracted:
             # A list of groups were passed in, use them
             for role in extracted:
-                self.role.add(role)
+                self.roles.add(role)
 

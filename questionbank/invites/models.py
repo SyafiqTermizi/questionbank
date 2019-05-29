@@ -13,7 +13,7 @@ class Invite(models.Model):
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True)
     token = models.CharField(max_length=30, blank=True, unique=True)
-    role = models.ManyToManyField(Group, related_name='invites')
+    roles = models.ManyToManyField(Group, related_name='invites')
     specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
