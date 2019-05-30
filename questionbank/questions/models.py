@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.shortcuts import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from taggit.managers import TaggableManager
 from django.utils.html import mark_safe
+
 from questionbank.subjects.models import Subject
 
 User = get_user_model()
@@ -23,6 +25,9 @@ class Question(models.Model):
     def __str__(self):
         return mark_safe(self.question)
 
+    def get_absolute_url(self):
+        return reverse('questions:detail', kwargs={'pk': self.pk})
+
 
 class Choice(models.Model):
     choice = RichTextUploadingField()
@@ -33,3 +38,9 @@ class Choice(models.Model):
 
     def __str__(self):
         return mark_safe(self.choice)
+
+    def get_absolute_url(self):
+        return reverse(
+            'questions:choice_update',
+            kwargs={'pk': self.pk, 'question': self.question.pk}
+        )
