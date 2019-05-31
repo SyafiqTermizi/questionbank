@@ -10,20 +10,19 @@
     </a>
   </div>
   <div class="col-6 text-right">
-      {% if object %}
-        <a href="{% url 'comments:exam_list' exam.pk %}?is_resolved=false" class="btn btn-warning">
-          Comments
-        </a>
-        <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-outline-primary">
-          Update Question
-        </a>
+    {% if object %}
+      <a href="{% url 'comments:exam_list' exam.pk %}?is_resolved=false" class="btn btn-warning">
+        Comments
+      </a>
+      <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-outline-primary">
+        Update Question
+      </a>
+      {% if exam.questions.count %}
         <a href="{% url 'exams:print' object.pk %}" class="btn btn-outline-primary">
           Print
         </a>
       {% endif %}
-  </div>
-  <div class="col-6">
-
+    {% endif %}
   </div>
 </div>
 

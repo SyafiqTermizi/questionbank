@@ -63,3 +63,20 @@ def test_exam_print_view(rf, user, exam):
     initial = view.get_initial()
 
     assert 'exam' in initial
+
+
+def test_exam_print_view_get_success_url(rf, user, exam):
+    """
+    ExamPrintView().get_success_url()
+    """
+    request = rf.get('/test/')
+    request.user = user
+
+    view = ExamPrintView()
+    view.request = request
+    view.kwargs = {'pk': exam.pk}
+    view.object = exam
+
+    url = view.get_success_url()
+
+    assert url == exam.get_absolute_url()

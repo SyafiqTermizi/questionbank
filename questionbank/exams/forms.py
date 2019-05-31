@@ -24,5 +24,14 @@ class ExamForm(forms.ModelForm):
         }
 
 
-class ExamPrintForm(forms.Form):
-    exam = forms.CharField(widget=CKEditorWidget())
+class ExamPrintForm(forms.ModelForm):
+
+    class Meta:
+        model = Exam
+        fields = ['exam', 'is_published']
+        widgets = {
+            'exam': forms.CharField(widget=CKEditorWidget())
+        }
+        labels = {
+            'is_published': 'Ready to publish'
+        }

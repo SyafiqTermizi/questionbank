@@ -69,9 +69,10 @@ class ExamDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('exams:list')
 
 
-class ExamPrintView(PermissionRequiredMixin, FormView):
+class ExamPrintView(PermissionRequiredMixin, UpdateView):
     permission_required = 'exams.add_exam'
     template_name = 'exams/create_exam.html'
+    model = Exam
     form_class = ExamPrintForm
 
     def get_initial(self):
@@ -87,3 +88,6 @@ class ExamPrintView(PermissionRequiredMixin, FormView):
         initial = super().get_initial()
         initial['exam'] = mark_safe(paper)
         return initial
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
