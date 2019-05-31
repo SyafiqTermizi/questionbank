@@ -11,9 +11,21 @@
   </div>
   <div class="col-6 text-right">
     {% if object %}
-      <a href="{% url 'comments:exam_list' exam.pk %}?is_resolved=false" class="btn btn-warning">
-        Comments
-      </a>
+      <div class="btn-group">
+        <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
+          Comments
+        </button>
+        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
+          <a class="dropdown-item" href="{% url 'comments:exam_list' exam.pk %}?is_resolved=false">
+              Unresolved comments
+              <span class="badge badge-light badge-pill" style="position: static;">
+                {{ unresolved_comment }}
+              </span>
+          </a>
+          <a class="dropdown-item" href="{% url 'comments:exam_list' exam.pk %}?is_resolved=unknown">All Comment</a>
+          <a class="dropdown-item" href="{% url 'comments:exam_create' exam.pk %}">Create Comment</a>
+        </div>
+      </div>
       <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-outline-primary">
         Update Question
       </a>

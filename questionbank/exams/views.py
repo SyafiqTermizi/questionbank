@@ -46,6 +46,11 @@ class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     fields = ('name', 'session', 'subject')
     success_message = '%(name)s Updated'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['unresolved_comment'] = self.object.comments.filter(is_resolved=False).count()
+        return context
+
     def get_queryset(self):
         return Exam.objects.all().prefetch_related('questions', 'questions__choices')
 

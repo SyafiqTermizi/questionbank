@@ -1,6 +1,8 @@
 import pytest
 
-from questionbank.questions.views import QuestionCreateView, QuestionListView
+from questionbank.questions.views import (
+    QuestionCreateView, QuestionListView, QuestionDetailView
+)
 
 pytestmark = pytest.mark.django_db
 
@@ -29,3 +31,19 @@ def test_question_create_view_get_context_data(rf, user):
 
     context = view.get_context_data()
     assert context['choices']
+
+
+def test_question_detail_view_get_context_data(rf, user, question_comment):
+    """
+    QuestionDetailView.get_context_data() should return number of unresolve comment
+    for the question and add it to the context
+    """
+    request = rf.get('/test/')
+    request.user = user
+
+    view = QuestionDetailView()
+    view.object = question_comment.question
+
+    context = view.get_context_data()
+
+    assert context['unresolved_comment']

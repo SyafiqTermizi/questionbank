@@ -1,8 +1,26 @@
 import pytest
 
-from questionbank.exams.views import ExamCreateView, ExamQuestionView, ExamPrintView
+from questionbank.exams.views import (
+    ExamCreateView, ExamQuestionView, ExamPrintView, ExamUpdateView
+)
 
 pytestmark = pytest.mark.django_db
+
+
+def test_exam_create_view_get_context_data(rf, user, exam_comment):
+    """
+    ExamUpdateView.get_context_data() should get number of unresolved comment, and
+    add it to context
+    """
+    request = rf.get('/test/')
+    request.user = user
+
+    view = ExamUpdateView()
+    view.request = request
+    view.object = exam_comment.exam
+
+    context = view.get_context_data()
+    assert context['unresolved_comment']
 
 
 def test_exam_create_view_get_success_url(rf, user, exam):
