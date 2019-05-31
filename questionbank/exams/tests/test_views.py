@@ -59,6 +59,7 @@ def test_exam_print_view(rf, user, exam):
     view = ExamPrintView()
     view.request = request
     view.kwargs = {'pk': exam.pk}
+    view.object = exam
 
     initial = view.get_initial()
 

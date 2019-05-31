@@ -74,14 +74,11 @@ class ExamPrintView(PermissionRequiredMixin, UpdateView):
     template_name = 'exams/create_exam.html'
     model = Exam
     form_class = ExamPrintForm
+    queryset = Exam.objects.prefetch_related('questions', 'questions__choices')
 
     def get_initial(self):
-        exam = get_object_or_404(
-            Exam.objects.prefetch_related('questions', 'questions__choices'),
-            pk=self.kwargs['pk']
-        )
         paper = ''
-        for question in exam.questions.all():
+        for question in self.object.questions.all():
             paper += question.question
             for choice in question.choices.all():
                 paper += choice.choice
