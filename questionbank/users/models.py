@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from .constants import ADMIN, COORDINATOR, LECTURER
 
 class Specialty(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -20,3 +21,18 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    @property
+    def role(self):
+        """
+        Return user groups. If the user have to group, it returns,
+        the one with highest priority
+        """
+        roles = list(self.groups.values_list('name', flat=True))
+        if ADMIN in roles or self.is_superuser:
+            return ADMIN
+        elif COORDINATOR in roles:
+            return COORDINATOR
+        elif LECTURER:
+            return LECTURER
+        raise NotImplementedError
