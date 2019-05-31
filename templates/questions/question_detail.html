@@ -14,7 +14,12 @@
         Comments
       </button>
       <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
-        <a class="dropdown-item" href="{% url 'comments:question_list' question.pk %}?is_resolved=false">Unresolved comments</a>
+        <a class="dropdown-item" href="{% url 'comments:question_list' question.pk %}?is_resolved=false">
+            Unresolved comments
+            <span class="badge badge-light badge-pill" style="position: static;">
+              {{ unresolved_comment }}
+            </span>
+        </a>
         <a class="dropdown-item" href="{% url 'comments:question_list' question.pk %}?is_resolved=unknown">All Comment</a>
         <a class="dropdown-item" href="{% url 'comments:question_create' question.pk %}">Create Comment</a>
       </div>

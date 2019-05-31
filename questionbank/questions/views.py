@@ -64,6 +64,11 @@ class QuestionDetailView(PermissionRequiredMixin, LimitedQuestionMixin, DetailVi
     permission_required = 'questions.view_question'
     model = Question
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['unresolved_comment'] = self.object.comments.filter(is_resolved=False).count()
+        return context
+
 
 class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
                          LimitedQuestionMixin, UpdateView):
