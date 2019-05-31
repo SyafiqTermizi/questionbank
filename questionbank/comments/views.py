@@ -24,7 +24,7 @@ class ExamCommentListView(PermissionRequiredMixin, ExamContextDataMixin, FilterV
     def get_queryset(self):
         return ExamComment.objects.filter(
             exam_id=self.kwargs['exam_id']
-        ).prefetch_related('created_by')
+        ).order_by('-created_at').prefetch_related('created_by')
 
 
 class ExamCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
@@ -82,7 +82,7 @@ class QuestionCommentListView(PermissionRequiredMixin, QuestionContextDataMixin,
     def get_queryset(self):
         return QuestionComment.objects.filter(
             question=self.kwargs['question_id']
-        ).prefetch_related('created_by')
+        ).order_by('-created_at').prefetch_related('created_by')
 
 
 class QuestionCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
