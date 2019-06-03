@@ -1,7 +1,5 @@
 import pytest
 
-from questionbank.users.constants import ADMIN
-
 pytestmark = pytest.mark.django_db
 
 

@@ -17,7 +17,7 @@ def test_exam_create():
 
 def test_exam_update():
     assert reverse(
-        'comments:exam_update', kwargs={'exam_id': 1, 'pk':1}
+        'comments:exam_update', kwargs={'exam_id': 1, 'pk': 1}
     ) == '/comments/exams/1/update/1/'
     assert resolve('/comments/exams/1/update/1/').view_name == 'comments:exam_update'
 

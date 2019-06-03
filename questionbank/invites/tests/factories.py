@@ -23,4 +23,3 @@ class InviteFactory(DjangoModelFactory):
             # A list of groups were passed in, use them
             for role in extracted:
                 self.roles.add(role)
-

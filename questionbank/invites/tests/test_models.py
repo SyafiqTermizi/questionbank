@@ -1,6 +1,5 @@
 import pytest
 
-from questionbank.users.constants import ADMIN
 from questionbank.invites.models import Invite
 
 pytestmark = pytest.mark.django_db

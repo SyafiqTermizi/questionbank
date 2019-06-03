@@ -1,7 +1,5 @@
 import pytest
 
-from questionbank.users.constants import ADMIN
-
 from questionbank.invites.forms import InviteForm
 
 pytestmark = pytest.mark.django_db

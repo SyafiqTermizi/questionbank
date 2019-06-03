@@ -3,6 +3,7 @@ from django.db import models
 
 from .constants import ADMIN, COORDINATOR, LECTURER
 
+
 class Specialty(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)

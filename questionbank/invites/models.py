@@ -3,7 +3,6 @@ from django.utils.crypto import get_random_string
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 
-from questionbank.users.constants import CHOICES
 from questionbank.users.models import Specialty
 
 User = get_user_model()
