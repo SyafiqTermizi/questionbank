@@ -8,5 +8,9 @@ class Subject(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = 'course'
+        verbose_name_plural = 'courses'
+
     def __str__(self):
         return self.name
