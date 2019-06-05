@@ -9,11 +9,11 @@ from .models import Exam
 class ExamForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        self.subject = kwargs.pop('subject')
+        self.course = kwargs.pop('course')
         super().__init__(*args, **kwargs)
         self.fields['questions'].required = False
         self.fields['questions'].queryset = Question.objects.filter(
-            course=self.subject
+            course=self.course
         )
 
     class Meta:

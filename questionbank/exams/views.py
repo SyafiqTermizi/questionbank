@@ -63,7 +63,7 @@ class ExamQuestionView(PermissionRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['subject'] = self.object.course
+        kwargs['course'] = self.object.course
         return kwargs
 
 

@@ -53,7 +53,7 @@ def test_exam_create_view_get_success_url(rf, user, exam):
 
 def test_exam_question_view(rf, user, exam):
     """
-    ExamQuestionView.get_form_kwargs() should add 'subject' key to form kwargs
+    ExamQuestionView.get_form_kwargs() should add 'course' key to form kwargs
     """
     request = rf.get('/test/')
     request.user = user
@@ -64,7 +64,7 @@ def test_exam_question_view(rf, user, exam):
 
     kwargs = view.get_form_kwargs()
 
-    assert kwargs['subject']
+    assert kwargs['course']
 
 
 def test_exam_print_view(rf, user, exam):

@@ -13,5 +13,5 @@ def test_exam_form_init(subject):
         # ExamForm require subject as kwargs
         form = ExamForm()
 
-    form = ExamForm(subject=subject)
+    form = ExamForm(course=subject)
     assert not form.fields['questions'].required
