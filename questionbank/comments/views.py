@@ -1,6 +1,7 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import send_mail
 from django_filters.views import FilterView
 
 from questionbank.exams.models import Exam
@@ -38,6 +39,12 @@ class ExamCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         form.instance.created_by = self.request.user
         form.instance.exam = Exam(pk=self.kwargs['exam_id'])
         self.object = form.save()
+        send_mail(
+            subject=f'{self.request.user.username} commented on exam {self.kwargs["exam_id"]}',
+            message=f'{self.object.comment} <br /> {self.object.exam.get_absolute_url()}',
+            from_email='medicputraqbank@example.com',
+            recipient_list=[self.object.exam.created_by.email],
+        )
         return super().form_valid(form)
 
 
@@ -63,6 +70,12 @@ class ExamCommentResolveView(PermissionRequiredMixin, ExamSuccessUrlMixin,
     def form_valid(self, form):
         form.instance.is_resolved = True
         self.object = form.save()
+        send_mail(
+            subject=f'{self.request.user.username} resolved your comment on exam {self.kwargs["exam_id"]}',
+            message=f'{self.object.comment} <br /> {self.object.exam.get_absolute_url()}',
+            from_email='medicputraqbank@example.com',
+            recipient_list=[self.object.created_by.email],
+        )
         return super().form_valid(form)
 
 
@@ -96,6 +109,12 @@ class QuestionCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         form.instance.created_by = self.request.user
         form.instance.question = Question(pk=self.kwargs['question_id'])
         self.object = form.save()
+        send_mail(
+            subject=f'{self.request.user.username} commented on question {self.kwargs["exam_id"]}',
+            message=f'{self.object.comment} <br /> {self.object.question.get_absolute_url()}',
+            from_email='medicputraqbank@example.com',
+            recipient_list=[self.object.question.created_by.email],
+        )
         return super().form_valid(form)
 
 
@@ -121,6 +140,12 @@ class QuestionCommentResolveView(PermissionRequiredMixin, QuestionSuccessUrlMixi
     def form_valid(self, form):
         form.instance.is_resolved = True
         self.object = form.save()
+        send_mail(
+            subject=f'{self.request.user.username} resolved your comment on question {self.kwargs["exam_id"]}',
+            message=f'{self.object.comment} <br /> {self.object.question.get_absolute_url()}',
+            from_email='medicputraqbank@example.com',
+            recipient_list=[self.object.created_by.email],
+        )
         return super().form_valid(form)
 
 
