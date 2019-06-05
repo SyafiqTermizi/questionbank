@@ -43,12 +43,12 @@
         <b>Filter by courses</b>
       </div>
       <div class="card-body">
-        {% for subject in subjects %}
+        {% for course in courses %}
           <a
             class="badge badge-secondary"
-            href="{% url 'questions:list' %}?subject__code__iexact={{ subject.code }}"
+            href="{% url 'questions:list' %}?course__code__iexact={{ course.code }}"
           >
-            {{ subject.code }}
+            {{ course.code }}
           </a>
           <br>
         {% endfor %}
