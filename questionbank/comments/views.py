@@ -39,12 +39,15 @@ class ExamCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         form.instance.created_by = self.request.user
         form.instance.exam = Exam(pk=self.kwargs['exam_id'])
         self.object = form.save()
+
+        self.object.refresh_from_db()
         send_mail(
             subject=f'{self.request.user.username} commented on exam {self.kwargs["exam_id"]}',
             message=f'{self.object.comment} <br /> {self.object.exam.get_absolute_url()}',
             from_email='medicputraqbank@example.com',
             recipient_list=[self.object.exam.created_by.email],
         )
+
         return super().form_valid(form)
 
 
@@ -67,15 +70,22 @@ class ExamCommentResolveView(PermissionRequiredMixin, ExamSuccessUrlMixin,
     model = ExamComment
     fields = ('is_resolved',)
 
+    def get_queryset(self):
+        return QuestionComment.objects.filter(
+            exam__created_by=self.request.user
+        )
+
     def form_valid(self, form):
         form.instance.is_resolved = True
         self.object = form.save()
+
         send_mail(
             subject=f'{self.request.user.username} resolved your comment on exam {self.kwargs["exam_id"]}',
             message=f'{self.object.comment} <br /> {self.object.exam.get_absolute_url()}',
             from_email='medicputraqbank@example.com',
             recipient_list=[self.object.created_by.email],
         )
+
         return super().form_valid(form)
 
 
@@ -109,12 +119,15 @@ class QuestionCommentCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         form.instance.created_by = self.request.user
         form.instance.question = Question(pk=self.kwargs['question_id'])
         self.object = form.save()
+
+        self.object.refresh_from_db()
         send_mail(
-            subject=f'{self.request.user.username} commented on question {self.kwargs["exam_id"]}',
+            subject=f'{self.request.user.username} commented on question {self.kwargs["question_id"]}',
             message=f'{self.object.comment} <br /> {self.object.question.get_absolute_url()}',
             from_email='medicputraqbank@example.com',
             recipient_list=[self.object.question.created_by.email],
         )
+
         return super().form_valid(form)
 
 
@@ -137,15 +150,22 @@ class QuestionCommentResolveView(PermissionRequiredMixin, QuestionSuccessUrlMixi
     model = QuestionComment
     fields = ('is_resolved',)
 
+    def get_queryset(self):
+        return QuestionComment.objects.filter(
+            question__created_by=self.request.user
+        )
+
     def form_valid(self, form):
         form.instance.is_resolved = True
         self.object = form.save()
+
         send_mail(
-            subject=f'{self.request.user.username} resolved your comment on question {self.kwargs["exam_id"]}',
+            subject=f'{self.request.user.username} resolved your comment on question {self.kwargs["question_id"]}',
             message=f'{self.object.comment} <br /> {self.object.question.get_absolute_url()}',
             from_email='medicputraqbank@example.com',
             recipient_list=[self.object.created_by.email],
         )
+
         return super().form_valid(form)
 
 
