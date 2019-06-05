@@ -12,7 +12,7 @@ User = get_user_model()
 
 class Question(models.Model):
     question = RichTextUploadingField()
-    subject = models.ForeignKey(
+    course = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, null=True, related_name='subjects'
     )
     created_by = models.ForeignKey(

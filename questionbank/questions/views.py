@@ -74,7 +74,7 @@ class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
                          LimitedQuestionMixin, UpdateView):
     permission_required = 'questions.change_question'
     model = Question
-    fields = ('subject', 'question', 'tags')
+    fields = ('course', 'question', 'tags')
     success_url = reverse_lazy('questions:list')
     success_message = 'Question Updated !'
 
