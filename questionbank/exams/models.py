@@ -13,7 +13,7 @@ class Exam(models.Model):
     name = models.CharField(max_length=250)
     session = models.CharField(max_length=255)
     is_published = models.BooleanField(default=False)
-    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
     exam = RichTextUploadingField(blank=True)  # the exam question and choices
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name='exams'

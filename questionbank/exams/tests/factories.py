@@ -9,7 +9,7 @@ from questionbank.exams.models import Exam
 class ExamFactory(DjangoModelFactory):
     name = Faker('name')
     session = Faker('name')
-    subject = SubFactory(SubjectFactory)
+    course = SubFactory(SubjectFactory)
     created_by = SubFactory(UserFactory)
 
     class Meta:

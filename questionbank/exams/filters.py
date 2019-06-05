@@ -10,5 +10,5 @@ class ExamFilter(django_filters.FilterSet):
         fields = {
             'name': ['icontains'],
             'session': ['icontains'],
-            'subject__code': ['iexact'],
+            'course__code': ['iexact'],
         }

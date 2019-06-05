@@ -18,13 +18,13 @@ class ExamListView(PermissionRequiredMixin, FilterView):
     paginate_by = 20
 
     def get_queryset(self):
-        return Exam.objects.all().prefetch_related('created_by', 'subject')
+        return Exam.objects.all().prefetch_related('created_by', 'course')
 
 
 class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'exams.add_exam'
     model = Exam
-    fields = ('name', 'session', 'subject')
+    fields = ('name', 'session', 'course')
     success_message = '%(name)s Created'
 
     def form_valid(self, form):
@@ -42,7 +42,7 @@ class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'exams:change_exam'
     model = Exam
     success_url = reverse_lazy('exams:list')
-    fields = ('name', 'session', 'subject')
+    fields = ('name', 'session', 'course')
     success_message = '%(name)s Updated'
 
     def get_context_data(self, **kwargs):
@@ -63,7 +63,7 @@ class ExamQuestionView(PermissionRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['subject'] = self.object.subject
+        kwargs['subject'] = self.object.course
         return kwargs
 
 

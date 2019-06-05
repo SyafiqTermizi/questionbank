@@ -7,7 +7,7 @@ from questionbank.questions.models import Question, Choice
 
 class QuestionFactory(DjangoModelFactory):
     question = Faker('paragraph')
-    subject = SubFactory(SubjectFactory)
+    course = SubFactory(SubjectFactory)
     created_by = SubFactory(UserFactory)
 
     class Meta:

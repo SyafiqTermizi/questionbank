@@ -13,7 +13,7 @@ class ExamForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['questions'].required = False
         self.fields['questions'].queryset = Question.objects.filter(
-            subject=self.subject
+            course=self.subject
         )
 
     class Meta:
