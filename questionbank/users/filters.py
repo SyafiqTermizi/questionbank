@@ -18,3 +18,12 @@ class UserFilter(django_filters.FilterSet):
             'username': ['icontains'],
             'email': ['icontains']
         }
+
+
+class SpecialtyFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Specialty
+        fields = {
+            'name': ['icontains']
+        }

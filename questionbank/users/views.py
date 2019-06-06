@@ -12,7 +12,7 @@ from django.views.generic import (
 
 from questionbank.invites.models import Invite
 
-from .filters import UserFilter
+from .filters import UserFilter, SpecialtyFilter
 from .forms import UserCreationForm
 from .models import Specialty
 
@@ -92,11 +92,13 @@ class AcceptInvitationView(FormView):
         return super().form_valid(form)
 
 
-class SpecialtyListView(PermissionRequiredMixin, ListView):
+class SpecialtyListView(PermissionRequiredMixin, FilterView):
     permission_required = 'admin'
     model = Specialty
     paginate_by = 20
     queryset = Specialty.objects.order_by('name')
+    filterset_class = SpecialtyFilter
+    template_name_suffix = '_list'
 
 
 class SpecialtyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
