@@ -44,6 +44,15 @@
       </li>
       {% endif %}
 
+      {% if request.user.is_superuser %}
+      <li class="nav-item">
+        <a href="{% url 'users:specialty_list' %}" class="nav-link">
+          <i class="nav-icon fas fa-bolt"></i>
+          Specialties
+        </a>
+      </li>
+      {% endif %}
+
     </ul>
   </nav>
 </div>

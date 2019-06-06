@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 from .constants import ADMIN, COORDINATOR, LECTURER
 
@@ -13,6 +14,9 @@ class Specialty(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('users:specialty_update', kwargs={'pk': self.pk})
 
 
 class User(AbstractUser):

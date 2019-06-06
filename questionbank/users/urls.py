@@ -2,7 +2,8 @@ from django.urls import path
 
 from .views import (
     UserListView, UserUpdateView, UserProfileView, UserDeleteView,
-    AcceptInvitationView
+    AcceptInvitationView, SpecialtyListView, SpecialtyCreateView, SpecialtyUpdateView,
+    SpecialtyDeleteView
 )
 
 
@@ -15,5 +16,9 @@ urlpatterns = [
     path(
         'invite/<str:token>/', AcceptInvitationView.as_view(),
         name='accept_invite'
-    )
+    ),
+    path('specialties/', SpecialtyListView.as_view(), name='specialty_list'),
+    path('specialties/create/', SpecialtyCreateView.as_view(), name='specialty_create'),
+    path('specialties/<int:pk>/update/', SpecialtyUpdateView.as_view(), name='specialty_update'),
+    path('specialties/<int:pk>/delete/', SpecialtyDeleteView.as_view(), name='specialty_delete')
 ]

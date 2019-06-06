@@ -1,7 +1,7 @@
 import pytest
 from django.shortcuts import Http404
 
-from ..views import UserProfileView, AcceptInvitationView
+from questionbank.users.views import UserProfileView, AcceptInvitationView
 
 pytestmark = pytest.mark.django_db
 

@@ -1,4 +1,5 @@
 import pytest
+from django.shortcuts import reverse
 
 from questionbank.users.constants import ADMIN
 
@@ -22,3 +23,9 @@ def test_user_role(user, admin_user):
 
 def test_specialty_str(specialty):
     assert specialty.name == specialty.__str__()
+
+
+def test_specialty_get_absolute_url(specialty):
+    assert specialty.get_absolute_url() == reverse(
+        'users:specialty_update', kwargs={'pk': specialty.pk}
+    )

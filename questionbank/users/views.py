@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.views.generic import UpdateView, DeleteView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, Http404
 from django.contrib.auth import get_user_model
@@ -7,11 +6,16 @@ from django.contrib.auth.models import Group
 from django.forms.models import model_to_dict
 from django.urls import reverse_lazy
 from django_filters.views import FilterView
+from django.views.generic import (
+    UpdateView, DeleteView, FormView, CreateView, ListView
+)
 
 from questionbank.invites.models import Invite
 
 from .filters import UserFilter
 from .forms import UserCreationForm
+from .models import Specialty
+
 
 User = get_user_model()
 
@@ -86,3 +90,32 @@ class AcceptInvitationView(FormView):
         user.groups.add(*groups)
         Invite.objects.get(token=self.token).delete()
         return super().form_valid(form)
+
+
+class SpecialtyListView(PermissionRequiredMixin, ListView):
+    permission_required = 'admin'
+    model = Specialty
+    paginate_by = 20
+    queryset = Specialty.objects.order_by('name')
+
+
+class SpecialtyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'admin'
+    model = Specialty
+    fields = ('name', 'description')
+    success_url = reverse_lazy('users:specialty_list')
+    success_message = 'Specialty %(name)s created'
+
+
+class SpecialtyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'admin'
+    model = Specialty
+    fields = ('name', 'description')
+    success_url = reverse_lazy('users:specialty_list')
+    success_message = 'Specialty %(name)s updated'
+
+
+class SpecialtyDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'admin'
+    model = Specialty
+    success_url = reverse_lazy('users:specialty_list')
