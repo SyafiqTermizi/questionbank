@@ -34,6 +34,6 @@ class User(AbstractUser):
             return ADMIN
         elif COORDINATOR in roles:
             return COORDINATOR
-        elif LECTURER:
+        elif LECTURER in roles:
             return LECTURER
         raise NotImplementedError
