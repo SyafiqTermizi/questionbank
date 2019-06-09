@@ -7,10 +7,10 @@ class LimitedQuestionMixin:
     """
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return self.model.objects.all().prefetch_related('created_by', 'tags')
-        return self.model.objects.filter(created_by=self.request.user).prefetch_related(
-            'created_by', 'tags'
-        )
+            return self.model.objects.order_by('-created_at').prefetch_related('created_by', 'tags')
+        return self.model.objects\
+            .filter(created_by=self.request.user)\
+            .order_by('-created_at').prefetch_related('created_by', 'tags')
 
 
 class ChoiceFormMixin:

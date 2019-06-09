@@ -24,6 +24,16 @@
         <a class="dropdown-item" href="{% url 'comments:question_create' question.pk %}">Create Comment</a>
       </div>
     </div>
+    <a
+      href="#"
+      onclick="document.getElementById('delete-{{ question.pk }}').submit()"
+      class="btn btn-danger"
+    >
+        Delete
+    </a>
+    <a href="{% url 'questions:create' %}?question={{ question.pk }}" class="btn btn-outline-primary">
+      Copy to new question
+    </a>
     <a href="{% url 'questions:update' question.pk %}" class="btn btn-outline-primary">
       Update Question
     </a>
@@ -93,4 +103,13 @@
   </div>
 </div>
 {% endfor %}
+
+<form
+  action="{% url 'questions:delete' question.pk %}"
+  id="delete-{{ question.pk }}"
+  method="post"
+  style="display:none"
+>
+  {% csrf_token %}
+</form>
 {% endblock content %}

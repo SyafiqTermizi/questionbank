@@ -1,3 +1,4 @@
+from django.http import Http404
 import pytest
 
 from questionbank.questions.views import (
@@ -31,6 +32,63 @@ def test_question_create_view_get_context_data(rf, user):
 
     context = view.get_context_data()
     assert context['choices']
+
+
+def test_question_create_view_get_initial_with_query_param(rf, user, question):
+    """
+    calling QuestionCreateView() with question query param (/url/?question)
+    should return a form with initial data
+    """
+    url = '/test/?question=' + str(question.pk)
+    request = rf.get(url)
+    request.user = user
+
+    view = QuestionCreateView()
+    view.request = request
+
+    initial = view.get_initial()
+    assert initial['course'] == question.course
+    assert initial['question'] == question.question
+
+
+def test_question_create_view_get_initial_with_invalid_query_param(rf, user, question):
+    """
+    calling QuestionCreateView() with invalid query param should raises Http404
+    """
+    url = '/test/?question=loljk'
+    request = rf.get(url)
+    request.user = user
+
+    view = QuestionCreateView()
+    view.request = request
+
+    with pytest.raises(Http404):
+        view.get_initial()
+
+    url = '/test/?question=99'
+    request = rf.get(url)
+    request.user = user
+
+    view = QuestionCreateView()
+    view.request = request
+
+    with pytest.raises(Http404):
+        view.get_initial()
+
+
+def test_question_create_view_get_initial_without_query_param(rf, user, question):
+    """
+    calling QuestionCreateView() without question query param (/url/?question)
+    should return a form without initial data
+    """
+    request = rf.get('/test/')
+    request.user = user
+
+    view = QuestionCreateView()
+    view.request = request
+
+    initial = view.get_initial()
+    assert not initial
 
 
 def test_question_detail_view_get_context_data(rf, user, question_comment):

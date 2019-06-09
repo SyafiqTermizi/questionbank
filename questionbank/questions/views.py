@@ -2,8 +2,10 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import get_object_or_404
 from django_filters.views import FilterView
+
 from questionbank.subjects.models import Subject
 
 from .mixins import ChoiceFormMixin, LimitedQuestionMixin
@@ -32,10 +34,33 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     form_class = QuestionForm
     success_url = reverse_lazy('questions:list')
     success_message = 'Question Created !'
+    choice_initial = []
+
+    def get_initial(self):
+        question_id = self.request.GET.get('question', None)
+
+        if question_id:
+            # check if the query param exist && valid
+            try:
+                obj = get_object_or_404(Question, pk=question_id)
+            except ValueError:
+                raise Http404
+
+            initial = {
+                'course': obj.course,
+                'question': obj.question,
+                'tags': obj.tags.all()
+            }
+
+            self.choice_initial = list(
+                obj.choices.values('choice', 'is_correct')
+            )
+            return initial
+        return super().get_initial()
 
     def get_context_data(self):
         context = super().get_context_data()
-        context['choices'] = QuestionFormSet
+        context['choices'] = QuestionFormSet(initial=self.choice_initial)
         return context
 
     def post(self, request, *args, **kwargs):
