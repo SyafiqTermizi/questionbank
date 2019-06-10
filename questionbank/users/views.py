@@ -13,7 +13,7 @@ from django.views.generic import (
 from questionbank.invites.models import Invite
 
 from .filters import UserFilter, SpecialtyFilter
-from .forms import UserCreationForm
+from .forms import UserCreationForm, UserChangeForm
 from .models import Specialty
 
 
@@ -31,9 +31,9 @@ class UserListView(PermissionRequiredMixin, FilterView):
 class UserUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'admin'
     model = User
-    fields = ('username', 'email')
     success_url = reverse_lazy('users:list')
     success_message = '%(username)s was updated successfully'
+    form_class = UserChangeForm
 
 
 class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
