@@ -20,8 +20,11 @@ class ChoiceForm(forms.ModelForm):
     class Meta:
         model = Choice
         exclude = ('question',)
+        labels = {
+            'is_correct': 'Correct choice'
+        }
 
 
 QuestionFormSet = inlineformset_factory(
-    Question, Choice, form=ChoiceForm, extra=4
+    Question, Choice, form=ChoiceForm, extra=4, can_delete=False
 )
