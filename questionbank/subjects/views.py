@@ -6,6 +6,7 @@ from django_filters.views import FilterView
 
 from .filters import SubjectFilter
 from .models import Subject
+from .forms import SubjectForm
 
 
 class SubjectListView(PermissionRequiredMixin, FilterView):
@@ -19,7 +20,7 @@ class SubjectListView(PermissionRequiredMixin, FilterView):
 class SubjectCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'subjects.add_subject'
     model = Subject
-    fields = ('code', 'name', 'description')
+    form_class = SubjectForm
     success_message = '%(code)s is created'
     success_url = reverse_lazy('subjects:list')
 
@@ -27,7 +28,7 @@ class SubjectCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
 class SubjectUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'subjects.change_subject'
     model = Subject
-    fields = ('code', 'name', 'description')
+    form_class = SubjectForm
     success_message = '%(code)s is updated'
     success_url = reverse_lazy('subjects:list')
 

@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Subject(models.Model):
-    code = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
