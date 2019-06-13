@@ -18,7 +18,7 @@ class ExamForm(forms.ModelForm):
 
     class Meta:
         model = Exam
-        fields = ['questions']
+        fields = '__all__'  # temp fix TODO
         widgets = {
             'questions': forms.CheckboxSelectMultiple()
         }

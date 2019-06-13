@@ -6,6 +6,7 @@ from taggit.managers import TaggableManager
 from django.utils.html import mark_safe
 
 from questionbank.subjects.models import Subject
+from questionbank.exams.models import Exam
 
 User = get_user_model()
 
@@ -17,6 +18,10 @@ class Question(models.Model):
     )
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name='questions'
+    )
+    exam = models.ForeignKey(
+        to=Exam, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='questions'
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
