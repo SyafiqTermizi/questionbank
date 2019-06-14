@@ -6,9 +6,7 @@ from django.contrib.auth.models import Group
 from django.forms.models import model_to_dict
 from django.urls import reverse_lazy
 from django_filters.views import FilterView
-from django.views.generic import (
-    UpdateView, DeleteView, FormView, CreateView, ListView
-)
+from django.views.generic import UpdateView, DeleteView, FormView, CreateView
 
 from questionbank.invites.models import Invite
 

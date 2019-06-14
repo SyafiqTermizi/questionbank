@@ -12,7 +12,6 @@ class SubjectForm(forms.ModelForm):
             'name': 'Course name will be capitalized'
         }
 
-
     def clean_name(self):
         """
         capitalize subject's name

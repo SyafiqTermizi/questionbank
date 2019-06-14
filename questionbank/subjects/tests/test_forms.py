@@ -1,6 +1,5 @@
 import pytest
 
-from django.forms import ValidationError
 from django.forms.models import model_to_dict
 
 from questionbank.subjects.forms import SubjectForm
