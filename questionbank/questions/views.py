@@ -20,6 +20,7 @@ class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView
     template_name_suffix = '_list'
     paginate_by = 10
     model = Question
+    querset = Question.objects.prefetch_related('exam')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
