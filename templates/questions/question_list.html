@@ -64,7 +64,15 @@
     <div class="card mt-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"><b>{{ question.created_by }} | {{ question.created_at }}</b></div>
+          <div class="col-6">
+            <b>
+              {{ question.created_by }}
+              | {{ question.created_at }}
+              {% if question.exam.first %}
+                | {{ question.exam.first.name }}
+              {% endif %}
+            </b>
+          </div>
           <div class="col-6 text-right">
             <a href="{% url 'questions:detail' question.pk %}" class="btn btn-outline-primary">
               More
