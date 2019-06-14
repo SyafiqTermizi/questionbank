@@ -19,7 +19,7 @@ def test_question_form_exam_field(question, exam):
     QuestionForm should be able to save add exam instance on question
     """
     # question should not have any exam yet
-    assert not question.exam_set.first()
+    assert not question.exam.first()
 
     data = model_to_dict(question)
     data['exam'] = exam.pk
@@ -31,4 +31,4 @@ def test_question_form_exam_field(question, exam):
     instance = form.save()
 
     # question should have exam instance
-    assert instance.exam_set.first().pk
+    assert instance.exam.first().pk

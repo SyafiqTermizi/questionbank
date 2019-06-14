@@ -17,7 +17,7 @@ class QuestionForm(forms.ModelForm):
         self.fields['tags'].required = False
 
         if kwargs.get('instance', None):
-            self.fields['exam'].initial = kwargs['instance'].exam_set.first().pk
+            self.fields['exam'].initial = kwargs['instance'].exam.first().pk
 
     class Meta:
         model = Question
@@ -25,8 +25,8 @@ class QuestionForm(forms.ModelForm):
 
     def save(self):
         instance = super().save()
-        instance.exam_set.clear()
-        instance.exam_set.add(self.cleaned_data['exam'])
+        instance.exam.clear()
+        instance.exam.add(self.cleaned_data['exam'])
         return instance
 
 
