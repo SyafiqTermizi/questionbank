@@ -18,6 +18,7 @@ class Exam(models.Model):
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name='exams'
     )
+    created_at = models.DateTimeField(auto_now=True)
     questions = models.ManyToManyField(Question)
 
     def __str__(self):
