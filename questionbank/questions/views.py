@@ -38,6 +38,9 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     choice_initial = []
 
     def get_initial(self):
+        """
+        create question from another question
+        """
         question_id = self.request.GET.get('question', None)
 
         if question_id:
