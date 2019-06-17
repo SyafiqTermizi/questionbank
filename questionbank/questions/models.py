@@ -6,6 +6,7 @@ from taggit.managers import TaggableManager
 from django.utils.html import mark_safe
 
 from questionbank.subjects.models import Subject
+from questionbank.users.models import Specialty
 
 User = get_user_model()
 
@@ -20,6 +21,9 @@ class Question(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    specialty = models.ForeignKey(
+        to=Specialty, on_delete=models.SET_NULL, null=True, blank=True
+    )
     tags = TaggableManager()
 
     def __str__(self):

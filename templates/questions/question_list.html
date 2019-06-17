@@ -69,6 +69,7 @@
               {{ question.created_by }}
               | {{ question.created_at }}
               {% if question.exam.first %}
+                {# since question can be used in many exam #}
                 | {{ question.exam.first.name }}
               {% endif %}
             </b>
