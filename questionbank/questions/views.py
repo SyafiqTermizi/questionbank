@@ -80,9 +80,9 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         q = question.save()
 
         if self.request.user.specialty:
-            question.instance.tags.add(self.request.user.specialty.name)
-            question.instance.specialty = self.request.user.specialty
-            question.save()
+            q.tags.add(self.request.user.specialty.name)
+            q.specialty = self.request.user.specialty
+            q.save()
 
         for choice in choices:
             if choice['choice'].value():

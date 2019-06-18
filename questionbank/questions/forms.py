@@ -26,7 +26,8 @@ class QuestionForm(forms.ModelForm):
     def save(self):
         instance = super().save()
         instance.exam.clear()
-        instance.exam.add(self.cleaned_data['exam'])
+        if self.cleaned_data['exam']:
+            instance.exam.add(self.cleaned_data['exam'])
         return instance
 
 
