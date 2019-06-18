@@ -14,7 +14,7 @@ class ExamForm(forms.ModelForm):
         self.fields['questions'].required = False
         self.fields['questions'].queryset = Question.objects.filter(
             course=self.course
-        )
+        ).order_by('-created_at')
 
     class Meta:
         model = Exam

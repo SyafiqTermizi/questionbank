@@ -55,11 +55,8 @@
           {{ form|crispy }}
           <div class="row">
             <div class="col-6">
-              {% if object %}
-                <input type="submit" value="Submit" class="btn btn-primary">
-              {% else %}
-                <input type="submit" name="next" value="Add Question >" class="btn btn-primary">
-              {% endif %}
+              <input type="submit" value="Submit" class="btn btn-primary">
+              <input type="submit" name="next" value="Add Question >" class="btn btn-outline-primary">
             </div>
           </div>
         </form>
