@@ -8,7 +8,8 @@ from .models import Question, Choice
 
 class QuestionForm(forms.ModelForm):
     exam = forms.ModelChoiceField(
-        queryset=Exam.objects.order_by('-created_at'), required=False
+        queryset=Exam.objects.filter(is_published=False).order_by('-created_at'),
+        required=False
     )
     field_order = ['exam', 'course', 'question', 'tags']
 
@@ -16,7 +17,7 @@ class QuestionForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['tags'].required = False
 
-        if kwargs.get('instance', None):
+        if kwargs.get('instance', None) and kwargs['instance'].exam.first():
             self.fields['exam'].initial = kwargs['instance'].exam.first().pk
 
     class Meta:
