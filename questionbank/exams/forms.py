@@ -4,11 +4,7 @@ from ckeditor.widgets import CKEditorWidget
 from questionbank.questions.models import Question
 
 from .models import Exam
-
-
-class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    template_name = 'kambing.html'
-    option_template_name = 'lembu.html'
+from .widgets import CheckboxSelectMultiple
 
 
 class ExamForm(forms.ModelForm):

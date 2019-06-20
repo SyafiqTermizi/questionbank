@@ -1,0 +1,27 @@
+{% with id=widget.attrs.id %}
+<div
+  {% if id %} id="{{ id }}"{% endif %}
+  {% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}
+>
+
+    {% for group, options, index in widget.optgroups %}
+      {% for option in options %}
+        {% with widget=option %}
+          <input
+            type="{{ widget.type }}"
+            name="{{ widget.name }}"
+            {% if widget.value != None %}
+             value="{{ widget.value|stringformat:'s' }}"
+            {% endif %}
+            {% include "django/forms/widgets/attrs.html" %}
+          >
+
+          <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %} style="vertical-align: top;">
+              {{ widget.label }}
+          </label>
+        {% endwith %}
+      {% endfor %}
+      <hr>
+    {% endfor %}
+</div>
+{% endwith %}
