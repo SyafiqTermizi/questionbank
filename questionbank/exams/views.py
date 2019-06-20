@@ -8,6 +8,7 @@ from django_filters.views import FilterView
 from .models import Exam
 from .filters import ExamFilter
 from .forms import ExamForm, ExamPrintForm
+from .constants import ALPHABTE_MAPPING
 
 
 class ExamListView(PermissionRequiredMixin, FilterView):
@@ -81,11 +82,19 @@ class ExamPrintView(PermissionRequiredMixin, UpdateView):
     queryset = Exam.objects.prefetch_related('questions', 'questions__choices')
 
     def get_initial(self):
+        counter = 0
         paper = ''
-        for question in self.object.questions.all():
-            paper += question.question
+
+        for question in self.object.questions.order_by('specialty'):
+            counter += 1
+            paper += (str(counter) + '. ' + question.question)
+
+            inner_counter = 0
+
             for choice in question.choices.all():
-                paper += choice.choice
+                inner_counter += 1
+                paper += (ALPHABTE_MAPPING[inner_counter] + choice.choice)
+
         initial = super().get_initial()
         initial['exam'] = mark_safe(paper)
         return initial
