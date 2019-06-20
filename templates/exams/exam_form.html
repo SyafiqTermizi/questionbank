@@ -56,7 +56,9 @@
           <div class="row">
             <div class="col-6">
               <input type="submit" value="Submit" class="btn btn-primary">
-              <input type="submit" name="next" value="Add Question >" class="btn btn-outline-primary">
+              {% if not object.pk %}
+                <input type="submit" name="next" value="Add Question >" class="btn btn-outline-primary">
+              {% endif %}
             </div>
           </div>
         </form>
