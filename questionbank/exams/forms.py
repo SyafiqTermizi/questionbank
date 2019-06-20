@@ -6,6 +6,11 @@ from questionbank.questions.models import Question
 from .models import Exam
 
 
+class CheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    template_name = 'kambing.html'
+    option_template_name = 'lembu.html'
+
+
 class ExamForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -20,7 +25,7 @@ class ExamForm(forms.ModelForm):
         model = Exam
         fields = ['questions']
         widgets = {
-            'questions': forms.CheckboxSelectMultiple()
+            'questions': CheckboxSelectMultiple()
         }
 
 
