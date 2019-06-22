@@ -19,7 +19,9 @@ class ExamListView(PermissionRequiredMixin, FilterView):
     paginate_by = 20
 
     def get_queryset(self):
-        return Exam.objects.all().prefetch_related('created_by', 'course')
+        return Exam.objects\
+            .order_by('-created_at')\
+            .prefetch_related('created_by', 'course')
 
 
 class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

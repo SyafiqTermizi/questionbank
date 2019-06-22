@@ -12,6 +12,11 @@
     <div class="btn-group">
       <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
         Comments
+        {% if unresolved_comment %}
+          <span class="badge badge-light badge-pill" style="position: static;">
+            {{ unresolved_comment }}
+          </span>
+        {% endif %}
       </button>
       <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
         <a class="dropdown-item" href="{% url 'comments:question_list' question.pk %}?is_resolved=false">

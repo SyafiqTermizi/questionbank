@@ -26,6 +26,9 @@ class Question(models.Model):
     )
     tags = TaggableManager()
 
+    class Meta:
+        ordering = ['specialty']
+
     def __str__(self):
         return mark_safe(self.question)
 
@@ -39,6 +42,9 @@ class Choice(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name='choices'
     )
+
+    class Meta:
+        ordering = ['choice']
 
     def __str__(self):
         return mark_safe(self.choice)
