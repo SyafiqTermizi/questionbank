@@ -28,6 +28,11 @@ class QuestionContextDataMixin:
 class QuestionSuccessUrlMixin(QuestionContextDataMixin):
 
     def get_success_url(self):
+        # redirect to exam page if exam id exist in query string
+        exam_id = self.request.GET.get('exam', None)
+        if exam_id:
+            return reverse('exams:update', kwargs={'pk': exam_id})
+
         return reverse(
             'comments:question_list',
             kwargs={'question_id': self.kwargs['question_id']}

@@ -11,6 +11,7 @@
   </div>
   <div class="col-6 text-right">
     {% if object %}
+    <!--
       <div class="btn-group">
         <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
           Comments
@@ -26,6 +27,7 @@
           <a class="dropdown-item" href="{% url 'comments:exam_create' exam.pk %}">Create Comment</a>
         </div>
       </div>
+    -->
       <a href="{% url 'exams:add_question' exam.pk %}" class="btn btn-outline-primary">
         Update Question
       </a>
@@ -72,6 +74,14 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
+          <div class="card-header text-right">
+            <a
+              href="{% url 'comments:question_create' question.pk %}?exam={{ exam.pk }}"
+              class="btn btn-ghost-primary"
+            >
+              <i class="fas fa-comment-medical fa-xs"></i>
+            </a>
+          </div>
           <div class="card-body">
             {{ question }}
             {% for choice in question.choices.all %}
