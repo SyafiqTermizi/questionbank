@@ -4,7 +4,14 @@
 {% block content %}
 <div class="row mb-3">
   <div class="col-12">
-      <a href="#" onclick="window.history.back()" class="btn btn-outline-primary">
+      <a
+        {% if url %}
+          href="{{ url }}"
+        {% else %}
+          href="{% url 'comments:question_list' question_id %}"
+        {% endif %}
+        class="btn btn-outline-primary"
+      >
         <i class="fas fa-angle-left fa-xs"></i>
         Back
       </a>

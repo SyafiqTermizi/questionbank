@@ -76,10 +76,22 @@
         <div class="card">
           <div class="card-header text-right">
             <a
+              href="{% url 'comments:question_list' question.pk %}?is_resolved=false&exam={{ exam.pk }}"
+              class="btn btn-ghost-primary"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="View comments"
+            >
+              <i class="fas fa-comment-dots"></i>
+            </a>
+            <a
               href="{% url 'comments:question_create' question.pk %}?exam={{ exam.pk }}"
               class="btn btn-ghost-primary"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Create comment"
             >
-              <i class="fas fa-comment-medical fa-xs"></i>
+              <i class="fas fa-comment-medical"></i>
             </a>
           </div>
           <div class="card-body">
