@@ -83,6 +83,7 @@
               title="View comments"
             >
               <i class="fas fa-comment-dots"></i>
+              {{ question.unresolve_comment|default:"" }}
             </a>
             <a
               href="{% url 'comments:question_create' question.pk %}?exam={{ exam.pk }}"

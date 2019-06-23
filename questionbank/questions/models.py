@@ -35,6 +35,10 @@ class Question(models.Model):
     def get_absolute_url(self):
         return reverse('questions:detail', kwargs={'pk': self.pk})
 
+    @property
+    def unresolve_comment(self):
+        return self.comments.filter(is_resolved=False).count()
+
 
 class Choice(models.Model):
     choice = RichTextUploadingField()
