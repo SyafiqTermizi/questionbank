@@ -5,8 +5,8 @@
 <div class="row mb-3">
   <div class="col-12">
       <a
-        {% if url %}
-          href="{{ url }}"
+        {% if exam_id %}
+          href="{% url 'exams:update' exam_id %}"
         {% else %}
           href="{% url 'comments:question_list' question_id %}"
         {% endif %}

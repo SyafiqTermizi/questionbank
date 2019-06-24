@@ -5,8 +5,8 @@
 <div class="row">
   <div class="col-6">
       <a
-        {% if url %}
-          href="{{ url }}"
+        {% if exam_id %}
+          href="{% url 'exams:update' exam_id %}"
         {% else %}
           href="{% url 'questions:detail' question_id %}"
         {% endif %}
@@ -17,7 +17,14 @@
       </a>
   </div>
   <div class="col-6 text-right">
-    <a href="{% url 'comments:question_create' question_id %}" class="btn btn-outline-primary">
+    <a
+      {% if exam_id %}
+      href="{% url 'comments:question_create' question_id %}?exam={{ exam_id }}"
+      {% else %}
+        href="{% url 'comments:question_create' question_id %}"
+      {% endif %}
+      class="btn btn-outline-primary"
+    >
       <i class="fas fa-plus fa-xs"></i>
       Create Comment
     </a>
@@ -28,19 +35,31 @@
   <div class="col-lg-12">
     <div class="btn-group" role="group" aria-label="Basic example">
       <a
-        href="{% url 'comments:question_list' question_id %}?is_resolved=false"
+        {% if exam_id %}
+          href="{% url 'comments:question_list' question_id %}?is_resolved=false&exam={{ exam_id }}"
+        {% else %}
+          href="{% url 'comments:question_list' question_id %}?is_resolved=false"
+        {% endif %}
         class="btn {% if filter.data.is_resolved == 'false' %}btn-secondary{% endif %}"
       >
         Unresolved
       </a>
       <a
-        href="{% url 'comments:question_list' question_id %}?is_resolved=true"
+        {% if exam_id %}
+          href="{% url 'comments:question_list' question_id %}?is_resolved=true&exam={{ exam_id }}"
+        {% else %}
+          href="{% url 'comments:question_list' question_id %}?is_resolved=true"
+        {% endif %}
         class="btn {% if filter.data.is_resolved == 'true' %}btn-secondary{% endif %}"
       >
         Resolved
       </a>
       <a
-        href="{% url 'comments:question_list' question_id %}?is_resolved=unknown"
+        {% if exam_id %}
+          href="{% url 'comments:question_list' question_id %}?is_resolved=unknown&exam={{ exam_id }}"
+        {% else %}
+          href="{% url 'comments:question_list' question_id %}?is_resolved=unknown"
+        {% endif %}
         class="btn {% if filter.data.is_resolved == 'unknown' %}btn-secondary{% endif %}"
       >
         All

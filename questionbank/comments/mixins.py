@@ -25,7 +25,7 @@ class QuestionContextDataMixin:
 
         exam_id = self.request.GET.get('exam', None)
         if exam_id:
-            context['url'] = reverse('exams:update', kwargs={'pk': exam_id})
+            context['exam_id'] = exam_id
         return context
 
 
