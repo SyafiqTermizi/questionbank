@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 
+from questionbank.subjects.models import Subject
+
 from .constants import ADMIN, COORDINATOR, LECTURER
 
 
@@ -23,6 +25,12 @@ class User(AbstractUser):
     name = models.CharField('Full Name', max_length=255, blank=True)
     email = models.EmailField('email address', blank=False, unique=True)
     specialty = models.ForeignKey(Specialty, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(
+        Subject,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.username

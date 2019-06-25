@@ -76,6 +76,7 @@ class AcceptInvitationView(FormView):
         initial['username'] = self.invite_instance['username']
         initial['email'] = self.invite_instance['email']
         initial['specialty'] = self.invite_instance['specialty']
+        initial['course'] = self.invite_instance['course']
         return initial
 
     def form_valid(self, form):

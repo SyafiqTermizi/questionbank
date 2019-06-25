@@ -25,7 +25,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "specialty")
+        fields = ("username", "specialty", "course")
         field_classes = {'username': UsernameField}
 
     def __init__(self, *args, **kwargs):

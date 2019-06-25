@@ -6,6 +6,7 @@ module.exports = {
     context: __dirname,
     entry:{
         main:  './static/js/index',
+        invite_form: './static/js/inviteForm',
         main_css: './static/scss/index.scss'
     },
     output: {

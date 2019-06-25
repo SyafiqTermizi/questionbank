@@ -9,7 +9,7 @@ User = get_user_model()
 class InviteForm(forms.ModelForm):
 
     class Meta:
-        fields = ('username', 'email', 'specialty', 'roles')
+        fields = ('username', 'email', 'specialty', 'roles', 'course')
         model = Invite
         widgets = {
             'roles': forms.CheckboxSelectMultiple()
