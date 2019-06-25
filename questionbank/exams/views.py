@@ -20,7 +20,7 @@ class ExamListView(PermissionRequiredMixin, FilterView):
 
     def get_queryset(self):
         return Exam.objects\
-            .order_by('-created_at')\
+            .order_by('-created_at', 'course__code')\
             .prefetch_related('created_by', 'course')
 
 
