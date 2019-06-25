@@ -50,7 +50,7 @@ def test_accept_invite_view_dispatch(user, rf):
         view.dispatch(request)
 
 
-def test_accept_invite_view_get_initial(user, specialty, rf):
+def test_accept_invite_view_get_initial(user, specialty, rf, subject):
     """
     AcceptInvitationView.dispatch() should raise 404 if the user
     is authenticated
@@ -62,7 +62,8 @@ def test_accept_invite_view_get_initial(user, specialty, rf):
         invite_instance={
             'username': 'test_username',
             'email': 'test@email.com',
-            'specialty': specialty
+            'specialty': specialty,
+            'course': subject
         }
     )
 
