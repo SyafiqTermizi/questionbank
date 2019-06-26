@@ -38,7 +38,7 @@ class User(AbstractUser):
     @property
     def role(self):
         """
-        Return user groups. If the user have to group, it returns,
+        Return user groups. If the user have two group, it returns,
         the one with highest priority
         """
         roles = list(self.groups.values_list('name', flat=True))

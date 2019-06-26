@@ -7,6 +7,7 @@ module.exports = {
     entry:{
         main:  './static/js/index',
         invite_form: './static/js/inviteForm',
+        user_change_form: './static/js/userChangeForm',
         main_css: './static/scss/index.scss'
     },
     output: {
