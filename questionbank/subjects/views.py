@@ -10,7 +10,7 @@ from .forms import SubjectForm
 
 
 class SubjectListView(PermissionRequiredMixin, FilterView):
-    permission_required = 'subjects.view_subject'
+    permission_required = 'admin'
     model = Subject
     filterset_class = SubjectFilter
     template_name_suffix = '_list'
@@ -18,7 +18,7 @@ class SubjectListView(PermissionRequiredMixin, FilterView):
 
 
 class SubjectCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'subjects.add_subject'
+    permission_required = 'admin'
     model = Subject
     form_class = SubjectForm
     success_message = '%(code)s is created'
@@ -26,7 +26,7 @@ class SubjectCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
 
 
 class SubjectUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'subjects.change_subject'
+    permission_required = 'admin'
     model = Subject
     form_class = SubjectForm
     success_message = '%(code)s is updated'
@@ -34,6 +34,6 @@ class SubjectUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
 
 
 class SubjectDeleteView(PermissionRequiredMixin, DeleteView):
-    permission_required = 'subjects.delete_subject'
+    permission_required = 'admin'
     model = Subject
     success_url = reverse_lazy('subjects:list')
