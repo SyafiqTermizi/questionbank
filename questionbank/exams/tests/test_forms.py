@@ -1,6 +1,6 @@
 import pytest
 
-from questionbank.exams.forms import ExamForm
+from questionbank.exams.forms import ExamQuestionForm
 
 pytestmark = pytest.mark.django_db
 
@@ -11,7 +11,7 @@ def test_exam_form_init(subject):
     """
     with pytest.raises(KeyError):
         # ExamForm require subject as kwargs
-        form = ExamForm()
+        form = ExamQuestionForm()
 
-    form = ExamForm(course=subject)
+    form = ExamQuestionForm(course=subject)
     assert not form.fields['questions'].required

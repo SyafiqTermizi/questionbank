@@ -5,30 +5,35 @@ from django.urls import reverse_lazy, reverse
 from django.utils.html import mark_safe
 from django_filters.views import FilterView
 
+from questionbank.users.constants import COORDINATOR
+
 from .models import Exam
 from .filters import ExamFilter
-from .forms import ExamForm, ExamPrintForm
+from .forms import ExamQuestionForm, ExamPrintForm, ExamForm
 from .constants import ALPHABTE_MAPPING
+from .mixins import LimitedExamMixin
 
 
-class ExamListView(PermissionRequiredMixin, FilterView):
+class ExamListView(PermissionRequiredMixin, LimitedExamMixin, FilterView):
     permission_required = 'exams.view_exam'
     model = Exam
     filterset_class = ExamFilter
     template_name_suffix = '_list'
     paginate_by = 20
 
-    def get_queryset(self):
-        return Exam.objects\
-            .order_by('-created_at', 'course__code')\
-            .prefetch_related('created_by', 'course')
 
-
-class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, LimitedExamMixin,
+                     CreateView):
     permission_required = 'exams.add_exam'
     model = Exam
-    fields = ('name', 'session', 'course')
+    form_class = ExamForm
     success_message = '%(name)s Created'
+
+    def get_form_kwargs(self):
+        kwarg = super().get_form_kwargs()
+        if self.request.user.role == COORDINATOR:
+            kwarg['coordinator'] = self.request.user
+        return kwarg
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -41,17 +46,19 @@ class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('exams:list')
 
 
-class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, LimitedExamMixin,
+                     UpdateView):
     permission_required = 'exams:change_exam'
     model = Exam
     success_url = reverse_lazy('exams:list')
-    fields = ('name', 'session', 'course')
+    form_class = ExamForm
     success_message = '%(name)s Updated'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['unresolved_comment'] = self.object.comments.filter(is_resolved=False).count()
-        return context
+    def get_form_kwargs(self):
+        kwarg = super().get_form_kwargs()
+        if self.request.user.role == COORDINATOR:
+            kwarg['coordinator'] = self.request.user
+        return kwarg
 
     def get_queryset(self):
         return Exam.objects.all().prefetch_related(
@@ -61,11 +68,11 @@ class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
         )
 
 
-class ExamQuestionView(PermissionRequiredMixin, UpdateView):
+class ExamQuestionView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
     permission_required = 'exams:change_exam'
     model = Exam
     template_name = 'exams/exam_question_form.html'
-    form_class = ExamForm
+    form_class = ExamQuestionForm
     success_url = reverse_lazy('exams:list')
 
     def get_form_kwargs(self):
@@ -74,13 +81,13 @@ class ExamQuestionView(PermissionRequiredMixin, UpdateView):
         return kwargs
 
 
-class ExamDeleteView(PermissionRequiredMixin, DeleteView):
+class ExamDeleteView(PermissionRequiredMixin, LimitedExamMixin, DeleteView):
     permission_required = 'exams:delete_question'
     model = Exam
     success_url = reverse_lazy('exams:list')
 
 
-class ExamPrintView(PermissionRequiredMixin, UpdateView):
+class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
     permission_required = 'exams.add_exam'
     template_name = 'exams/create_exam.html'
     model = Exam
