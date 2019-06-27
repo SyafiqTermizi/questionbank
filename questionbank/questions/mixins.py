@@ -15,7 +15,7 @@ class LimitedQuestionMixin:
         elif self.request.user.role == COORDINATOR:
             return self.model.objects.filter(
                 course=self.request.user.course
-            )
+            ).prefetch_related('created_by', 'tags')
         return self.model.objects\
             .filter(created_by=self.request.user)\
             .order_by('-created_at').prefetch_related('created_by', 'tags')
