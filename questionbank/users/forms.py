@@ -30,6 +30,9 @@ class UserCreationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if not self.initial['course']:
+            del self.fields['course']
+
         if self.Meta.model.USERNAME_FIELD in self.fields:
             self.fields[self.Meta.model.USERNAME_FIELD].widget.attrs.update({'autofocus': True})
 
