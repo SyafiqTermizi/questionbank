@@ -33,6 +33,9 @@ class User(AbstractUser):
         blank=True
     )
 
+    class Meta:
+        ordering = ['username']
+
     def __str__(self):
         return self.username
 

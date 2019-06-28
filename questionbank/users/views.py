@@ -13,6 +13,7 @@ from questionbank.invites.models import Invite
 from .filters import UserFilter, SpecialtyFilter
 from .forms import UserCreationForm, UserChangeForm
 from .models import Specialty
+from .constants import ADMIN
 
 
 User = get_user_model()
@@ -88,6 +89,10 @@ class AcceptInvitationView(FormView):
         )
         user.groups.add(*groups)
         Invite.objects.get(token=self.token).delete()
+
+        if user.role == ADMIN:
+            user.is_superuser = True
+            user.save()
         return super().form_valid(form)
 
 

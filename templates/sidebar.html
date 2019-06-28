@@ -18,7 +18,7 @@
       </li>
       {% endif %}
 
-      {% if perms.questions.view_exam %}
+      {% if perms.exams.view_exam %}
       <li class="nav-item">
         <a href="{% url 'exams:list' %}" class="nav-link">
           <i class="nav-icon fas fa-scroll"></i> Exams

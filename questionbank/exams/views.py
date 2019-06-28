@@ -48,7 +48,7 @@ class ExamCreateView(PermissionRequiredMixin, SuccessMessageMixin, LimitedExamMi
 
 class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, LimitedExamMixin,
                      UpdateView):
-    permission_required = 'exams:change_exam'
+    permission_required = 'exams.change_exam'
     model = Exam
     success_url = reverse_lazy('exams:list')
     form_class = ExamForm
@@ -69,7 +69,7 @@ class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, LimitedExamMi
 
 
 class ExamQuestionView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
-    permission_required = 'exams:change_exam'
+    permission_required = 'exams.change_exam'
     model = Exam
     template_name = 'exams/exam_question_form.html'
     form_class = ExamQuestionForm
@@ -82,7 +82,7 @@ class ExamQuestionView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
 
 
 class ExamDeleteView(PermissionRequiredMixin, LimitedExamMixin, DeleteView):
-    permission_required = 'exams:delete_question'
+    permission_required = 'exams.delete_question'
     model = Exam
     success_url = reverse_lazy('exams:list')
 
