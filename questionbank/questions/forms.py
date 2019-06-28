@@ -13,6 +13,10 @@ class QuestionForm(forms.ModelForm):
     )
     field_order = ['exam', 'course', 'question', 'tags']
 
+    class Meta:
+        model = Question
+        fields = ('course', 'question', 'tags')
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['tags'].required = False
@@ -20,9 +24,17 @@ class QuestionForm(forms.ModelForm):
         if kwargs.get('instance', None) and kwargs['instance'].exam.first():
             self.fields['exam'].initial = kwargs['instance'].exam.first().pk
 
-    class Meta:
-        model = Question
-        fields = ('course', 'question', 'tags')
+    def clean(self):
+        cleaned_data = super().clean()
+        exam = cleaned_data.get('exam', None)
+        course = cleaned_data.get('course', None)
+
+        if exam and course:
+            if exam.course != course:
+                raise forms.ValidationError(
+                    "Exam's subject and question subject must be the same"
+                )
+        return cleaned_data
 
     def save(self):
         instance = super().save()

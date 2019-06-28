@@ -62,7 +62,7 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
             return initial
         return super().get_initial()
 
-    def get_context_data(self):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data()
         context['choices'] = QuestionFormSet(initial=self.choice_initial)
         return context

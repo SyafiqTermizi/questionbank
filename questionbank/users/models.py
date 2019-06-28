@@ -13,6 +13,7 @@ class Specialty(models.Model):
 
     class Meta:
         verbose_name_plural = 'specialties'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
