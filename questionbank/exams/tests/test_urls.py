@@ -24,3 +24,8 @@ def test_exam_delete():
 def test_exam_print():
     assert reverse('exams:print', kwargs={'pk': 1}) == '/exams/1/print/'
     assert resolve('/exams/1/print/').view_name == 'exams:print'
+
+
+def test_exam_add_question():
+    assert reverse('exams:add_question', kwargs={'pk': 1}) == '/exams/1/add-question/'
+    assert resolve('/exams/1/add-question/').view_name == 'exams:add_question'

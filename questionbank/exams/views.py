@@ -10,7 +10,7 @@ from questionbank.users.constants import COORDINATOR
 from .models import Exam
 from .filters import ExamFilter
 from .forms import ExamQuestionForm, ExamPrintForm, ExamForm
-from .constants import ALPHABTE_MAPPING
+from .constants import ALPHABET_MAPPING
 from .mixins import LimitedExamMixin
 
 
@@ -106,7 +106,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
 
             for choice in question.choices.all():
                 inner_counter += 1
-                paper += (ALPHABTE_MAPPING[inner_counter] + choice.choice)
+                paper += (ALPHABET_MAPPING[inner_counter] + choice.choice)
 
         initial = super().get_initial()
         initial['exam'] = mark_safe(paper)

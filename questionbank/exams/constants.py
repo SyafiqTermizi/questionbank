@@ -1,4 +1,4 @@
-ALPHABTE_MAPPING = {
+ALPHABET_MAPPING = {
     1: 'a',
     2: 'b',
     3: 'c',

@@ -15,6 +15,14 @@ def test_question_get_absolute_url(question):
     ) == question.get_absolute_url()
 
 
+def test_question_get_unresolve_comment(question_comment):
+    """
+    calling question.unresolve_comment should return the number of unresolve
+    comment
+    """
+    assert question_comment.question.unresolve_comment == 1
+
+
 def test_choice_str(choice):
     assert mark_safe(choice.choice) == choice.__str__()
 

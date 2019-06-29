@@ -11,6 +11,11 @@ def test_question_detail():
     assert resolve('/questions/1/detail/').view_name == 'questions:detail'
 
 
+def test_question_create():
+    assert reverse('questions:create') == '/questions/create/'
+    assert resolve('/questions/create/').view_name == 'questions:create'
+
+
 def test_question_update():
     assert reverse('questions:update', kwargs={'pk': 1}) == '/questions/1/update/'
     assert resolve('/questions/1/update/').view_name == 'questions:update'
