@@ -116,7 +116,8 @@ class QuestionDeleteView(PermissionRequiredMixin, LimitedQuestionMixin, DeleteVi
     success_url = reverse_lazy('questions:list')
 
 
-class ChoiceCreateView(PermissionRequiredMixin, SuccessMessageMixin, ChoiceFormMixin, CreateView):
+class ChoiceCreateView(PermissionRequiredMixin, SuccessMessageMixin,
+                       ChoiceFormMixin, CreateView):
     permission_required = 'questions.add_choice'
     model = Choice
     fields = ('choice', 'is_correct')
@@ -128,7 +129,8 @@ class ChoiceCreateView(PermissionRequiredMixin, SuccessMessageMixin, ChoiceFormM
         return super().form_valid(form)
 
 
-class ChoiceUpdateView(PermissionRequiredMixin, SuccessMessageMixin, ChoiceFormMixin, UpdateView):
+class ChoiceUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
+                       ChoiceFormMixin, UpdateView):
     permission_required = 'questions.change_choice'
     model = Choice
     fields = ('choice', 'is_correct')
