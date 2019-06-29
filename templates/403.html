@@ -1,4 +1,7 @@
 {% load render_bundle from webpack_loader %}
+{% load cache %}
+
+{% cache 86400 error403 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,3 +32,4 @@
 
 </body>
 </html>
+{% endcache %}

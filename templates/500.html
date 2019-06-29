@@ -1,4 +1,7 @@
 {% load render_bundle from webpack_loader %}
+{% load cache %}
+
+{% cache 86400 error500 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,3 +31,4 @@
     </div>
   </body>
 </html>
+{% endcache %}

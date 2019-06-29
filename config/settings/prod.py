@@ -4,8 +4,9 @@ DEBUG = False
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': ''
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': os.environ.get('DJANGO_MEMCACHED'),
+        'TIMEOUT': 60 * 30,  # 30 minutes
     }
 }
 

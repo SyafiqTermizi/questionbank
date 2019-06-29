@@ -39,3 +39,11 @@ services:
         target: /etc/nginx/nginx.conf
     depends_on:
       - question_prod
+
+  question_memcached:
+    image: memcached:1.5.16-alpine
+    ports:
+      - 11211:11211
+    entrypoint:
+     - memcached
+     - -m 64
