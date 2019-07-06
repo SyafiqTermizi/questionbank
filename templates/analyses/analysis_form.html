@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row mb-3">
+  <div class="col-6">
+    <a href="{% url 'questions:detail' question_id %}" class="btn btn-outline-primary">
+      <i class="fas fa-angle-left fa-xs"></i>
+      Back
+    </a>
+  </div>
+  {% if object %}
+    <div class="col-6 text-right">
+      <a
+        href="#"
+        class="btn btn-danger"
+        onclick="document.getElementById('delete-{{ object.pk }}').submit()"
+      >
+        Delete
+      </a>
+    </div>
+
+    <form
+      action="{% url 'analyses:delete' question_id object.pk %}"
+      id="delete-{{ object.pk }}"
+      method="post"
+      style="display:none"
+    >
+      {% csrf_token %}
+    </form>
+  {% endif %}
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        {% if object %}
+          <b>Update Analysis</b>
+        {% else %}
+          <b>Create Analysis</b>
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

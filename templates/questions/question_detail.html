@@ -9,6 +9,20 @@
     </a>
   </div>
   <div class="col-6 text-right">
+    <a
+      href="#"
+      onclick="document.getElementById('delete-{{ question.pk }}').submit()"
+      class="btn btn-danger"
+    >
+        Delete
+    </a>
+
+    {% if question.analysis %}
+      <a href="{% url 'analyses:update' question.pk question.analysis.pk %}" class="btn btn-success">Update Analysis</a>
+    {% else %}
+      <a href="{% url 'analyses:create' question.pk %}" class="btn btn-success">Create Analysis</a>
+    {% endif %}
+
     <div class="btn-group">
       <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
         Comments
@@ -29,22 +43,24 @@
         <a class="dropdown-item" href="{% url 'comments:question_create' question.pk %}">Create Comment</a>
       </div>
     </div>
-    <a
-      href="#"
-      onclick="document.getElementById('delete-{{ question.pk }}').submit()"
-      class="btn btn-danger"
-    >
-        Delete
-    </a>
-    <a href="{% url 'questions:create' %}?question={{ question.pk }}" class="btn btn-outline-primary">
-      Copy to new question
-    </a>
-    <a href="{% url 'questions:update' question.pk %}" class="btn btn-outline-primary">
-      Update Question
-    </a>
-    <a href="{% url 'questions:choice_create' question.pk %}" class="btn btn-outline-primary">
-      Add Choice
-    </a>
+
+    <div class="btn-group">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+          Action
+        </button>
+        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
+          <a href="{% url 'questions:create' %}?question={{ question.pk }}" class="dropdown-item">
+            Copy to new question
+          </a>
+          <a href="{% url 'questions:update' question.pk %}" class="dropdown-item">
+            Update Question
+          </a>
+          <a href="{% url 'questions:choice_create' question.pk %}" class="dropdown-item">
+            Add Choice
+          </a>
+        </div>
+    </div>
+
   </div>
 </div>
 

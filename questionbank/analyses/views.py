@@ -1,23 +1,22 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
 
-from .mixins import AnalysisSuccessUrlMixin
+from .mixins import AnalysisSuccessUrlMixin, AnalysisFormMixin
 from .models import Analysis
 
 
-class AnalysisCreateView(PermissionRequiredMixin, SuccessMessageMixin,
+class AnalysisCreateView(PermissionRequiredMixin, AnalysisFormMixin,
                          AnalysisSuccessUrlMixin, CreateView):
     permission_required = 'analyses.add_analysis'
     model = Analysis
-    success_message = 'Analysis Created'
+    fields = ('passing_index', 'discrimination_index')
 
 
-class AnalysisUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
+class AnalysisUpdateView(PermissionRequiredMixin, AnalysisFormMixin,
                          AnalysisSuccessUrlMixin, UpdateView):
     permission_required = 'analyses.delete_analysis'
     model = Analysis
-    success_message = 'Analysis Updated'
+    fields = ('passing_index', 'discrimination_index')
 
 
 class AnalysisDeleteView(PermissionRequiredMixin, AnalysisSuccessUrlMixin, DeleteView):
