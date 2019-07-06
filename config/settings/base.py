@@ -59,7 +59,8 @@ LOCAL_APPS = [
     'questionbank.questions.apps.QuestionsConfig',
     'questionbank.subjects.apps.SubjectsConfig',
     'questionbank.exams.apps.ExamsConfig',
-    'questionbank.comments.apps.CommentsConfig'
+    'questionbank.comments.apps.CommentsConfig',
+    'questionbank.analyses.apps.AnalysesConfig'
 ]
 
 INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJANGO_APPS
