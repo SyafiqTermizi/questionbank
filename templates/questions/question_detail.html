@@ -16,11 +16,12 @@
     >
         Delete
     </a>
-
-    {% if question.analysis %}
-      <a href="{% url 'analyses:update' question.pk question.analysis.pk %}" class="btn btn-success">Update Analysis</a>
-    {% else %}
-      <a href="{% url 'analyses:create' question.pk %}" class="btn btn-success">Create Analysis</a>
+    {% if perms.analyses.view_analysis %}
+      {% if question.analysis %}
+        <a href="{% url 'analyses:update' question.pk question.analysis.pk %}" class="btn btn-success">Update Analysis</a>
+      {% else %}
+        <a href="{% url 'analyses:create' question.pk %}" class="btn btn-success">Create Analysis</a>
+      {% endif %}
     {% endif %}
 
     <div class="btn-group">
