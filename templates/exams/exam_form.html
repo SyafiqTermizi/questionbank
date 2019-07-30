@@ -35,6 +35,9 @@
         <a href="{% url 'exams:print' object.pk %}" class="btn btn-outline-primary">
           Print
         </a>
+        <a href="{% url 'exams:print' object.pk %}?schema=1" class="btn btn-outline-primary">
+            Print schema
+        </a>
       {% endif %}
     {% endif %}
   </div>

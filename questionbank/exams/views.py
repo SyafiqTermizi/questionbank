@@ -95,6 +95,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
     queryset = Exam.objects.prefetch_related('questions', 'questions__choices')
 
     def get_initial(self):
+        is_schema = self.request.GET.get('schema', None)
         counter = 0
         paper = '''
         <style>
@@ -120,9 +121,13 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
             inner_counter = 0
 
             for choice in question.choices.all():
+                correct = ''
+                if choice.is_correct and is_schema:
+                    correct = 'style="color: red"'
+
                 inner_counter += 1
                 paper += f'''
-                <div class="q-inline">
+                <div class="q-inline" {correct}>
                     <p>{ALPHABET_MAPPING[inner_counter]}.</p>
                     {choice.choice}
                 </div>
