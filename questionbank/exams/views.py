@@ -96,17 +96,37 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
 
     def get_initial(self):
         counter = 0
-        paper = ''
+        paper = '''
+        <style>
+            .q-inline p {
+                display: inline;
+                padding-right: 5px;
+            }
+            .q-inline p img{
+                display: block;
+            }
+        </style>
+        '''
 
         for question in self.object.questions.order_by('specialty'):
             counter += 1
-            paper += (str(counter) + '. ' + question.question)
+            paper += f'''
+            <div class="q-inline">
+                <p> {str(counter)}.</p>
+                {question.question}
+            </div>
+            '''
 
             inner_counter = 0
 
             for choice in question.choices.all():
                 inner_counter += 1
-                paper += (ALPHABET_MAPPING[inner_counter] + choice.choice)
+                paper += f'''
+                <div class="q-inline">
+                    <p>{ALPHABET_MAPPING[inner_counter]}.</p>
+                    {choice.choice}
+                </div>
+                '''
 
         initial = super().get_initial()
         initial['exam'] = mark_safe(paper)
