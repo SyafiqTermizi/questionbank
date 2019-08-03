@@ -1,1 +1,11 @@
 {% extends 'base.html' %}
+
+{% block content %}
+  {% if request.user.role == 'Admin' %}
+    {% include 'dashboards/admin.html' %}
+  {% elif request.user.role == 'Coordinator' %}
+    {% include 'dashboards/coordinator.html' %}
+  {% elif request.user.role == 'Lecturer' %}
+  {% include 'dashboards/lecturer.html' %}
+  {% endif %}
+{% endblock content %}
