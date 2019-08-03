@@ -36,7 +36,7 @@
   </div>
 </div>
 
-{% cache 86400 authpagebottom %}
+
   {% if messages %}
       {% for message in messages %}
         <script>
@@ -45,7 +45,7 @@
             "debug": false,
             "newestOnTop": true,
             "progressBar": true,
-            "positionClass": "toast-top-right",
+            "positionClass": "toast-bottom-right",
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
@@ -61,6 +61,7 @@
         </script>
       {% endfor %}
   {% endif %}
+{% cache 86400 authpagebottom %}
 </body>
 </html>
 {% endcache %}
