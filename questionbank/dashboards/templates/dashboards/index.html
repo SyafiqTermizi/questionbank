@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% if request.user.role == 'Admin' %}
+  {% if role == 'Admin' %}
     {% include 'dashboards/admin.html' %}
-  {% elif request.user.role == 'Coordinator' %}
+  {% elif role == 'Coordinator' %}
     {% include 'dashboards/coordinator.html' %}
   {% elif request.user.role == 'Lecturer' %}
   {% include 'dashboards/lecturer.html' %}
