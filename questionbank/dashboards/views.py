@@ -6,6 +6,7 @@ from questionbank.exams.models import Exam
 from questionbank.questions.models import Question
 from questionbank.subjects.models import Subject
 from questionbank.invites.models import Invite
+from questionbank.comments.models import QuestionComment
 
 
 class Dashboard(LoginRequiredMixin, TemplateView):
@@ -52,6 +53,11 @@ class Dashboard(LoginRequiredMixin, TemplateView):
                 course_id=self.request.user.course.pk,
                 user_id=self.request.user.pk
             )
+        elif role == LECTURER:
+            return self.get_lecturer_context(
+                context,
+                user_id=self.request.user.pk
+            )
 
     def get_admin_context(self, context={}):
         context['total_exam'] = Exam.objects.count()
@@ -66,4 +72,11 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         context['total_question'] = Question.objects.filter(course__id=course_id).count()
         context['total_question_created'] = Question.objects.filter(created_by__id=user_id).count()
         context['role'] = COORDINATOR
+        return context
+
+    def get_lecturer_context(self, context={}, user_id=0):
+        context['total_question_created'] = Question.objects.filter(created_by__id=user_id).count()
+        qs = list(Question.objects.filter(created_by__id=user_id))
+        context['total_unresolved_comment'] = QuestionComment.objects.filter(question__in=qs, is_resolved=False).count()
+        context['role'] = LECTURER
         return context
