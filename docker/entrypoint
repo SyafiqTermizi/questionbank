@@ -9,7 +9,7 @@ set -o nounset
 export DATABASE_URL="${DB_HOST}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:5432/${POSTGRES_DB}"
 
 postgres_ready() {
-python << END
+/root/.cache/pypoetry/virtualenvs/questionbank-9TtSrW0h-py3.8/bin/python << END
 import sys
 import psycopg2
 try:

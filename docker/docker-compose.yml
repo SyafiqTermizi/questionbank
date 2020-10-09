@@ -12,7 +12,7 @@ services:
     build:
       context: ../
       dockerfile: ./docker/Dockerfile
-    command: /start
+    command: poetry run /app/manage.py runserver
     volumes:
       - ../:/app
     env_file:
