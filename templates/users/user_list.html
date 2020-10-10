@@ -35,6 +35,25 @@
           <b>User List</b>
       </div>
       <div class="card-body">
+        <form method="GET" class="mb-3">
+          <div class="input-group">
+            <input
+              type="text"
+              name="{{ filter.form.q.name }}"
+              value="{% if filter.form.q.value %}{{ filter.form.q.value }}{% endif %}"
+              class="form-control"
+              placeholder="Search by username or email"
+            />
+            <span class="input-group-append">
+              <button type="submit" class="btn btn-outline-primary">
+                <i class="fas fa-search"></i>
+              </button>
+              <a href="{% url 'users:list' %}" class="btn btn-outline-danger">
+                <i class="fas fa-times"></i>
+              </a>
+            </span>
+          </div>
+        </form>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -117,4 +136,8 @@
     </ul>
   </nav>
 {% endif %}
+<script>
+  const field = document.getElementById("id_q");
+  field.style.display = "none"
+</script>
 {% endblock content %}

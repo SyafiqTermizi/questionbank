@@ -1,4 +1,5 @@
 import django_filters
+from django.db.models import Q
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -9,6 +10,10 @@ User = get_user_model()
 
 
 class UserFilter(django_filters.FilterSet):
+    q = django_filters.CharFilter(
+        method='filter_username_and_email',
+        label='',
+    )
     specialty = django_filters.ModelChoiceFilter(
         queryset=Specialty.objects.order_by('name')
     )
@@ -17,17 +22,14 @@ class UserFilter(django_filters.FilterSet):
         label='Role'
     )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.filters['username__icontains'].label = 'Username'
-        self.filters['email__icontains'].label = 'Email'
+    def filter_username_and_email(self, queryset, name, value):
+        return User.objects.filter(
+            Q(username__icontains=value) | Q(email__icontains=value)
+        )
 
     class Meta:
         model = User
-        fields = {
-            'username': ['icontains'],
-            'email': ['icontains']
-        }
+        fields = ['q']
 
 
 class SpecialtyFilter(django_filters.FilterSet):
