@@ -13,6 +13,14 @@ User = get_user_model()
 
 class Question(models.Model):
     question = RichTextUploadingField()
+
+    # A JSON field store the question choices.
+    # The content will look like
+    # [{
+    #   choice: '<html></html>',
+    #   is_correct: False,
+    #  }]
+    choices = models.JSONField()
     course = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, null=True, related_name='subjects'
     )
@@ -38,23 +46,3 @@ class Question(models.Model):
     @property
     def unresolve_comment(self):
         return self.comments.filter(is_resolved=False).count()
-
-
-class Choice(models.Model):
-    choice = RichTextUploadingField()
-    is_correct = models.BooleanField(default=False)
-    question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, related_name='choices'
-    )
-
-    class Meta:
-        ordering = ['choice']
-
-    def __str__(self):
-        return mark_safe(self.choice)
-
-    def get_absolute_url(self):
-        return reverse(
-            'questions:choice_update',
-            kwargs={'pk': self.pk, 'question': self.question.pk}
-        )

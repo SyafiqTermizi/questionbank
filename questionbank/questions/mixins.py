@@ -19,14 +19,3 @@ class LimitedQuestionMixin:
         return self.model.objects\
             .filter(created_by=self.request.user)\
             .order_by('-created_at').prefetch_related('created_by', 'tags')
-
-
-class ChoiceFormMixin:
-    """
-    redirect to question detail view on success
-    """
-    def get_success_url(self):
-        return reverse(
-            'questions:detail',
-            kwargs={'pk': self.kwargs['question']}
-        )

@@ -3,7 +3,7 @@ from django.forms import inlineformset_factory
 
 from questionbank.exams.models import Exam
 
-from .models import Question, Choice
+from .models import Question
 
 
 class QuestionForm(forms.ModelForm):
@@ -42,18 +42,3 @@ class QuestionForm(forms.ModelForm):
         if self.cleaned_data['exam']:
             instance.exam.add(self.cleaned_data['exam'])
         return instance
-
-
-class ChoiceForm(forms.ModelForm):
-
-    class Meta:
-        model = Choice
-        exclude = ('question',)
-        labels = {
-            'is_correct': 'Correct choice'
-        }
-
-
-QuestionFormSet = inlineformset_factory(
-    Question, Choice, form=ChoiceForm, extra=4, can_delete=False
-)

@@ -8,10 +8,10 @@ from django_filters.views import FilterView
 
 from questionbank.subjects.models import Subject
 
-from .mixins import ChoiceFormMixin, LimitedQuestionMixin
+from .mixins import LimitedQuestionMixin
 from .filters import QuestionFilter
-from .models import Question, Choice
-from .forms import QuestionFormSet, QuestionForm
+from .models import Question
+from .forms import QuestionForm
 
 
 class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView):
@@ -35,60 +35,6 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     form_class = QuestionForm
     success_url = reverse_lazy('questions:list')
     success_message = 'Question Created !'
-    choice_initial = []
-
-    def get_initial(self):
-        """
-        create question from another question
-        """
-        question_id = self.request.GET.get('question', None)
-
-        if question_id:
-            # check if the query param exist && valid
-            try:
-                obj = get_object_or_404(Question, pk=question_id)
-            except ValueError:
-                raise Http404
-
-            initial = {
-                'course': obj.course,
-                'question': obj.question,
-                'tags': obj.tags.all()
-            }
-
-            self.choice_initial = list(
-                obj.choices.values('choice', 'is_correct')
-            )
-            return initial
-        return super().get_initial()
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
-        context['choices'] = QuestionFormSet(initial=self.choice_initial)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        choices = QuestionFormSet(self.request.POST, self.request.FILES)
-        question = self.form_class(self.request.POST, self.request.FILES)
-        if choices.is_valid():
-            if question.is_valid():
-                return self.form_valid(question=question, choices=choices)
-        return super(QuestionCreateView, self).post(self.request)
-
-    def form_valid(self, question, choices):
-        question.instance.created_by = self.request.user
-        q = question.save()
-
-        if self.request.user.specialty:
-            q.tags.add(self.request.user.specialty.name)
-            q.specialty = self.request.user.specialty
-            q.save()
-
-        for choice in choices:
-            if choice['choice'].value():
-                choice.instance.question = q
-                choice.save()
-        return HttpResponseRedirect(reverse("questions:list"))
 
 
 class QuestionDetailView(PermissionRequiredMixin, LimitedQuestionMixin, DetailView):
@@ -114,29 +60,3 @@ class QuestionDeleteView(PermissionRequiredMixin, LimitedQuestionMixin, DeleteVi
     permission_required = 'questions.delete_question'
     model = Question
     success_url = reverse_lazy('questions:list')
-
-
-class ChoiceCreateView(PermissionRequiredMixin, SuccessMessageMixin,
-                       ChoiceFormMixin, CreateView):
-    permission_required = 'questions.add_choice'
-    model = Choice
-    fields = ('choice', 'is_correct')
-    success_message = 'Choice created !'
-
-    def form_valid(self, form):
-        form.instance.question = Question(pk=self.kwargs['question'])
-        form.save()
-        return super().form_valid(form)
-
-
-class ChoiceUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
-                       ChoiceFormMixin, UpdateView):
-    permission_required = 'questions.change_choice'
-    model = Choice
-    fields = ('choice', 'is_correct')
-    success_message = 'Choice Updated !'
-
-
-class ChoiceDeleteView(PermissionRequiredMixin, ChoiceFormMixin, DeleteView):
-    permission_required = 'questions.delete_choice'
-    model = Choice
