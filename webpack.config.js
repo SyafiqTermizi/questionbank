@@ -4,9 +4,11 @@ var BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
     context: __dirname,
+    devtool: 'inline-source-map',
     entry:{
         main:  './static/js/index',
         invite_form: './static/js/inviteForm',
+        choice_form: './static/ts/components/ChoiceForm',
         user_change_form: './static/js/userChangeForm',
         main_css: './static/scss/index.scss'
     },
@@ -37,7 +39,8 @@ module.exports = {
   },
 
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.scss$/,
         use: [
             // fallback to style-loader in development
@@ -45,6 +48,15 @@ module.exports = {
             "css-loader",
             "sass-loader"
         ]
-    }]
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ]
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ],
   }
 }
