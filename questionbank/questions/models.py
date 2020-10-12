@@ -21,6 +21,7 @@ class Question(models.Model):
     #   is_correct: False,
     #  }]
     choices = models.JSONField()
+
     course = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, null=True, related_name='subjects'
     )
