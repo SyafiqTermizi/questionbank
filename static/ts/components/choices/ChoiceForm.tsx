@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
 
-import { IChoice } from "./interfaces";
-import { CardLayout } from "../layouts/CardLayout";
+import { IChoice } from "../interfaces";
+import { CardLayout } from "../../layouts/CardLayout";
 
 interface Props {
   choices: IChoice[],
@@ -48,7 +48,7 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
                 setChoice({...choice, isCorrect: !tempIsCorrect})
               }}
             />
-            Default checkbox
+            Is correct
           </label>
         </div>
         <div className="form-group mt-3">

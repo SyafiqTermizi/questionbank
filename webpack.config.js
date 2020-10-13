@@ -8,8 +8,8 @@ module.exports = {
     entry:{
         main:  './static/js/index',
         invite_form: './static/js/inviteForm',
-        choice_form: './static/ts/components/ChoiceFormContainer',
         user_change_form: './static/js/userChangeForm',
+        choice_form: './static/ts/components/choices/Index',
         main_css: './static/scss/index.scss'
     },
     output: {
