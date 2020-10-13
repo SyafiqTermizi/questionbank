@@ -5,15 +5,23 @@ import { CardLayout } from "../../layouts/CardLayout";
 
 interface Props {
   choices: IChoice[],
+  deleteChoice: (id: number) => void;
 }
 
-export const ChoiceList: React.FC<Props> = ({ choices }) => {
+export const ChoiceList: React.FC<Props> = ({ choices, deleteChoice }) => {
 
-  const choiceList = choices.map((choice, index) => {
-    const cardClass = choice.isCorrect ? "card card-accent-success" : "card" ;
+  const choiceList = choices.map((choice) => {
+    const cardClass = choice.isCorrect ? "card card-accent-success" : "card";
     return (
-      <CardLayout cardHeaderTitle="" cardClass={cardClass} key={index}>
-        {choice.text}
+      <CardLayout
+        cardTitle=""
+        cardClass={cardClass}
+        key={choice.id}
+        cardAction={() => deleteChoice(choice.id)}
+        cardActionClass="danger"
+        cardActionText="delete"
+      >
+        <p>{choice.text}</p>
       </CardLayout>
     )
   })

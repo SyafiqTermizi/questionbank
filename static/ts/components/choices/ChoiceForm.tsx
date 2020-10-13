@@ -12,12 +12,13 @@ interface Props {
 export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
   const defaultChoice = {
     text: "",
-    isCorrect: false
+    isCorrect: false,
+    id: Date.now()
   }
   const [choice, setChoice] = useState(defaultChoice);
 
   return (
-    <CardLayout cardHeaderTitle="Create Choice">
+    <CardLayout cardTitle="Create Choice">
       <form onSubmit={
         (event) => {
           event.preventDefault();

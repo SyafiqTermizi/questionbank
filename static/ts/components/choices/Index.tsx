@@ -9,10 +9,15 @@ import { ChoiceList } from "./ChoiceList";
 const ChoiceFormContainer = () => {
   const [choices, setChoices] = useState<IChoice[]>([]);
 
+  const deleteChoice = (id: number): void => {
+    const tempChoices = [...choices];
+    setChoices(tempChoices.filter(choice => choice.id !== id));
+  }
+
   return (
     <>
       <ChoiceForm choices={choices} setChoices={setChoices} />
-      <ChoiceList choices={choices} />
+      <ChoiceList choices={choices} deleteChoice={deleteChoice} />
     </>
   )
 }
