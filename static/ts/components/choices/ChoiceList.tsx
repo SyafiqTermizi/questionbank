@@ -21,7 +21,8 @@ export const ChoiceList: React.FC<Props> = ({ choices, deleteChoice }) => {
         cardActionClass="danger"
         cardActionText="delete"
       >
-        <p>{choice.text}</p>
+        {/* <p>{choice.text}</p> */}
+        <div dangerouslySetInnerHTML={ { __html: choice.text } }></div>
       </CardLayout>
     )
   })

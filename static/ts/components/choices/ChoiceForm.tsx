@@ -3,6 +3,9 @@ import { useState } from "react";
 
 import { IChoice } from "../interfaces";
 import { CardLayout } from "../../layouts/CardLayout";
+import { editorConfig } from "./editorConfig";
+
+const Editor = require("ckeditor4-react");
 
 interface Props {
   choices: IChoice[],
@@ -27,13 +30,11 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
         }}
       >
         <div className="form-group">
-          <textarea
-            className="form-control"
-            cols={30}
-            rows={10}
-            value={choice.text}
-            onChange={(event) => {
-              setChoice({ ...choice, text: event.target.value});
+          <Editor
+            data={choice.text}
+            config={editorConfig}
+            onChange={(event: any) => {
+              setChoice({ ...choice, text: event.editor.getData()});
             }}
           />
         </div>
