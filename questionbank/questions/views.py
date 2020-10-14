@@ -33,8 +33,13 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     permission_required = 'questions.add_question'
     model = Question
     form_class = QuestionForm
-    success_url = reverse_lazy('questions:list')
     success_message = 'Question Created !'
+
+    def form_valid(self, form):
+        question = form.save(commit=False)
+        question.created_by = self.request.user
+        question.save()        
+        return HttpResponseRedirect(reverse('questions:list'))
 
 
 class QuestionDetailView(PermissionRequiredMixin, LimitedQuestionMixin, DetailView):
