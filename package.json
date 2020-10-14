@@ -3,6 +3,7 @@
     "@coreui/coreui": "^2.0.6",
     "@coreui/coreui-pro": "^2.0.7",
     "@fortawesome/fontawesome-free": "^5.7.2",
+    "ckeditor4-react": "^1.2.0",
     "jquery": "^3.5.0",
     "perfect-scrollbar": "^1.4.0",
     "popper.js": "^1.14.4",
