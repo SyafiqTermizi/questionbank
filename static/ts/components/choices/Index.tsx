@@ -11,12 +11,19 @@ const ChoiceFormContainer = () => {
 
   const deleteChoice = (id: number): void => {
     const tempChoices = [...choices];
-    setChoices(tempChoices.filter(choice => choice.id !== id));
+    const filteredChoice = tempChoices.filter(choice => choice.id !== id)
+    setChoices(filteredChoice);
+    window.choices = filteredChoice;
+  }
+
+  const proxySetChoices = (choices: IChoice[]) => {
+    setChoices(choices);
+    window.choices = choices;
   }
 
   return (
     <>
-      <ChoiceForm choices={choices} setChoices={setChoices} />
+      <ChoiceForm choices={choices} setChoices={proxySetChoices} />
       <ChoiceList choices={choices} deleteChoice={deleteChoice} />
     </>
   )

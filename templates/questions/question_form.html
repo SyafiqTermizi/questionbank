@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<form method="post">
+<form method="post" onsubmit="setValue()">
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -69,6 +69,13 @@
 {% endif %}
 
 {% block script %}
+  <script>
+    window.choices = [];
+    const setValue = () => {
+      document.getElementById("id_choices").value = JSON.stringify(window.choices);
+      return true
+    }
+  </script>
   <script src="//cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
   <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
   {% render_bundle 'choice_form' %}
