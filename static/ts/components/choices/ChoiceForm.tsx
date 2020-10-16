@@ -25,8 +25,10 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
       <form onSubmit={
         (event) => {
           event.preventDefault();
-          setChoices([...choices, choice]);
-          setChoice(defaultChoice);
+          if (choice.text) {
+            setChoices([...choices, choice]);
+            setChoice(defaultChoice);
+          }
         }}
       >
         <div className="form-group">
