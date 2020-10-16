@@ -13,6 +13,7 @@ interface Props {
 }
 
 export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
+  console.log(window.choices)
   const defaultChoice = {
     text: "",
     isCorrect: false,
@@ -21,7 +22,7 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
   const [choice, setChoice] = useState(defaultChoice);
 
   return (
-    <CardLayout cardTitle="Create Choice">
+    <CardLayout cardTitle="Choice form">
       <form onSubmit={
         (event) => {
           event.preventDefault();

@@ -7,7 +7,8 @@ import { ChoiceForm } from "./ChoiceForm";
 import { ChoiceList } from "./ChoiceList";
 
 const ChoiceFormContainer = () => {
-  const [choices, setChoices] = useState<IChoice[]>([]);
+  const initialChoice = window.choices;
+  const [choices, setChoices] = useState<IChoice[]>(initialChoice);
 
   const deleteChoice = (id: number): void => {
     const tempChoices = [...choices];

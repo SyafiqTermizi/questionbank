@@ -70,7 +70,7 @@
 
 {% block script %}
   <script>
-    window.choices = [];
+    window.choices = {% if object %}{{ object.get_json_choices }}{% else %}[]{% endif %};
     const setValue = () => {
       document.getElementById("id_choices").value = JSON.stringify(window.choices);
       return true

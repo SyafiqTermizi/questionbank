@@ -1,10 +1,12 @@
+import json
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
+from django.utils.html import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 from taggit.managers import TaggableManager
-from django.utils.html import mark_safe
 
+from questionbank.exams.constants import ALPHABET_MAPPING
 from questionbank.subjects.models import Subject
 from questionbank.users.models import Specialty
 
@@ -47,3 +49,24 @@ class Question(models.Model):
     @property
     def unresolve_comment(self):
         return self.comments.filter(is_resolved=False).count()
+
+    @property
+    def get_display_choices(self):
+        """
+        This method add 'a', 'b', 'c' into the choice text
+        """
+        choices = []
+        for index in range(len(self.choices)):
+            text = f'\
+                {self.choices[index]["text"][:3]}\
+                <b>{ALPHABET_MAPPING[index+1]}.&nbsp;</b>\
+                {self.choices[index]["text"][3:]}'
+            choices.append({
+                'text': text,
+                'isCorrect': self.choices[index]['isCorrect']
+            })
+        return choices
+
+    @property
+    def get_json_choices(self):
+        return mark_safe(json.dumps(self.choices))
