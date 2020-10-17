@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<form method="post" onsubmit="setValue()">
+<form method="post" onsubmit="onSubmit()">
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -70,8 +70,10 @@
 
 {% block script %}
   <script>
-    window.choices = {% if object %}{{ object.get_json_choices }}{% else %}[]{% endif %};
-    const setValue = () => {
+    const initialChoice = JSON.parse(document.getElementById("id_choices").value) || [];
+    window.choices = {% if object %}{{ object.get_json_choices }}{% else %}initialChoice{% endif %};
+
+    const onSubmit = () => {
       document.getElementById("id_choices").value = JSON.stringify(window.choices);
 
       const tagField = document.getElementById("id_tags");

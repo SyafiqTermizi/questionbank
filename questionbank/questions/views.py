@@ -2,7 +2,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django_filters.views import FilterView
 
@@ -36,11 +36,18 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     success_message = 'Question Created !'
 
     def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
         question_id = self.request.GET.get('question', 0)
+
         if question_id:
             question = get_object_or_404(Question, pk=question_id)
-            self.object = question
-        return super().get_form_kwargs()
+            kwargs['initial'] = {
+                'question': question.question,
+                'tags': question.tags.all(),
+                'course': question.course,
+                'choices': question.choices
+            }
+        return kwargs
 
     def form_valid(self, form):
         question = form.save(commit=False)
