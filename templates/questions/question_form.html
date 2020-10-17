@@ -73,6 +73,12 @@
     window.choices = {% if object %}{{ object.get_json_choices }}{% else %}[]{% endif %};
     const setValue = () => {
       document.getElementById("id_choices").value = JSON.stringify(window.choices);
+
+      const tagField = document.getElementById("id_tags");
+      if (tagField.value && tagField.value.slice("-1") !== ",") {
+        tagField.value = tagField.value + ",";
+      }
+
       return true
     }
   </script>
