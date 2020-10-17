@@ -63,7 +63,6 @@ class ExamUpdateView(PermissionRequiredMixin, SuccessMessageMixin, LimitedExamMi
     def get_queryset(self):
         return Exam.objects.all().prefetch_related(
             'questions',
-            'questions__choices',
             'questions__comments'
         )
 
@@ -92,7 +91,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
     template_name = 'exams/create_exam.html'
     model = Exam
     form_class = ExamPrintForm
-    queryset = Exam.objects.prefetch_related('questions', 'questions__choices')
+    queryset = Exam.objects.prefetch_related('questions')
 
     def get_initial(self):
         is_schema = self.request.GET.get('schema', None)
@@ -120,16 +119,16 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
 
             inner_counter = 0
 
-            for choice in question.choices.all():
+            for choice in question.choices:
                 correct = ''
-                if choice.is_correct and is_schema:
+                if choice['isCorrect'] and is_schema:
                     correct = 'style="color: red"'
 
                 inner_counter += 1
                 paper += f'''
                 <div class="q-inline" {correct}>
                     <p>{ALPHABET_MAPPING[inner_counter]}.</p>
-                    {choice.choice}
+                    {choice['text']}
                 </div>
                 '''
 
