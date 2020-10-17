@@ -26,8 +26,8 @@
           <form method="GET">
             {{ filter.form | crispy }}
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Search</button>
-                <a href="{% url 'users:list' %}" class="btn btn-danger">Clear filters</a>
+              <button type="submit" class="btn btn-primary">Search</button>
+              <a href="{% url 'questions:list' %}" class="btn btn-danger">Clear filters</a>
             </div>
           </form>
         </div>
@@ -36,8 +36,8 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-2 mt-3">
+<div class="row mt-3">
+  <div class="col-2">
     <div class="card">
       <div class="card-header">
         <b>Filter by courses</b>
@@ -46,9 +46,9 @@
         {% for course in courses %}
           <a
             class="badge badge-secondary"
-            href="{% url 'questions:list' %}?course__code__iexact={{ course.code }}"
+            href="{% url 'questions:list' %}?course__name__icontains={{ course.name }}"
           >
-            {{ course.code }}
+            {{ course.name }} - {{ course.code }}
           </a>
           <br>
         {% endfor %}
@@ -60,6 +60,29 @@
     </div>
   </div>
   <div class="col-10">
+    <div class="card {% if filter.form.errors %}text-white bg-danger{% endif %}">
+      <div class="card-body">
+        <form method="GET">
+          <div class="input-group">
+            <input
+              type="text"
+              name="{{ filter.form.question__icontains.name }}"
+              value="{% if filter.form.question__icontains.value %}{{ filter.form.question__icontains.value }}{% endif %}"
+              class="form-control"
+              placeholder="Search question"
+            />
+            <span class="input-group-append">
+              <button type="submit" class="btn btn-outline-primary">
+                <i class="fas fa-search"></i>
+              </button>
+              <a href="{% url 'questions:list' %}" class="btn btn-outline-danger">
+                <i class="fas fa-times"></i>
+              </a>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
     {% for question in question_list %}
     <div class="card mt-3">
       <div class="card-header">
