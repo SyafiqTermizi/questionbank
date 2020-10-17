@@ -13,7 +13,6 @@ interface Props {
 }
 
 export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
-  console.log(window.choices)
   const defaultChoice = {
     text: "",
     isCorrect: false,
