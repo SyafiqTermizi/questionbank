@@ -38,7 +38,8 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     def form_valid(self, form):
         question = form.save(commit=False)
         question.created_by = self.request.user
-        question.save()        
+        question.save()
+        form.save_m2m()
         return HttpResponseRedirect(reverse('questions:list'))
 
 
