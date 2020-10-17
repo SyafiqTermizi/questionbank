@@ -35,6 +35,13 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
     form_class = QuestionForm
     success_message = 'Question Created !'
 
+    def get_form_kwargs(self):
+        question_id = self.request.GET.get('question', 0)
+        if question_id:
+            question = get_object_or_404(Question, pk=question_id)
+            self.object = question
+        return super().get_form_kwargs()
+
     def form_valid(self, form):
         question = form.save(commit=False)
         question.created_by = self.request.user
