@@ -9,6 +9,12 @@
     </a>
   </div>
   <div class="col-6 text-right">
+    <a href="{% url 'questions:update' question.pk %}" class="btn btn-primary">
+      Edit
+    </a>
+    <a href="{% url 'questions:create' %}?question={{ question.pk }}" class="btn btn-outline-primary">
+      Copy question
+    </a>
     <a
       href="#"
       onclick="document.getElementById('delete-{{ question.pk }}').submit()"
@@ -46,24 +52,6 @@
         </a>
         <a class="dropdown-item" href="{% url 'comments:question_list' question.pk %}?is_resolved=unknown">All Comment</a>
         <a class="dropdown-item" href="{% url 'comments:question_create' question.pk %}">Create Comment</a>
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        Action
-      </button>
-      <div
-        class="dropdown-menu"
-        x-placement="bottom-start"
-        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);"
-      >
-        <a href="{% url 'questions:create' %}?question={{ question.pk }}" class="dropdown-item">
-          Copy to new question
-        </a>
-        <a href="{% url 'questions:update' question.pk %}" class="dropdown-item">
-          Update Question
-        </a>
       </div>
     </div>
 
