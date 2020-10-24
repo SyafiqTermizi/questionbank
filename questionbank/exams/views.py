@@ -96,41 +96,22 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
     def get_initial(self):
         is_schema = self.request.GET.get('schema', None)
         counter = 0
-        paper = '''
-        <style>
-            .q-inline p {
-                display: inline;
-                padding-right: 5px;
-            }
-            .q-inline p img{
-                display: block;
-            }
-        </style>
-        '''
+        paper = ""
 
         for question in self.object.questions.order_by('specialty'):
             counter += 1
+            choices = ""
+
+            for c in question.get_display_choices:
+                choices += c['text']
+
             paper += f'''
-            <div class="q-inline">
-                <p> {str(counter)}.</p>
-                {question.question}
-            </div>
+                {question.question[:3]}
+                <b>{counter}.&nbsp;</b>\
+                {question.question[3:]}
+                {choices}
+                <br>
             '''
-
-            inner_counter = 0
-
-            for choice in question.choices:
-                correct = ''
-                if choice['isCorrect'] and is_schema:
-                    correct = 'style="color: red"'
-
-                inner_counter += 1
-                paper += f'''
-                <div class="q-inline" {correct}>
-                    <p>{ALPHABET_MAPPING[inner_counter]}.</p>
-                    {choice['text']}
-                </div>
-                '''
 
         initial = super().get_initial()
         initial['exam'] = mark_safe(paper)
