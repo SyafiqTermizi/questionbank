@@ -1,8 +1,11 @@
+import requests
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 from django.utils.html import mark_safe
+from django.shortcuts import get_object_or_404
 from django_filters.views import FilterView
 
 from questionbank.users.constants import COORDINATOR
@@ -93,29 +96,26 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
     form_class = ExamPrintForm
     queryset = Exam.objects.prefetch_related('questions')
 
-    def get_initial(self):
-        is_schema = self.request.GET.get('schema', None)
+    def get(self, request, *args, **kwargs):
         counter = 0
         paper = ""
-
-        for question in self.object.questions.order_by('specialty'):
+        self.object = get_object_or_404(Exam, pk=self.kwargs["pk"])
+        for question in self.object.questions.order_by("specialty"):
             counter += 1
             choices = ""
 
             for c in question.get_display_choices:
-                choices += c['text']
+                choices += c["text"]
 
-            paper += f'''
+            paper += f"""
                 {question.question[:3]}
                 <b>{counter}.&nbsp;</b>\
                 {question.question[3:]}
                 {choices}
                 <br>
-            '''
-
-        initial = super().get_initial()
-        initial['exam'] = mark_safe(paper)
-        return initial
+            """
+        res = requests.post("http://storage.putraqbank.tk", json={"text": paper})
+        return HttpResponseRedirect(res.json()["file"])
 
     def get_success_url(self):
         return self.object.get_absolute_url()
