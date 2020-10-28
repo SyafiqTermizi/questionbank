@@ -1,3 +1,4 @@
+import os
 import requests
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -114,7 +115,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
                 {choices}
                 <br>
             """
-        res = requests.post("http://storage.putraqbank.tk", json={"text": paper})
+        res = requests.post(os.environ.get("CONVERTER_URL"), json={"text": paper})
         return HttpResponseRedirect(res.json()["file"])
 
     def get_success_url(self):
