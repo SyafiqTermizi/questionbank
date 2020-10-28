@@ -1,6 +1,7 @@
-FROM python:3.7.3-alpine
+FROM python:3.8-alpine
 
 ENV PYTHONUNBUFFERED 1
+WORKDIR /app
 
 RUN apk update \
   # psycopg2 dependencies
@@ -11,27 +12,14 @@ RUN apk update \
   # CFFI dependencies
   && apk add libffi-dev py-cffi
 
-RUN addgroup -S django && adduser -S -G django django
-
-COPY ./requirements /requirements
-RUN pip install --no-cache-dir -r /requirements/prod.txt && rm -rf /requirements
+# Requirements are installed here to ensure they will be cached.
+COPY . /app
+RUN pip install --upgrade pip
+RUN pip install poetry
+RUN poetry install
 
 COPY ./docker/entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
 RUN chmod +x /entrypoint
-RUN chown django /entrypoint
-
-COPY ./docker/start-prod /start
-RUN sed -i 's/\r//' /start
-RUN chmod +x /start
-RUN chown django /start
-
-COPY . /app
-
-RUN chown -R django /app
-
-USER django
-
-WORKDIR /app
 
 ENTRYPOINT ["/entrypoint"]
