@@ -105,7 +105,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
             counter += 1
             choices = ""
 
-            for c in question.get_display_choices:
+            for c in question.get_display_choices_as_dict:
                 choices += c["text"]
 
             paper += f"""

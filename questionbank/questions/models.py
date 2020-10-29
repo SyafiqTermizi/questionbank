@@ -41,7 +41,8 @@ class Question(models.Model):
         ordering = ['specialty']
 
     def __str__(self):
-        return mark_safe(self.question)
+        full_questions = f"{self.question} <br> {self.get_display_choices_as_str}"
+        return mark_safe(full_questions)
 
     def get_absolute_url(self):
         return reverse('questions:detail', kwargs={'pk': self.pk})
@@ -51,7 +52,18 @@ class Question(models.Model):
         return self.comments.filter(is_resolved=False).count()
 
     @property
-    def get_display_choices(self):
+    def get_display_choices_as_str(self):
+        choices = ""
+        for index in range(len(self.choices)):
+            text = f'\
+                {self.choices[index]["text"][:3]}\
+                <b>{ALPHABET_MAPPING[index+1]}.&nbsp;</b>\
+                {self.choices[index]["text"][3:]}'
+            choices += text
+        return choices
+
+    @property
+    def get_display_choices_as_dict(self):
         """
         This method add 'a', 'b', 'c' into the choice text
         """

@@ -70,7 +70,7 @@
         {{ question.question|safe }}
       </div>
       <hr>
-      {% for choice in question.get_display_choices %}
+      {% for choice in question.get_display_choices_as_dict %}
       <div class="card-body">
         {{ choice.text|safe }}
       </div>
