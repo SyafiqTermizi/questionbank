@@ -105,16 +105,14 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
             counter += 1
             choices = ""
 
-            for c in question.get_display_choices_as_dict:
-                choices += c["text"]
-
             paper += f"""
                 {question.question[:3]}
                 <b>{counter}.&nbsp;</b>\
                 {question.question[3:]}
-                {choices}
+                {question.get_display_choices}
                 <br>
             """
+
         res = requests.post(os.environ.get("CONVERTER_URL"), json={"text": paper})
         return HttpResponseRedirect(res.json()["file"])
 
