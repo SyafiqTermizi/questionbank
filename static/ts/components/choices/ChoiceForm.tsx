@@ -52,7 +52,7 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
                 setChoice({...choice, isCorrect: !tempIsCorrect})
               }}
             />
-            Is correct
+            Correct answer
           </label>
         </div>
         <div className="form-group mt-3">
