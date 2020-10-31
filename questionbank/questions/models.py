@@ -23,6 +23,7 @@ class Question(models.Model):
     #   is_correct: False,
     #  }]
     choices = models.JSONField()
+    topic = models.CharField(max_length=255, blank=True)
 
     course = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, null=True, related_name='subjects'

@@ -5,11 +5,11 @@ from .models import Question
 
 
 class QuestionForm(forms.ModelForm):
-    field_order = ['course', 'question', 'tags']
+    field_order = ['course', 'topic', 'question', 'tags']
 
     class Meta:
         model = Question
-        fields = ('course', 'question', 'tags', 'choices')
+        fields = ('course', 'topic', 'question', 'tags', 'choices')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
