@@ -3,7 +3,6 @@
   {% if id %} id="{{ id }}"{% endif %}
   {% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}
 >
-
     {% for group, options, index in widget.optgroups %}
       {% for option in options %}
         {% with widget=option %}
@@ -19,6 +18,14 @@
           <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %} style="vertical-align: top;">
             {{ widget.label }}
           </label>
+          <br>
+          {# Cannot access request.path in widget template. Leaving it here to prove a point #}
+          <a
+            href="{% url 'questions:update' widget.value %}?next={{ request.path }}"
+            class="btn btn-sm btn-outline-primary back-button"
+          >
+            Update question
+          </a>
         {% endwith %}
       {% endfor %}
       <hr>

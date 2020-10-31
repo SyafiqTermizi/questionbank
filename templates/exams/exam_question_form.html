@@ -38,3 +38,12 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block script %}
+<script>
+  const buttons = document.getElementsByClassName("back-button");
+  for (button of buttons) {
+    button.href = button.href + window.location.pathname
+  }
+</script>
+{% endblock script %}
