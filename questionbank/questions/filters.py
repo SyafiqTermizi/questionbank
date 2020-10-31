@@ -16,5 +16,6 @@ class QuestionFilter(django_filters.FilterSet):
             'course__code': ['iexact'],
             'tags__name': ['icontains'],
             'course__name': ['icontains'],
-            'question': ['icontains']
+            'question': ['icontains'],
+            'topic': ['icontains']
         }

@@ -4,6 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.db.models.functions import Length
 from django_filters.views import FilterView
 from taggit.models import Tag
 
@@ -27,6 +28,9 @@ class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView
         context = super().get_context_data(**kwargs)
         context['courses'] = Subject.objects.all()
         context['tags'] = Tag.objects.all()
+        context['topics'] = Question.objects.annotate(tpc=Length('topic'))\
+                            .filter(tpc__gt=1)\
+                            .values_list('topic', flat=True)
         return context
 
 

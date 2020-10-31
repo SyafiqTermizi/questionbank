@@ -86,6 +86,30 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <b>Filter by topic</b>
+          </div>
+          <div class="card-body">
+            {% for topic in topics %}
+              <a
+                class="badge badge-secondary"
+                href="{% url 'questions:list' %}?topic__icontains={{ topic }}"
+              >
+                {{ topic }}
+              </a>
+              <br>
+            {% endfor %}
+            <br><br>
+            <a href="{% url 'questions:list' %}" class="btn btn-outline-warning">
+              clear filter
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-10">
     <div class="card {% if filter.form.errors %}text-white bg-danger{% endif %}">
