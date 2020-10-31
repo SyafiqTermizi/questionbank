@@ -56,6 +56,7 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         question.created_by = self.request.user
         question.save()
         form.save_m2m()
+        question.tags.add(self.request.user.specialty.name)
         return HttpResponseRedirect(reverse('questions:list'))
 
 
