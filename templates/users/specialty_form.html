@@ -35,4 +35,41 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        {{ object }} specialist
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Date Joined</th>
+              <th scope="col">Last Login</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in object.user_set.all %}
+              <tr>
+                <th>
+                  <a href="{% url 'users:update' user.pk %}">
+                    {{ user.username }}
+                  </a>
+                </th>
+                <td>{{ user.email }}</td>
+                <td>{{ user.date_joined }}</td>
+                <td>{{ user.last_login }}</td>
+                <td>{{ user.role }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
