@@ -75,6 +75,9 @@ class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
     success_url = reverse_lazy('questions:list')
     success_message = 'Question Updated !'
 
+    def get_success_url(self):
+        return self.request.GET.get("next") or super().get_success_url()
+
 
 class QuestionDeleteView(PermissionRequiredMixin, LimitedQuestionMixin, DeleteView):
     permission_required = 'questions.delete_question'

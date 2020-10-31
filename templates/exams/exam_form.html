@@ -97,6 +97,15 @@
             >
               <i class="fas fa-comment-medical"></i>
             </a>
+            <a
+              href="{% url 'questions:update' question.pk %}?next={{ request.path }}"
+              class="btn btn-outline-primary"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Create comment"
+            >
+              Update
+            </a>
           </div>
           <div class="card-body">
             {{ question }}
