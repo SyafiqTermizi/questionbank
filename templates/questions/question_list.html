@@ -42,9 +42,10 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <b>Filter by courses</b>
+            <b>Filters</b>
           </div>
           <div class="card-body">
+            <h6>Courses</h6>
             {% for course in courses %}
               <a
                 class="badge badge-secondary"
@@ -54,21 +55,10 @@
               </a>
               <br>
             {% endfor %}
-            <br><br>
-            <a href="{% url 'questions:list' %}" class="btn btn-outline-warning">
-              clear filter
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <b>Filter by tags</b>
           </div>
           <div class="card-body">
+            <hr>
+            <h6>Tags</h6>
             {% for tag in tags %}
               <a
                 class="badge badge-secondary"
@@ -78,21 +68,10 @@
               </a>
               <br>
             {% endfor %}
-            <br><br>
-            <a href="{% url 'questions:list' %}" class="btn btn-outline-warning">
-              clear filter
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <b>Filter by topic</b>
           </div>
           <div class="card-body">
+            <hr>
+            <h6>Topics</h6>
             {% for topic in topics %}
               <a
                 class="badge badge-secondary"
@@ -102,7 +81,8 @@
               </a>
               <br>
             {% endfor %}
-            <br><br>
+          </div>
+          <div class="card-body">
             <a href="{% url 'questions:list' %}" class="btn btn-outline-warning">
               clear filter
             </a>
