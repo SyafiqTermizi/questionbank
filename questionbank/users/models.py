@@ -25,7 +25,7 @@ class Specialty(models.Model):
 class User(AbstractUser):
     name = models.CharField('Full Name', max_length=255, blank=True)
     email = models.EmailField('email address', blank=False, unique=True)
-    specialty = models.ForeignKey(Specialty, on_delete=models.SET_NULL, null=True)
+    specialty = models.ManyToManyField(Specialty, related_name='users')
     course = models.ForeignKey(
         Subject,
         on_delete=models.SET_NULL,

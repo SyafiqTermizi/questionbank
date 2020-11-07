@@ -18,7 +18,7 @@ class Invite(models.Model):
     course = models.ForeignKey(
         Subject, on_delete=models.SET_NULL, null=True, blank=True
     )
-    specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE)
+    specialty = models.ManyToManyField(Specialty, related_name='invites')
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 

@@ -9,10 +9,11 @@ User = get_user_model()
 class InviteForm(forms.ModelForm):
 
     class Meta:
-        fields = ('username', 'email', 'specialty', 'roles', 'course')
+        fields = ('username', 'email', 'roles', 'course', 'specialty')
         model = Invite
         widgets = {
-            'roles': forms.CheckboxSelectMultiple()
+            'roles': forms.CheckboxSelectMultiple(),
+            'specialty': forms.CheckboxSelectMultiple(),
         }
 
     def clean_username(self):
