@@ -28,9 +28,10 @@ class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView
         context = super().get_context_data(**kwargs)
         context['courses'] = Subject.objects.all()
         context['tags'] = Tag.objects.all()
-        context['topics'] = Question.objects.annotate(tpc=Length('topic'))\
+        topics = Question.objects.annotate(tpc=Length('topic'))\
                             .filter(tpc__gt=1)\
                             .values_list('topic', flat=True)
+        context['topics'] = set(topics)
         return context
 
 
