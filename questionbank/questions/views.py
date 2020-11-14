@@ -60,7 +60,14 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         question.created_by = self.request.user
         question.save()
         form.save_m2m()
-        question.tags.add(self.request.user.specialty.name)
+
+        # handling cases where user don't have specialty
+        # e.g admin users
+        user_specialties = self.request.user.specialty
+        if user_specialties.count():
+            specialties = list(user_specialties.values_list('name', flat=True))
+            question.tags.add(*specialties)
+
         return HttpResponseRedirect(reverse('questions:list'))
 
 
