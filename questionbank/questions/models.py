@@ -58,7 +58,7 @@ class Question(models.Model):
         for index in range(len(self.choices)):
             text = f'\
                 {self.choices[index]["text"][:3]}\
-                <b>{ALPHABET_MAPPING[index+1]}.&nbsp;</b>\
+                <b>{ALPHABET_MAPPING[index+1]})&nbsp;</b>\
                 {self.choices[index]["text"][3:]}'
             choices += text
         return choices

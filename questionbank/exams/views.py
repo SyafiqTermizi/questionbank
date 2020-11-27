@@ -103,7 +103,6 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
         self.object = get_object_or_404(Exam, pk=self.kwargs["pk"])
         for question in self.object.questions.order_by("specialty"):
             counter += 1
-            choices = ""
 
             paper += f"""
                 {question.question[:3]}
