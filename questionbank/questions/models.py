@@ -63,6 +63,18 @@ class Question(models.Model):
             choices += text
         return choices
 
+    def display_schema_choices(self):
+        choices = ""
+        for index in range(len(self.choices)):
+            text = f'\
+                {self.choices[index]["text"][:3]}\
+                <b>{ALPHABET_MAPPING[index+1]})&nbsp;</b>\
+                {self.choices[index]["text"][3:-5]}\
+                <b>&nbsp;{"(correct answer)" if self.choices[index]["isCorrect"] else ""}</b>\
+                </p>'
+            choices += text
+        return choices
+
     @property
     def get_json_choices(self):
         return mark_safe(json.dumps(self.choices))

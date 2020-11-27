@@ -100,6 +100,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
     def get(self, request, *args, **kwargs):
         counter = 0
         paper = ""
+        is_schema = request.GET.get("schema", 0)
         self.object = get_object_or_404(Exam, pk=self.kwargs["pk"])
         for question in self.object.questions.order_by("specialty"):
             counter += 1
@@ -108,7 +109,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
                 {question.question[:3]}
                 <b>{counter}.&nbsp;</b>\
                 {question.question[3:]}
-                {question.get_display_choices}
+                {question.display_schema_choices() if is_schema else question.get_display_choices}
                 <br>
             """
 
