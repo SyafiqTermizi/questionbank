@@ -11,7 +11,7 @@ class Subject(models.Model):
     class Meta:
         verbose_name = 'course'
         verbose_name_plural = 'courses'
-        ordering = ['code']
+        ordering = ['name']
 
     def __str__(self):
         return self.name

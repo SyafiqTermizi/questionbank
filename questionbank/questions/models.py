@@ -1,4 +1,6 @@
 import json
+from operator import itemgetter
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
@@ -55,22 +57,26 @@ class Question(models.Model):
     @property
     def get_display_choices(self):
         choices = ""
-        for index in range(len(self.choices)):
+        sorted_choices = sorted(self.choices, key=itemgetter("text"), reverse=False)
+
+        for index in range(len(sorted_choices)):
             text = f'\
-                {self.choices[index]["text"][:3]}\
+                {sorted_choices[index]["text"][:3]}\
                 <b>{ALPHABET_MAPPING[index+1]})&nbsp;</b>\
-                {self.choices[index]["text"][3:]}'
+                {sorted_choices[index]["text"][3:]}'
             choices += text
         return choices
 
     def display_schema_choices(self):
         choices = ""
-        for index in range(len(self.choices)):
+        sorted_choices = sorted(self.choices, key=itemgetter("text"), reverse=False)
+
+        for index in range(len(sorted_choices)):
             text = f'\
-                {self.choices[index]["text"][:3]}\
+                {sorted_choices[index]["text"][:3]}\
                 <b>{ALPHABET_MAPPING[index+1]})&nbsp;</b>\
-                {self.choices[index]["text"][3:-5]}\
-                <b>&nbsp;{"(correct answer)" if self.choices[index]["isCorrect"] else ""}</b>\
+                {sorted_choices[index]["text"][3:-5]}\
+                <b>&nbsp;{"(correct answer)" if sorted_choices[index]["isCorrect"] else ""}</b>\
                 </p>'
             choices += text
         return choices
