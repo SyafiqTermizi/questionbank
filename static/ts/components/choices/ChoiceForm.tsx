@@ -21,7 +21,7 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
   const [choice, setChoice] = useState(defaultChoice);
 
   return (
-    <CardLayout cardTitle="Choice form">
+    <CardLayout cardTitle="Answer options">
       <form onSubmit={
         (event) => {
           event.preventDefault();
