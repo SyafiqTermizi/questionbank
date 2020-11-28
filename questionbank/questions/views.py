@@ -15,7 +15,7 @@ from .models import Question
 from .forms import QuestionForm
 
 
-class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView):
+class QuestionListView(PermissionRequiredMixin, FilterView):
     permission_required = 'questions.view_question'
     filterset_class = QuestionFilter
     template_name_suffix = '_list'
@@ -77,9 +77,11 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         return HttpResponseRedirect(reverse('questions:list'))
 
 
-class QuestionDetailView(PermissionRequiredMixin, LimitedQuestionMixin, DetailView):
+class QuestionDetailView(PermissionRequiredMixin, DetailView):
     permission_required = 'questions.view_question'
-    model = Question
+
+    def get_queryset(self):
+        return Question.objects.select_related('analysis', 'created_by')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -87,13 +89,15 @@ class QuestionDetailView(PermissionRequiredMixin, LimitedQuestionMixin, DetailVi
         return context
 
 
-class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin,
-                         LimitedQuestionMixin, UpdateView):
+class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'questions.change_question'
     model = Question
     form_class = QuestionForm
     success_url = reverse_lazy('questions:list')
     success_message = 'Question Updated !'
+
+    def get_queryset(self):
+        return Question.objects.prefetch_related('tags')
 
     def get_success_url(self):
         return self.request.GET.get("next") or super().get_success_url()
