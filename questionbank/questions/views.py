@@ -51,7 +51,8 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         question_id = self.request.GET.get('question', 0)
 
         if question_id:
-            question = get_object_or_404(Question, pk=question_id)
+            qs = Question.objects.select_related('course')
+            question = get_object_or_404(qs, pk=question_id)
             kwargs['initial'] = {
                 'question': question.question,
                 'tags': question.tags.all(),
@@ -69,7 +70,7 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         # handling cases where user don't have specialty
         # e.g admin users
         user_specialties = self.request.user.specialty
-        if user_specialties.count():
+        if user_specialties.exists():
             specialties = list(user_specialties.values_list('name', flat=True))
             question.tags.add(*specialties)
 
