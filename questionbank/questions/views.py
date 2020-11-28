@@ -15,18 +15,12 @@ from .models import Question
 from .forms import QuestionForm
 
 
-class QuestionListView(PermissionRequiredMixin, FilterView):
+class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView):
     permission_required = 'questions.view_question'
+    model = Question
     filterset_class = QuestionFilter
     template_name_suffix = '_list'
     paginate_by = 10
-
-    def get_queryset(self):
-        return Question.objects.select_related(
-            'created_by', 'course',
-        ).prefetch_related(
-            'tags'
-        )
 
     def get_context_data(self, **kwargs):
         qs = self.get_queryset()
@@ -77,27 +71,25 @@ class QuestionCreateView(PermissionRequiredMixin, SuccessMessageMixin,
         return HttpResponseRedirect(reverse('questions:list'))
 
 
-class QuestionDetailView(PermissionRequiredMixin, DetailView):
+class QuestionDetailView(PermissionRequiredMixin, LimitedQuestionMixin, DetailView):
     permission_required = 'questions.view_question'
-
-    def get_queryset(self):
-        return Question.objects.select_related('analysis', 'created_by')
+    model = Question
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['unresolved_comment'] = self.object.comments.filter(is_resolved=False).count()
+        context['unresolved_comment'] = self.object.comments.filter(
+            is_resolved=False
+        ).count()
         return context
 
 
-class QuestionUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class QuestionUpdateView(PermissionRequiredMixin, LimitedQuestionMixin,
+                         SuccessMessageMixin, UpdateView):
     permission_required = 'questions.change_question'
     model = Question
     form_class = QuestionForm
     success_url = reverse_lazy('questions:list')
     success_message = 'Question Updated !'
-
-    def get_queryset(self):
-        return Question.objects.prefetch_related('tags')
 
     def get_success_url(self):
         return self.request.GET.get("next") or super().get_success_url()
