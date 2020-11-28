@@ -109,7 +109,7 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
                 {question.question[:3]}
                 <b>{counter}.&nbsp;</b>\
                 {question.question[3:]}
-                {question.display_schema_choices() if is_schema else question.get_display_choices}
+                {question.get_display_schema_choices if is_schema else question.get_display_choices}
                 <br>
             """
 

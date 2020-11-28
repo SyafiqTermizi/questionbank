@@ -44,7 +44,7 @@ class Question(models.Model):
         ordering = ['specialty']
 
     def __str__(self):
-        full_questions = f"{self.question} <br> {self.get_display_choices}"
+        full_questions = f"{self.question} <br> {self.get_display_schema_choices}"
         return mark_safe(full_questions)
 
     def get_absolute_url(self):
@@ -60,25 +60,24 @@ class Question(models.Model):
         sorted_choices = sorted(self.choices, key=itemgetter("text"), reverse=False)
 
         for index in range(len(sorted_choices)):
-            text = f'\
+            choices += f'\
                 {sorted_choices[index]["text"][:3]}\
                 <b>{ALPHABET_MAPPING[index+1]})&nbsp;</b>\
                 {sorted_choices[index]["text"][3:]}'
-            choices += text
         return choices
 
-    def display_schema_choices(self):
+    @property
+    def get_display_schema_choices(self):
         choices = ""
         sorted_choices = sorted(self.choices, key=itemgetter("text"), reverse=False)
 
         for index in range(len(sorted_choices)):
-            text = f'\
+            choices += f'\
                 {sorted_choices[index]["text"][:3]}\
                 <b>{ALPHABET_MAPPING[index+1]})&nbsp;</b>\
                 {sorted_choices[index]["text"][3:-5]}\
                 <b>&nbsp;{"(correct answer)" if sorted_choices[index]["isCorrect"] else ""}</b>\
                 </p>'
-            choices += text
         return choices
 
     @property
