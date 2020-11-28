@@ -9,3 +9,8 @@ A simple django based web app to create, update and delete question
 ```
 docker-compose up
 ```
+
+
+docker build -t docker.pkg.github.com/syafiqtermizi/questionbank/questionbank:latest -f docker/prod.Dockerfile .
+
+docker push docker.pkg.github.com/syafiqtermizi/questionbank/questionbank:latest

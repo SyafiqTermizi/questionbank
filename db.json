@@ -1,0 +1,373 @@
+[
+{
+  "model": "users.specialty",
+  "pk": 1,
+  "fields": {
+    "name": "Anatomy",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 2,
+  "fields": {
+    "name": "Physiology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 3,
+  "fields": {
+    "name": "Biochemistry",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 4,
+  "fields": {
+    "name": "Genetic",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 5,
+  "fields": {
+    "name": "Microbiology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 6,
+  "fields": {
+    "name": "Parasitology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 7,
+  "fields": {
+    "name": "Haematology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 8,
+  "fields": {
+    "name": "Immunology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 9,
+  "fields": {
+    "name": "Pathology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 10,
+  "fields": {
+    "name": "Pharmacology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 11,
+  "fields": {
+    "name": "Radiology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 12,
+  "fields": {
+    "name": "Nutrition",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 13,
+  "fields": {
+    "name": "Community Health",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 14,
+  "fields": {
+    "name": "Medicine",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 15,
+  "fields": {
+    "name": "Paediatric",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 16,
+  "fields": {
+    "name": "Psychiatry",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 17,
+  "fields": {
+    "name": "Family Medicine",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 18,
+  "fields": {
+    "name": "Surgery",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 19,
+  "fields": {
+    "name": "ENT",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 20,
+  "fields": {
+    "name": "Ophthalmology",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 21,
+  "fields": {
+    "name": "O&G",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 22,
+  "fields": {
+    "name": "Orthopaedic",
+    "description": ""
+  }
+},
+{
+  "model": "users.specialty",
+  "pk": 23,
+  "fields": {
+    "name": "Anaesthesiology",
+    "description": ""
+  }
+},
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "argon2$argon2i$v=19$m=512,t=2,p=2$aGJ6aWgwZ3NsdEQ1$LD0LuSxkB3U3cJzjrYzNVg",
+    "last_login": "2020-11-14T05:51:41.695Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-11-14T05:51:37.981Z",
+    "name": "",
+    "email": "admin@example.com",
+    "course": null,
+    "groups": [],
+    "user_permissions": [],
+    "specialty": [
+      23
+    ]
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 2,
+  "fields": {
+    "question": "<p>What is the value of u?</p>\r\n\r\n<p>u<sup><sub>2</sub></sup>&minus;5u&minus;14=0</p>",
+    "choices": [
+      {
+        "id": 1605334834216,
+        "text": "<p>u=&minus;2 or u=7</p>\n",
+        "isCorrect": true
+      },
+      {
+        "id": 1605335082109,
+        "text": "<p>u=8 or u=3</p>\n",
+        "isCorrect": false
+      },
+      {
+        "id": 1605335094160,
+        "text": "<p>u=3 or u=4</p>\n",
+        "isCorrect": false
+      },
+      {
+        "id": 1605335104125,
+        "text": "<p>u=7 or u=3</p>\n",
+        "isCorrect": false
+      }
+    ],
+    "topic": "Quadratic equation",
+    "course": 1,
+    "created_by": 1,
+    "created_at": "2020-11-14T06:25:32.882Z",
+    "updated_at": "2020-11-14T06:25:32.882Z",
+    "specialty": null
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 6,
+  "fields": {
+    "question": "<p>This question is to check if user specialty is attached to question</p>",
+    "choices": [
+      {
+        "id": 1605336779338,
+        "text": "<p>1</p>\n",
+        "isCorrect": true
+      },
+      {
+        "id": 1605337009987,
+        "text": "<p>2</p>\n",
+        "isCorrect": false
+      },
+      {
+        "id": 1605337012230,
+        "text": "<p>3</p>\n",
+        "isCorrect": false
+      },
+      {
+        "id": 1605337013597,
+        "text": "<p>4</p>\n",
+        "isCorrect": false
+      }
+    ],
+    "topic": "Test topic",
+    "course": 1,
+    "created_by": 1,
+    "created_at": "2020-11-14T06:57:05.376Z",
+    "updated_at": "2020-11-14T07:07:40.423Z",
+    "specialty": null
+  }
+},
+{
+  "model": "subjects.subject",
+  "pk": 1,
+  "fields": {
+    "code": "MATH",
+    "name": "MATH",
+    "description": "",
+    "created_at": "2020-11-14T06:19:56.767Z",
+    "updated_at": "2020-11-14T06:19:56.767Z"
+  }
+},
+{
+  "model": "exams.exam",
+  "pk": 1,
+  "fields": {
+    "name": "Final Exam",
+    "session": "2020",
+    "is_published": false,
+    "course": 1,
+    "exam": "",
+    "created_by": 1,
+    "created_at": "2020-11-14T07:07:46.158Z",
+    "questions": [
+      2,
+      6
+    ]
+  }
+},
+{
+  "model": "taggit.tag",
+  "pk": 1,
+  "fields": {
+    "name": "quadratic equation",
+    "slug": "quadratic-equation"
+  }
+},
+{
+  "model": "taggit.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Anaesthesiology",
+    "slug": "anaesthesiology"
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "pk": 2,
+  "fields": {
+    "tag": 1,
+    "content_type": 4,
+    "object_id": 2
+  }
+},
+{
+  "model": "taggit.taggeditem",
+  "pk": 6,
+  "fields": {
+    "tag": 2,
+    "content_type": 4,
+    "object_id": 6
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "Admin",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "Coordinator",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 3,
+  "fields": {
+    "name": "Lecturer",
+    "permissions": []
+  }
+}
+]
