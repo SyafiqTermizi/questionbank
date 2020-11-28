@@ -35,27 +35,26 @@
         <div class="card-body">
           {% csrf_token %}
           {{ form|crispy }}
-          <div class="row">
-            <div class="col-12">
-              <input class="btn btn-primary" type="submit" value="Submit">
-              {% if object %}
-                <a
-                  href="#"
-                  onclick="document.getElementById('delete-{{ question.pk }}').submit()"
-                  class="btn btn-danger"
-                >
-                  Delete
-                </a>
-              {% endif %}
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
+  <div id="choice-form"></div>
+  <div class="row">
+    <div class="col-12 text-right">
+      <input class="btn btn-lg btn-primary" type="submit" value="Submit">
+      {% if object %}
+        <a
+          href="#"
+          onclick="document.getElementById('delete-{{ question.pk }}').submit()"
+          class="btn btn-lg btn-danger"
+        >
+          Delete
+        </a>
+      {% endif %}
+    </div>
+  </div>
 </form>
-
-<div id="choice-form"></div>
 
 {% if object %}
   <form
