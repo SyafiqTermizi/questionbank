@@ -44,6 +44,8 @@ class Question(models.Model):
         ordering = ['specialty']
 
     def __str__(self):
+        # This method is mainly used in exam create form, to display choices with
+        # "correct answer" text
         full_questions = f"{self.question} <br> {self.get_display_schema_choices}"
         return mark_safe(full_questions)
 
