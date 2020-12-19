@@ -1,18 +1,26 @@
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.db.models import F
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from django_filters.views import FilterView
+
+from rest_framework.generics import ListAPIView
+from rest_framework.exceptions import NotFound
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from taggit.models import Tag
+from django_filters.views import FilterView
 
 from questionbank.subjects.models import Subject
 
+from .filters import QuestionFilter, QuestionApiFilter
+from .serializers import QuestionSerializer
 from .mixins import LimitedQuestionMixin
-from .filters import QuestionFilter
-from .models import Question
 from .forms import QuestionForm
+from .models import Question
 
 
 class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView):
@@ -99,3 +107,41 @@ class QuestionDeleteView(PermissionRequiredMixin, LimitedQuestionMixin, DeleteVi
     permission_required = 'questions.delete_question'
     model = Question
     success_url = reverse_lazy('questions:list')
+
+
+class QuestionByCourseMixin:
+
+    def get_queryset(self):
+        course_id = self.request.query_params.get('course_id')
+
+        if not course_id:
+            raise NotFound
+
+        return Question.objects.filter(course_id=course_id)
+
+
+class QuestionListApiView(QuestionByCourseMixin, ListAPIView):
+    serializer_class = QuestionSerializer
+    filterset_class = QuestionApiFilter
+
+
+class TopicListApiView(QuestionByCourseMixin, APIView):
+
+    def get(self, request, *args, **kwargs):
+        topics = list(
+            self.get_queryset().distinct().values_list('topic', flat=True)
+        )
+        return Response(topics)
+
+
+class TagListApiView(QuestionByCourseMixin, APIView):
+
+    def get(self, request, *args, **kwargs):
+        tags = list(
+            self.get_queryset().annotate(
+                name=F("tags__name"), tag_id=F("tags__id")
+            ).values(
+                "name", "tag_id"
+            )
+        )
+        return Response(tags)

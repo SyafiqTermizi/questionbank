@@ -49,7 +49,8 @@ THIRD_PARTY_APPS = [
     'crispy_forms',
     'django_filters',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'rest_framework'
 ]
 
 LOCAL_APPS = [
@@ -264,3 +265,9 @@ SITE_ID = 1
 
 # https://django-taggit.readthedocs.io/en/latest/getting_started.html
 TAGGIT_CASE_INSENSITIVE = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
+}

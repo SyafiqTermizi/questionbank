@@ -1,9 +1,9 @@
-import django_filters
+from django_filters import FilterSet, rest_framework as filter
 
 from .models import Question
 
 
-class QuestionFilter(django_filters.FilterSet):
+class QuestionFilter(FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,3 +19,11 @@ class QuestionFilter(django_filters.FilterSet):
             'question': ['icontains'],
             'topic': ['icontains']
         }
+
+
+class QuestionApiFilter(filter.FilterSet):
+    topic = filter.CharFilter(field_name='topic', lookup_expr='icontains')
+
+    class Meta:
+        model = Question
+        fields = ['topic', 'tags__id']
