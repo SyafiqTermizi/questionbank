@@ -7,7 +7,6 @@ from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
 
 from rest_framework.generics import ListAPIView
-from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -18,7 +17,7 @@ from questionbank.subjects.models import Subject
 
 from .filters import QuestionFilter, QuestionApiFilter
 from .serializers import QuestionSerializer
-from .mixins import LimitedQuestionMixin
+from .mixins import LimitedQuestionMixin, QuestionByCourseMixin
 from .forms import QuestionForm
 from .models import Question
 
@@ -107,17 +106,6 @@ class QuestionDeleteView(PermissionRequiredMixin, LimitedQuestionMixin, DeleteVi
     permission_required = 'questions.delete_question'
     model = Question
     success_url = reverse_lazy('questions:list')
-
-
-class QuestionByCourseMixin:
-
-    def get_queryset(self):
-        course_id = self.request.query_params.get('course_id')
-
-        if not course_id:
-            raise NotFound
-
-        return Question.objects.filter(course_id=course_id)
 
 
 class QuestionListApiView(QuestionByCourseMixin, ListAPIView):

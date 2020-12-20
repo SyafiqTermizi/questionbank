@@ -1,6 +1,8 @@
-from django.shortcuts import reverse
+from rest_framework.exceptions import NotFound
 
 from questionbank.users.constants import COORDINATOR
+
+from .models import Question
 
 
 class LimitedQuestionMixin:
@@ -21,3 +23,16 @@ class LimitedQuestionMixin:
 
         # Normal User can only view question created by themselves
         return queryset.filter(created_by=self.request.user)
+
+
+class QuestionByCourseMixin:
+    """
+    Limit query to question model by course_id that is passed by query_params
+    """
+    def get_queryset(self):
+        course_id = self.request.query_params.get('course_id')
+
+        if not course_id:
+            raise NotFound
+
+        return Question.objects.filter(course_id=course_id)
