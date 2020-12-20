@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.db.models import F
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import NotFound
 
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -14,6 +15,7 @@ from taggit.models import Tag
 from django_filters.views import FilterView
 
 from questionbank.subjects.models import Subject
+from questionbank.exams.models import Exam
 
 from .filters import QuestionFilter, QuestionApiFilter
 from .serializers import QuestionSerializer
@@ -112,6 +114,17 @@ class QuestionListApiView(QuestionByCourseMixin, ListAPIView):
     serializer_class = QuestionSerializer
     filterset_class = QuestionApiFilter
 
+    def get_serializer_context(self):
+        exam_id = self.request.query_params.get('exam_id')
+
+        if not exam_id:
+            raise NotFound
+
+        exam = get_object_or_404(Exam, pk=exam_id)
+        context = super().get_serializer_context()
+        context.update({'exam': exam})
+
+        return context
 
 class TopicListApiView(QuestionByCourseMixin, APIView):
 
