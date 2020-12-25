@@ -37,7 +37,7 @@ class QuestionListView(PermissionRequiredMixin, LimitedQuestionMixin, FilterView
         context = super().get_context_data(**kwargs)
         context['courses'] = Subject.objects.values('name', 'code')
         context['tags'] = Tag.objects.values('name')
-        context['topics'] = qs.values_list('topic', flat=True)
+        context['topics'] = set(qs.values_list('topic', flat=True))
 
         return context
 
@@ -143,6 +143,6 @@ class TagListApiView(QuestionByCourseMixin, APIView):
                 name=F("tags__name"), tag_id=F("tags__id")
             ).values(
                 "name", "tag_id"
-            )
+            ).distinct()
         )
         return Response(tags)
