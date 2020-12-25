@@ -1,16 +1,18 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
-export const QuestionList = () => {
-  const [questions, setQuestions] = useState([]);
+interface Question {
+  id: number;
+  created_by: string;
+  created_at: string;
+  question: string;
+  choices: string;
+}
 
-  useEffect(() => {
-    const courseId = window.location.pathname.match(/[0-9]+/)[0];
+interface Props {
+  questions: Question[];
+}
 
-    axios.get(`/questions/api/questions/?exam_id=${courseId}`)
-      .then(res => setQuestions(res.data))
-  })
+export const QuestionList: React.FC<Props> = ({ questions }) => {
 
   const questionsComp = questions.map(question => (
     <div key={question.id} className="card mt-3">
