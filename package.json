@@ -3,12 +3,14 @@
     "@coreui/coreui": "^2.0.6",
     "@coreui/coreui-pro": "^2.0.7",
     "@fortawesome/fontawesome-free": "^5.7.2",
+    "axios": "^0.21.1",
     "ckeditor4-react": "^1.2.0",
     "jquery": "^3.5.0",
     "perfect-scrollbar": "^1.4.0",
     "popper.js": "^1.14.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-query": "^3.5.5",
     "toastr": "^2.1.4"
   },
   "devDependencies": {

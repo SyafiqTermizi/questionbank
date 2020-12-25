@@ -1,6 +1,8 @@
 from rest_framework.exceptions import NotFound
+from django.shortcuts import get_object_or_404
 
 from questionbank.users.constants import COORDINATOR
+from questionbank.exams.models import Exam
 
 from .models import Question
 
@@ -30,9 +32,11 @@ class QuestionByCourseMixin:
     Limit query to question model by course_id that is passed by query_params
     """
     def get_queryset(self):
-        course_id = self.request.query_params.get('course_id')
+        exam_id = self.request.query_params.get('exam_id')
 
-        if not course_id:
+        if not exam_id:
             raise NotFound
 
-        return Question.objects.filter(course_id=course_id)
+        course = get_object_or_404(Exam, pk=exam_id).course
+
+        return Question.objects.filter(course_id=course.pk)

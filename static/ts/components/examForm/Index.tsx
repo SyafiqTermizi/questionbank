@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 
 import { Sidebar } from "./Sidebar";
+import { QuestionList } from "./QuestionList";
 
 export const ExamForm = () => (
   <div className="row mt-3">
@@ -9,6 +10,7 @@ export const ExamForm = () => (
       <Sidebar />
     </div>
     <div className="col-10">
+      <QuestionList />
     </div>
   </div>
 );

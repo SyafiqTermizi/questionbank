@@ -22,7 +22,7 @@ class QuestionFilter(FilterSet):
 
 
 class QuestionApiFilter(filter.FilterSet):
-    topic = filter.CharFilter(field_name='topic', lookup_expr='icontains')
+    topic = filter.CharFilter(field_name='topic', lookup_expr='iexact')
 
     class Meta:
         model = Question
