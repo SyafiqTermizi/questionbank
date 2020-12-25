@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block content %}
 <div class="row mb-3">
@@ -11,32 +12,7 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-header">
-        <i class="nav-icon fas fa-scroll"></i>
-        {% if object.questions.count %}
-          <b>Update exam's question</b>
-        {% else %}
-          <b>Add exam's question</b>
-        {% endif %}
-      </div>
-      <div class="card-body">
-        <form method="post">
-          {% csrf_token %}
-          {{ form }}
-          <div class="row">
-            <div class="col-12">
-              <input type="submit" value="submit" class="btn btn-primary">
-              <a href="{% url 'exams:list' %}" class="btn btn-danger">Cancel</a>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<div id="exam-form"></div>
 {% endblock content %}
 
 {% block script %}
@@ -46,4 +22,5 @@
     button.href = button.href + window.location.pathname
   }
 </script>
+{% render_bundle 'exam_form' %}
 {% endblock script %}

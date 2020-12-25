@@ -10,6 +10,7 @@ module.exports = {
         invite_form: './static/js/inviteForm',
         user_change_form: './static/js/userChangeForm',
         choice_form: './static/ts/components/choices/Index',
+        exam_form: './static/ts/components/examForm/Index',
         main_css: './static/scss/index.scss'
     },
     output: {
