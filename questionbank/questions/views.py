@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect
 from django.db.models import F
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
-from rest_framework.exceptions import NotFound
 
+from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,7 +19,7 @@ from questionbank.exams.models import Exam
 
 from .filters import QuestionFilter, QuestionApiFilter
 from .serializers import QuestionSerializer
-from .mixins import LimitedQuestionMixin, QuestionByCourseMixin
+from .mixins import LimitedQuestionMixin, QuestionByExamCourseMixin
 from .forms import QuestionForm
 from .models import Question
 
@@ -110,7 +110,7 @@ class QuestionDeleteView(PermissionRequiredMixin, LimitedQuestionMixin, DeleteVi
     success_url = reverse_lazy('questions:list')
 
 
-class QuestionListApiView(QuestionByCourseMixin, ListAPIView):
+class QuestionListApiView(QuestionByExamCourseMixin, ListAPIView):
     serializer_class = QuestionSerializer
     filterset_class = QuestionApiFilter
 
@@ -126,7 +126,7 @@ class QuestionListApiView(QuestionByCourseMixin, ListAPIView):
 
         return context
 
-class TopicListApiView(QuestionByCourseMixin, APIView):
+class TopicListApiView(QuestionByExamCourseMixin, APIView):
 
     def get(self, request, *args, **kwargs):
         topics = list(
@@ -135,7 +135,7 @@ class TopicListApiView(QuestionByCourseMixin, APIView):
         return Response(topics)
 
 
-class TagListApiView(QuestionByCourseMixin, APIView):
+class TagListApiView(QuestionByExamCourseMixin, APIView):
 
     def get(self, request, *args, **kwargs):
         tags = list(

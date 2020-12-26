@@ -1,4 +1,6 @@
 import os
+from questionbank.questions.models import Question
+
 import requests
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -8,6 +10,10 @@ from django.http import HttpResponseRedirect
 from django.utils.html import mark_safe
 from django.shortcuts import get_object_or_404
 from django_filters.views import FilterView
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 
 from questionbank.users.constants import COORDINATOR
 
@@ -118,3 +124,22 @@ class ExamPrintView(PermissionRequiredMixin, LimitedExamMixin, UpdateView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+
+class ExamAddQuestionApi(APIView):
+
+    def post(self, request, *args, **kwargs):
+        self.object = get_object_or_404(Exam, pk=self.kwargs["pk"])
+        question_id = self.request.query_params.get('question_id')
+
+        if not question_id:
+            raise NotFound
+
+        question = get_object_or_404(Question, pk=question_id)
+
+        if self.object.questions.filter(pk=question.pk).exists():
+            self.object.questions.remove(question)
+        else:
+            self.object.questions.add(question)
+
+        return Response({"success": True})

@@ -27,9 +27,9 @@ class LimitedQuestionMixin:
         return queryset.filter(created_by=self.request.user)
 
 
-class QuestionByCourseMixin:
+class QuestionByExamCourseMixin:
     """
-    Limit query to question model by course_id that is passed by query_params
+    Limit query to exam's subject
     """
     def get_queryset(self):
         exam_id = self.request.query_params.get('exam_id')

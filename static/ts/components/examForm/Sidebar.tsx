@@ -52,6 +52,7 @@ export const Sidebar: React.FC<Props> = ({
             tag => (
               <span key={tag.tag_id}>
                 <a
+                  href="#"
                   className={`badge badge-${tagFilter == tag.tag_id ? "info":"secondary" }`}
                   onClick={() => setTagFilter(tag.tag_id)}
                 >

@@ -6,17 +6,19 @@ interface Question {
   created_at: string;
   question: string;
   choices: string;
+  selected: boolean;
 }
 
 interface Props {
   questions: Question[];
+  addToExam: (questionId: number) => void;
 }
 
-export const QuestionList: React.FC<Props> = ({ questions }) => {
+export const QuestionList: React.FC<Props> = ({ questions, addToExam }) => {
 
   const questionsComp = questions.map(question => (
-    <div key={question.id} className="card mt-3">
-      <div className="card-header">
+    <div key={question.id} className="card mt-3" onClick={() => addToExam(question.id)}>
+      <div className={`card-header ${question.selected ? "bg-success" : ""}`}>
         <div className="row">
           <div className="col-6">
             <b>{question.created_by} | {question.created_at}</b>

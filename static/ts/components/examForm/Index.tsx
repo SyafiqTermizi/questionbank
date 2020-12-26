@@ -8,8 +8,13 @@ import { QuestionList } from "./QuestionList";
 
 
 export const ExamForm = () => {
+  const apiFetcher = axios.create({
+    xsrfCookieName: "csrftoken",
+    xsrfHeaderName: "X-CSRFTOKEN",
+  });
+
   const BASE_API = "/questions/api/";
-  const courseId = window.location.pathname.match(/[0-9]+/)[0];
+  const examId = window.location.pathname.match(/[0-9]+/)[0];
 
   const [questions, setQuestions] = useState([]);
   const [topics, setTopics] = useState([]);
@@ -27,17 +32,26 @@ export const ExamForm = () => {
     setTagFilter(newTagFilter);
   }
 
+  const fetchQuestions = (): void => {
+    apiFetcher.get(`${BASE_API}questions/?exam_id=${examId}&topic=${topicFilter}&tags__id=${tagFilter}`)
+      .then(res => setQuestions(res.data))
+  }
+
+  const addQuestion = (questionId: number): void => {
+    apiFetcher.post(`/exams/api/add-question/${examId}/?question_id=${questionId}`)
+      .then(() => fetchQuestions())
+  }
+
   useEffect(() => {
-    axios.get(`${BASE_API}topics/?exam_id=${courseId}`)
+    apiFetcher.get(`${BASE_API}topics/?exam_id=${examId}`)
       .then(res => setTopics(res.data))
 
-    axios.get(`${BASE_API}tags/?exam_id=${courseId}`)
+    apiFetcher.get(`${BASE_API}tags/?exam_id=${examId}`)
       .then(res => setTags(res.data))
   }, [])
 
   useEffect(() => {
-    axios.get(`${BASE_API}questions/?exam_id=${courseId}&topic=${topicFilter}&tags__id=${tagFilter}`)
-      .then(res => setQuestions(res.data))
+    fetchQuestions()
   }, [topicFilter, tagFilter])
 
   return (
@@ -53,7 +67,7 @@ export const ExamForm = () => {
         />
       </div>
       <div className="col-10">
-        <QuestionList questions={questions} />
+        <QuestionList questions={questions} addToExam={addQuestion} />
       </div>
     </div>
   )
