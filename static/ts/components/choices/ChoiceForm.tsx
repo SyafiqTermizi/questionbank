@@ -8,7 +8,7 @@ import { editorConfig } from "./editorConfig";
 const Editor = require("ckeditor4-react");
 
 interface Props {
-  choices: IChoice[],
+  choices: IChoice[];
   setChoices: (args: IChoice[]) => void;
 }
 
@@ -16,14 +16,14 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
   const defaultChoice = {
     text: "",
     isCorrect: false,
-    id: Date.now()
-  }
+    id: Date.now(),
+  };
   const [choice, setChoice] = useState(defaultChoice);
 
   return (
     <CardLayout cardTitle="Answer options">
-      <form onSubmit={
-        (event) => {
+      <form
+        onSubmit={(event) => {
           event.preventDefault();
           if (choice.text) {
             setChoices([...choices, choice]);
@@ -36,7 +36,7 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
             data={choice.text}
             config={editorConfig}
             onChange={(event: any) => {
-              setChoice({ ...choice, text: event.editor.getData()});
+              setChoice({ ...choice, text: event.editor.getData() });
             }}
           />
         </div>
@@ -49,16 +49,16 @@ export const ChoiceForm: React.FC<Props> = ({ choices, setChoices }) => {
               checked={choice.isCorrect}
               onChange={() => {
                 const tempIsCorrect = choice.isCorrect;
-                setChoice({...choice, isCorrect: !tempIsCorrect})
+                setChoice({ ...choice, isCorrect: !tempIsCorrect });
               }}
             />
             Correct answer
           </label>
         </div>
         <div className="form-group mt-3">
-          <input type="submit" value="Add Choice" className="btn btn-primary"/>
+          <input type="submit" value="Add Choice" className="btn btn-primary" />
         </div>
       </form>
     </CardLayout>
-  )
-}
+  );
+};

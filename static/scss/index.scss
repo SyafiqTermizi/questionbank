@@ -1,7 +1,7 @@
 @import "~@coreui/coreui-pro/scss/coreui";
 @import "~toastr/toastr";
 
-.django-ckeditor-widget{
+.django-ckeditor-widget {
   width: 100% !important;
   .cke {
     width: 100% !important;
@@ -14,4 +14,9 @@
 
 #div_id_choices {
   display: none;
+}
+
+.modal-dialog {
+  max-width: 870px;
+  margin: 1.75rem auto;
 }
